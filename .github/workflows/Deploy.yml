@@ -59,6 +59,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
             docker stop duckling-front
             docker run -d --rm --name duckling-front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
