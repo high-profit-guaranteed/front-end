@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: Change directory
+        run: cd front
+    
       - name: Checkout
         uses: actions/checkout@v4.1.2
 
@@ -44,7 +47,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5.3.0
         with:
-          context: ./front
+          context: .
           file: Dockerfile.prod
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
