@@ -47,8 +47,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5.3.0
         with:
-          context: .
-          file: ./front/Dockerfile.prod
+          context: ./front
+          file: Dockerfile.prod
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
 
