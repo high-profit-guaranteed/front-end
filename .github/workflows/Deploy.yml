@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+defaults:
+  run:
+    working-directory: ./front
 jobs:
   deploy:
     name: build image and run it
@@ -13,9 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.2
-        
-      - name: Change directory
-        run: cd front
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.2
@@ -32,6 +31,7 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
+
       - name: Build
         run: npm run build
 
