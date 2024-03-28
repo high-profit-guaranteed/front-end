@@ -50,7 +50,7 @@ jobs:
           context: ./front
           file: ./front/Dockerfile.prod
           push: true
-          tags: latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
 
       - name: Pull and restart Docker Container
         uses: appleboy/ssh-action@master
@@ -59,6 +59,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
             docker stop duckling-front
             docker run -d --rm --name duckling-front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
