@@ -9,5 +9,5 @@ services:
         - REACT_APP_NAME=front
         - REACT_APP_TITLE=duckling
     ports:
-      - '8080:80'
+      - '80:80'
       # 80: HTTP Port for NGINX Web Server
