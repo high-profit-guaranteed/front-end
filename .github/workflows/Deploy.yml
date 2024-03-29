@@ -59,7 +59,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script:
-            docker container stop duckling-front
-            docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
-            docker run -d --rm --name duckling-front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
+            docker container stop duckling-front;
+            docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front;
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest;
+            docker run -d --rm --name duckling-front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest;
