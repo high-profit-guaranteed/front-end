@@ -58,7 +58,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          script: |
+          script:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
-            docker stop duckling-front
-            docker run -d --rm --name duckling-front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
+            docker container stop duckling-front
+            docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front
+            docker run -d --rm --name duckling-front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest
