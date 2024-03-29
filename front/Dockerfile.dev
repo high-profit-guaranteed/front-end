@@ -24,7 +24,7 @@
 FROM node:20
 WORKDIR /app
 COPY package.json .
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY . .
 EXPOSE 3000
 CMD ["npm", "start"]
@@ -34,6 +34,6 @@ CMD ["npm", "start"]
 
 # 그리고 Dockerfile로 docker 이미지를 빌드해야한다.
 # $ docker build -t front-image .
-# $ docker run -v $(pwd)/src:/app/src:ro -d -p 80:3000 --name react-app front-image
+# $ docker run -v $(pwd)/src:/app/src:ro -d -p 4000:3000 --name react-app front-image
 #
 # https://velog.io/@oneook/Docker로-React-개발-및-배포하기
