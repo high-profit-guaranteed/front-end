@@ -1,7 +1,7 @@
 FROM node:20 AS build
 WORKDIR /app
 COPY package.json .
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY . .
 # docker-compose-prod에 명시된 args(변수)를 이미지 빌드시 환경 변수로 사용한다.
 ARG REACT_APP_NAME
