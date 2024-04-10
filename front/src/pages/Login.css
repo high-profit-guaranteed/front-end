@@ -1,91 +1,90 @@
 *{
-    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  
-  body{
-    margin-left: 50%;
-    margin-top: 10%;
-    padding: 0;
-    background: #FFFBD4;
-  }
-  
-  button{
-    cursor: pointer;
-  }
-  
-  /* 로그인버튼크기..? */
-  .learn button,.login button{ 
-    height: 45px;
-    width: 150px;
-    color: #ffffff;
-    border-radius: 7px;
-    background-color: #000000;
-    border: none;
-    margin-left: 40px;
-  }
-  
-  /* 뒤에 검정배경 */
-  .login{
-    height: 400px;
-    width: 400px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 25px;
-    color: #ffffff;
-  }
-  /* 로그인뭐.. */
-  .login h3{
-    margin: 40px auto auto 40px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 70px;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
-  }
-  /* 로그인버튼 */
-  .login button{
-    background-color: #FED5C1;
-    color: #000000;
-    margin: 20px 30px 20px 45px;
-  }
-  /* sign up 비주얼 */
-  .login a{
-    color: #FED5C1;
-  }
-  
-  /* .inputs{
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  } */
-  
-  /* 입력창위치 */
-  .inputs input{
-    outline: none;
-    height: 30px;
-    width: 270px;
-    margin: 5px 0 0 40px;
-    border-radius: 7px;
-    color: #000000;
-  }
-  
-  /* ::placeholder {
-    color: #7a7a7a;
-  } */
+body{
+  margin-left: 60%;
+  margin-top: 10%;
+  background: #FFFBD4;
+}
+
+.login {
+  height: 480px;
+  width: 480px;
+  background-color: #A7CD8F;
+  border-radius: 30px;
+  color: #000;
+  display: flex;
+  flex-direction: column; /* 내부 요소들을 세로로 배치 */
+  justify-content: center; /* 수직 가운데 정렬 */
+  align-items: center; /* 수평 가운데 정렬 */
+}
+
+/* 나머지 스타일은 동일하게 유지 */
+
+.login h3{
+  text-align: center;
+}
+
+button{
+  cursor: pointer;
+}
+
+.login button{ 
+  display: inline-block;
+  height: 45px;
+  width: 150px;
+  border-radius: 7px;
+  background-color: #FFE99D;
+  color: #A7CD8F;
+  border: none;
+  margin: 20px 30px 20px 45px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons p{
+  margin-right: 45px;
+}
+
+.buttons a{
+  color: #000;
+}
+
+.inputs input{
+  outline: none;
+  height: 30px;
+  width: 270px;
+  margin: 14px 0 0 60px;
+  border-radius: 7px;
+  color: #000000;
+  border: none;
+}
+
+.finds a{
+  color: #000;
+}
+
+.finds {
+  display: flex;
+  align-items: center;
+}
+
+.finds p {
+  margin-right: 20px;
+}
 
 
-  /* forget password? */
-  .inputs p{
-    font-size: 12px;
-    color: #b0b1b1;
-    margin: 40px 0 0 40px;
-  }
-  .inputs a{
-    color: inherit;
-  }
-  
-  /* don't--signup */
-  .footere{
-    display: flex;
-    margin: 30px;
-    margin-bottom: 0;
-    word-spacing: 4px;
-    justify-content: space-evenly;
-  }
+.Circle {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: 150px; /* 오른쪽으로 이동 */
+  top: 210px;
+  background: #FFE99D;
+  border-radius: 1000px;
+}
