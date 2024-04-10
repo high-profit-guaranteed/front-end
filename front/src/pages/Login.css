@@ -1,0 +1,91 @@
+*{
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  body{
+    margin-left: 50%;
+    margin-top: 10%;
+    padding: 0;
+    background: #FFFBD4;
+  }
+  
+  button{
+    cursor: pointer;
+  }
+  
+  /* 로그인버튼크기..? */
+  .learn button,.login button{ 
+    height: 45px;
+    width: 150px;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #000000;
+    border: none;
+    margin-left: 40px;
+  }
+  
+  /* 뒤에 검정배경 */
+  .login{
+    height: 400px;
+    width: 400px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 25px;
+    color: #ffffff;
+  }
+  /* 로그인뭐.. */
+  .login h3{
+    margin: 40px auto auto 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 70px;
+
+  }
+  /* 로그인버튼 */
+  .login button{
+    background-color: #FED5C1;
+    color: #000000;
+    margin: 20px 30px 20px 45px;
+  }
+  /* sign up 비주얼 */
+  .login a{
+    color: #FED5C1;
+  }
+  
+  /* .inputs{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  } */
+  
+  /* 입력창위치 */
+  .inputs input{
+    outline: none;
+    height: 30px;
+    width: 270px;
+    margin: 5px 0 0 40px;
+    border-radius: 7px;
+    color: #000000;
+  }
+  
+  /* ::placeholder {
+    color: #7a7a7a;
+  } */
+
+
+  /* forget password? */
+  .inputs p{
+    font-size: 12px;
+    color: #b0b1b1;
+    margin: 40px 0 0 40px;
+  }
+  .inputs a{
+    color: inherit;
+  }
+  
+  /* don't--signup */
+  .footere{
+    display: flex;
+    margin: 30px;
+    margin-bottom: 0;
+    word-spacing: 4px;
+    justify-content: space-evenly;
+  }

@@ -1,38 +1,240 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+*{
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  body{
+    margin: 0;
+    padding: 0;
+    background: #FFFBD4;
   }
-  to {
-    transform: rotate(360deg);
+  
+  
+  button{
+    cursor: pointer;
   }
-}
+  
+  .navBar{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .nav{
+    /* background-color: aqua; */
+    margin-top: 20px;
+    width: 90%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+  
+  }
+  
+  
+  .left_items{
+    display: flex;
+  }
+  
+  
+  .semiCir{
+    margin: 0;
+    position: relative;
+    height: 50px;
+    width: 30px;
+    background-color: black;
+    clip-path: circle(50% at 0 50%);
+  }
+  
+  
+  .left_items h3{
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 45px;
+  }
+  
+  
+  .right_items{
+    display: flex;
+    flex-wrap: wrap;justify-content: space-evenly;
+  }
+  
+  
+  .right_items p{
+    margin: 7px 10px;
+  }
+  
+  
+  .right_items button{
+    border: none;
+    background-color: black;
+    border-radius: 10px;
+    color: #ffffff;
+    margin: 0 10px;
+    height: 50px;
+    width: 140px
+  }
+  
+  
+  .right_items img{
+    float: left;
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 7px;
+    filter: invert(1);
+  }
+  
+  
+  .midSection{
+    margin: 90px 0 0 50px;
+    /* background-color: aqua; */
+    height: 150px;
+    width: calc(100% - 100px);
+    display: flex;
+  }
+  
+  .stripes{
+    margin-left: -50px;
+    overflow: hidden;
+    height: 100px;
+    width: 70px;
+  }
+  .info{
+    margin: -50px 0 0 50px;
+    display: flex;
+  }
+  .info h1,h2{
+    
+    font-weight: 700;
+    font-size: 90px;
+    /* font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  }
+  
+  .info h2{
+    font-weight: 100;
+    font-size: 30px;
+    margin: 80px 0 0 40px;
+  }
+  
+  .focusArea{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .learn{
+    height: 400px;
+    width: 400px;
+    background: radial-gradient(circle, #FED5C1 70%, rgba(255, 255, 255, 0) 71%);
+  }
+  .learn p{
+    font-weight: 600;
+    font-size: 20px;
+    margin: 20% 0 0 10%;
+  }
+  .learn h3{
+    position: absolute;
+    font-size: calc(2vw + 2.5vh + 2vmin);
+    /* fix at media q */
+    margin: 20px 0 15px 25px;
+  }
+  .learn h4{
+    font-size: 80px;
+    margin : 85px 0 0 25px;
+    text-shadow: 2px -2px #000000, -2px -2px  #000000,-2px 2px  #000000,2px 2px  #000000,2px 2px  #000000;
+    color: #FED5C1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .learn button,.login button{
+    height: 45px;
+    width: 150px;
+    color: #ffffff;
+    border-radius: 7px;
+    background-color: #000000;
+    border: none;
+    margin-left: 40px;
+  }
+  
+  .login{
+    height: 400px;
+    width: 400px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 25px;
+    color: #ffffff;
+  }
+  .login h3{
+    margin: 40px 0 0 40px;
+  }
+  .login button{
+    background-color: #FED5C1;
+    color: #000000;
+    margin: 20px 30px 20px 45px;
+  }
+  .login a{
+    color: #FED5C1;
+  }
+  
+  .inputs{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  
+  .inputs input{
+    outline: none;
+    height: 30px;
+    width: 270px;
+    margin: 15px 0 0 40px;
+    border-radius: 7px;
+    color: #000000;
+  }
+  
+  ::placeholder {
+    color: #7a7a7a;
+  }
+  
+  .inputs p{
+    font-size: 12px;
+    color: #b0b1b1;
+    margin: 40px 0 0 40px;
+  }
+  .inputs a{
+    color: inherit;
+  }
+  .footere{
+    display: flex;
+    margin: 30px;
+    margin-bottom: 0;
+    word-spacing: 4px;
+    justify-content: space-evenly;
+  }
+  
+  @media only screen and (max-width: 890px) {
+  
+    .focusArea{
+        flex-direction: column;
+    }
+    .learn,.login{
+        margin: 30px auto;
+    }
+    .learn button{
+        position: relative;
+        top: 10%;
+        left: 40%;
+        transform: translate(-50%,-50%);
+    }
+    .learn h3{
+        font-size: 65px;
+    }
+  }
+  @media only screen and (max-width: 650px) {
+  
+    .nav{
+        flex-direction: column;
+    }
+    .right_items button{
+        font-size: 10px;
+        width: 140px;
+    }
+    .footere{
+        flex-wrap: wrap;
+    }
+  
+  }
