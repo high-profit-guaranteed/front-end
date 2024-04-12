@@ -23,6 +23,9 @@ function LoginPage() {
     <>
       <style>
         {`
+        body {
+          background-color: #fffcf5;
+        }
           *,
           ::before,
           ::after {
@@ -197,16 +200,6 @@ function LoginPage() {
             cursor: pointer;
           }
 
-          .login__social {
-            margin-top: 2rem;
-          }
-
-          .login__social--icon {
-            font-size: 1.5rem;
-            color: #23004d;
-            margin: 0 1rem;
-          }
-
           .block {
             display: block;
           }
@@ -296,10 +289,6 @@ function LoginPage() {
                 <i className='bx bx-lock login__icon'></i>
                 <input type="password" placeholder="Password" className="login__input" />
               </div>
-              <div className="login__box">
-                <i className='bx bx-lock login__icon'></i>
-                <input type="password" placeholder="Password Check" className="login__input" />
-              </div>
               <div className="login__forgot-remember">
                 <div className="login__remember">
                     <input type="checkbox" id="remember-me" className="login__checkbox" />
@@ -314,7 +303,7 @@ function LoginPage() {
               </div>
             </form>
             <form action="" className="login__create none" id="login-up">
-              <h1 className="login__title">Create Account</h1>
+              <h1 className="login__title">Sign up</h1>
               <div className="login__box">
                 <i className='bx bx-user login__icon'></i>
                 <input type="text" placeholder="ID" className="login__input" />
@@ -340,12 +329,6 @@ function LoginPage() {
                 <span className="login__account login__account--account">Already have an Account?     </span>
                 <span className="login__signup login__signup--signup" id="sign-in" onClick={handleSignInClick}>Sign In</span>
               </div>
-              {/* <div className="login__social">
-                <a href="#" className="login__social--icon"><i className='bx bxl-facebook'></i></a>
-                <a href="#" className="login__social--icon"><i className='bx bxl-twitter'></i></a>
-                <a href="#" className="login__social--icon"><i className='bx bxl-google'></i></a>
-                <a href="#" className="login__social--icon"><i className='bx bxl-github'></i></a>
-              </div> */}
             </form>
           </div>
         </div>
