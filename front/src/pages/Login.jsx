@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const login = () => {
+    navigate('/home');
+  }
+
   const handleSignUpClick = () => {
     const loginIn = document.getElementById("login-in");
     const loginUp = document.getElementById("login-up");
@@ -24,8 +31,12 @@ function LoginPage() {
       <style>
         {`
         body {
-          background-color: #fffcf5;
-        }
+            background: url('your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #fffcf5; /* Fallback color */
+            /* Add your gradient styles below */
+            background-image: linear-gradient(to right top, #85D8CE, #E8CE5B);
+          }
           *,
           ::before,
           ::after {
@@ -55,24 +66,14 @@ function LoginPage() {
           }
 
           .login {
-            display: grid;
-            grid-template-columns: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            margin-left: 1.5rem;
-            margin-right: 1.5rem;
-          }
+          }          
 
           .login__content {
             display: grid;
-          }
-
-          .login__img {
-            justify-self: center;
-          }
-
-          .login__img img {
-            width: 310px;
-            margin-top: 1.5rem;
           }
 
           .login__forms {
@@ -111,7 +112,7 @@ function LoginPage() {
 
           .login__icon {
             font-size: 1.5rem;
-            color: #4ad395;
+            color: #005C42;
           }
 
           .login__input {
@@ -164,7 +165,7 @@ function LoginPage() {
             display: block;
             padding: 1rem;
             margin: 2rem 0;
-            background-color: #4ad395;
+            background-color: #005C42;
             color: #fff;
             font-weight: 600;
             text-align: center;
@@ -185,7 +186,7 @@ function LoginPage() {
           .login__signup {
             font-weight: 600;
             font-size: 0.813rem;
-            color: #4ad395;
+            color: #005C42;
             cursor: pointer;
             text-decoration: underline;
           }
@@ -196,7 +197,7 @@ function LoginPage() {
 
           .login__signin--signin,
           .login__signup--signup {
-            color: #4ad395;
+            color: #005C42;
             cursor: pointer;
           }
 
@@ -242,10 +243,10 @@ function LoginPage() {
 
             .login__img {
               display: flex;
-              width: 600px;
-              height: 588px;
-              background-color: #fff;
-              border-radius: 1rem;
+              width: 550px;
+              height: 550px;
+              background-color: #005C42;
+              border-radius: 100rem;
               padding-left: 1rem;
             }
 
@@ -266,16 +267,24 @@ function LoginPage() {
             .login__create {
               bottom: -5.5rem;
             }
+
+            .circle-icon text {
+              font-size: 3px;
+              font-weight: bold;
+            } 
           }
         `}
       </style>
       <div className="login">
         <div className="login__content">
         <div className="login__img">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="circle-icon">
-                <circle cx="12" cy="12" r="10" fill="#4ad395" />
-                <text x="50%" y="50%" textAnchor="middle" alignmentBaseline="middle" fill="#fff" fontSize="3px">Duckling</text>
-            </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="circle-icon">
+          <circle cx="12" cy="12" r="10" fill="#005C42" />
+          <text x="0.4" y="46%" textAnchor="start" alignmentBaseline="middle" fill="#fff" style={{ overflow: 'visible' }}>
+            DUCKLING
+            <tspan x="0.8" dy="3.5em" style={{ fontSize: '0.2em' }}>데이터 분석을 통한 주식거래, 더클링</tspan>
+          </text>
+        </svg>
         </div>
 
           <div className="login__forms">
@@ -296,7 +305,7 @@ function LoginPage() {
                 </div>
                 <a href="#" className="login__forgot">Forgot Password?</a>
               </div>
-              <button type="submit" className="login__button">Sign In</button>
+              <button type="submit" className="login__button" onClick={login}>Sign In</button>
               <div>
                 <span className="login__account login__account--account">Creat Account     </span>
                 <span className="login__signin login__signin--signup" id="sign-up" onClick={handleSignUpClick}>Sign Up</span>
