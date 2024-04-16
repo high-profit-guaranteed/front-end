@@ -1,108 +1,79 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineHome, AiOutlineInfoCircle, AiOutlineBook, AiOutlinePlayCircle } from 'react-icons/ai';
 
 const Navbar = () => {
   const styles = {
     navbar: {
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      background: 'linear-gradient(to right, #85D8CE, #E8CE5B)',
-      padding: '1px 20px',
+      background: '#005C42',
+      padding: '20px 10px',
       position: 'fixed',
       top: 0,
       left: 0,
-      width: '100%'
+      height: '100%',
+      width: '120px',
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
     logo: {
-      img: {
-        width: '80px',
-        marginRight: '30px'
-      }
+      marginBottom: '30px'
     },
     pageNames: {
-      ul: {
-        listStyleType: 'none',
-        margin: 0,
-        padding: 0
-      },
-      li: {
-        display: 'inline-block',
-        marginRight: '20px'
-      },
-      a: {
-        color: '#fff',
-        textDecoration: 'none'
-      }
+      marginBottom: '50px',
+      padding: 0, // 리스트의 패딩 제거
+      listStyle: 'none' // 리스트 스타일 제거
     },
-    searchBox: {
-      display: 'flex',
-      alignItems: 'center',
-      marginRight: '100px'
-    },
-    searchBoxImg: {
-      width: '20px',
-      marginRight: '10px'
-    },
-    searchBoxInput: {
-      padding: '5px',
-      border: 'none',
-      borderRadius: '5px',
-      outline: 'none'
-    },
-    profileImg: {
-      width: '30px',
-      marginLeft: '15px'
-    },
-    settingsImg: {
-      width: '30px',
-      marginLeft: '15px'
+    listItem: {
+      marginBottom: '20px', // 각 리스트 아이템 간격 조정
+      display: 'flex', // 아이콘과 텍스트를 가로로 배열하기 위해 flex 설정
+      alignItems: 'center' // 아이콘과 텍스트를 세로 중앙 정렬하기 위해 설정
     },
     logoutButton: {
-      color: '#fff',
-      marginLeft: '15px',
-      cursor: 'pointer'
+      color: 'white',
+      cursor: 'pointer',
+      textDecoration: 'none' // 로그아웃 버튼에 밑줄 제거
+    },
+    icon: {
+      marginRight: '10px' // 아이콘과 텍스트 사이 간격 조정
     }
   };
 
   const handleLogout = () => {
     console.log("로그아웃 버튼이 클릭되었습니다.");
-    window.location.href = '/';
+    // 로그아웃 처리 로직 추가
   };
 
   return (
     <nav style={styles.navbar}>
       <div style={styles.logo}>
-        <img src={require('../images/logo/Logo.PNG')} alt="Logo" style={styles.logo.img} />
+        {/* <img src={require('../images/logo/Logo.PNG')} alt="Logo" style={styles.logo.img} /> */}
       </div>
 
       <div style={styles.pageNames}>
-        <ul style={styles.pageNames.ul}>
-          <li style={styles.pageNames.li}><Link to="/home" style={styles.pageNames.a}>Home</Link></li>
-          <li style={styles.pageNames.li}><Link to="/info" style={styles.pageNames.a}>Info</Link></li>
-          <li style={styles.pageNames.li}><Link to="/news" style={styles.pageNames.a}>News</Link></li>
-          <li style={styles.pageNames.li}><Link to="/channel" style={styles.pageNames.a}>Channel</Link></li>
+        <ul>
+          <li style={styles.listItem}><AiOutlineHome style={styles.icon} /><Link to="/home" style={styles.pageNames.a}>Home</Link></li>
+          <li style={styles.listItem}><AiOutlineInfoCircle style={styles.icon} /><Link to="/info" style={styles.pageNames.a}>Info</Link></li>
+          <li style={styles.listItem}><AiOutlineBook style={styles.icon} /><Link to="/news" style={styles.pageNames.a}>News</Link></li>
+          <li style={styles.listItem}><AiOutlinePlayCircle style={styles.icon} /><Link to="/channel" style={styles.pageNames.a}>Channel</Link></li>
         </ul>
-      </div>
-
-      <div style={styles.searchBox}>
-        <img src={require('../images/navBar/find1.png')} alt="Search" style={styles.searchBoxImg} />
-        <input type="text" placeholder="Search..." style={styles.searchBoxInput} />
       </div>
 
       <div>
         <Link to="/profile">
-          <img src={require('../images/navBar/profile.jpg')} alt="Profile" style={styles.profileImg} />
+          {/* <img src={require('../images/navBar/profile.jpg')} alt="Profile" style={styles.profileImg} /> */}
         </Link>
       </div>
 
       <div>
         <Link to="/settings">
-          <img src={require('../images/navBar/set.PNG')} alt="Settings" style={styles.settingsImg} />
+          {/* <img src={require('../images/navBar/set.PNG')} alt="Settings" style={styles.settingsImg} /> */}
         </Link>
       </div>
 
-      <div style={styles.logoutButton} onClick={handleLogout}>Logout</div>
+      <Link to="/" style={styles.logoutButton} onClick={handleLogout}>Logout</Link>
     </nav>
   );
 }

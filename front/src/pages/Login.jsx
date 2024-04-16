@@ -307,7 +307,7 @@ function LoginPage() {
               </div>
               <button type="submit" className="login__button" onClick={login}>Sign In</button>
               <div>
-                <span className="login__account login__account--account">Creat Account     </span>
+                <span className="login__account login__a005C42ccount--account">Creat Account     </span>
                 <span className="login__signin login__signin--signup" id="sign-up" onClick={handleSignUpClick}>Sign Up</span>
               </div>
             </form>

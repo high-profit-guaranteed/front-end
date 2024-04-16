@@ -32,7 +32,7 @@ function Home() {
     <div>
       <Navbar />
       <br/><br/>
-      <h1>HOME</h1>
+      {/* <h1>HOME</h1> */}
 
       <div style={styles.homeContainer}>
 
