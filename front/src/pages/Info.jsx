@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar.jsx';
 
 function Info() {
   return (
     <div>
       <Navbar />
       <br/><br/>
-      <h1>INFO</h1>
+      {/* <h1>INFO</h1> */}
  
       <div className="info-container">
 

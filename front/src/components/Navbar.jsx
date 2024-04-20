@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineInfoCircle, AiOutlineBook, AiOutlinePlayCircle } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineInfoCircle, AiOutlineBook, AiOutlinePlayCircle, AiOutlineLogout, AiOutlineUser, AiOutlineSetting, AiOutlineSearch } from 'react-icons/ai';
+import ducklingImage from '../images/logo/Duckling2.png';
 
 const Navbar = () => {
   const styles = {
     navbar: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      background: '#005C42',
+      alignItems: 'flex-start',
       padding: '20px 10px',
       position: 'fixed',
       top: 0,
@@ -21,59 +21,168 @@ const Navbar = () => {
     logo: {
       marginBottom: '30px'
     },
+    duckling: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '20px',
+      cursor: 'pointer'
+    },
+    ducklingText: {
+      fontSize: '25px',
+      fontWeight: 'bold',
+      marginLeft: '10px',
+      color: 'black',
+      textDecoration: 'none'
+    },
+    ducklingImage: {
+      width: '50px',
+      height: '50px',
+      marginRight: '-15px',
+    },
+    searchBox: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '20px',
+      width: '100%', // 가로로 긴 박스
+      padding: '8px',
+      border: '1px solid #ccc',
+      borderRadius: '20px',
+      boxSizing: 'border-box'
+    },
+    searchIcon: {
+      marginRight: '5px',
+      cursor: 'pointer'
+    },
+    searchInput: {
+      border: 'none',
+      outline: 'none',
+      width: '100%',
+      fontSize: '16px',
+      paddingLeft: '5px'
+    },
     pageNames: {
       marginBottom: '50px',
-      padding: 0, // 리스트의 패딩 제거
-      listStyle: 'none' // 리스트 스타일 제거
+      padding: 0,
+      listStyle: 'none'
     },
     listItem: {
-      marginBottom: '20px', // 각 리스트 아이템 간격 조정
-      display: 'flex', // 아이콘과 텍스트를 가로로 배열하기 위해 flex 설정
-      alignItems: 'center' // 아이콘과 텍스트를 세로 중앙 정렬하기 위해 설정
+      marginBottom: '20px',
+      display: 'flex',
+      alignItems: 'center'
     },
     logoutButton: {
-      color: 'white',
       cursor: 'pointer',
-      textDecoration: 'none' // 로그아웃 버튼에 밑줄 제거
+      textDecoration: 'none',
+      fontSize: '18px',
+      color: 'black'
     },
     icon: {
-      marginRight: '10px' // 아이콘과 텍스트 사이 간격 조정
+      marginRight: '10px',
+      marginLeft: '-30px',
+      cursor: 'pointer'
+    },
+    link: {
+      color: 'black',
+      textDecoration: 'none',
+      fontSize: '18px'
     }
   };
 
   const handleLogout = () => {
-    console.log("로그아웃 버튼이 클릭되었습니다.");
-    // 로그아웃 처리 로직 추가
   };
 
   return (
     <nav style={styles.navbar}>
-      <div style={styles.logo}>
-        {/* <img src={require('../images/logo/Logo.PNG')} alt="Logo" style={styles.logo.img} /> */}
+      <Link to="/home" style={styles.duckling}>
+        <img src={ducklingImage} alt="Duckling" style={styles.ducklingImage} />
+        <span style={styles.ducklingText}>Duckling</span>
+      </Link>
+
+      <div style={styles.searchBox}>
+        <AiOutlineSearch style={styles.searchIcon} />
+        <input
+          type="text"
+          placeholder="Search..."
+          style={styles.searchInput}
+        />
       </div>
 
       <div style={styles.pageNames}>
         <ul>
-          <li style={styles.listItem}><AiOutlineHome style={styles.icon} /><Link to="/home" style={styles.pageNames.a}>Home</Link></li>
-          <li style={styles.listItem}><AiOutlineInfoCircle style={styles.icon} /><Link to="/info" style={styles.pageNames.a}>Info</Link></li>
-          <li style={styles.listItem}><AiOutlineBook style={styles.icon} /><Link to="/news" style={styles.pageNames.a}>News</Link></li>
-          <li style={styles.listItem}><AiOutlinePlayCircle style={styles.icon} /><Link to="/channel" style={styles.pageNames.a}>Channel</Link></li>
+          <li style={styles.listItem}>
+            <AiOutlineHome
+              style={styles.icon}
+              onClick={() => window.location.href = "/home"}
+            />
+            <Link to="/home" style={styles.link}>
+              Home
+            </Link>
+          </li>
+          <li style={styles.listItem}>
+            <AiOutlineInfoCircle
+              style={styles.icon}
+              onClick={() => window.location.href = "/info"}
+            />
+            <Link to="/info" style={styles.link}>
+              Info
+            </Link>
+          </li>
+          <li style={styles.listItem}>
+            <AiOutlineBook
+              style={styles.icon}
+              onClick={() => window.location.href = "/news"}
+            />
+            <Link to="/news" style={styles.link}>
+              News
+            </Link>
+          </li>
+          <li style={styles.listItem}>
+            <AiOutlinePlayCircle
+              style={styles.icon}
+              onClick={() => window.location.href = "/channel"}
+            />
+            <Link to="/channel" style={styles.link}>
+              Channel
+            </Link>
+          </li>
+          <li style={styles.listItem}>
+            <AiOutlineLogout
+              style={styles.icon}
+              onClick={() => {
+                handleLogout();
+                window.location.href = "/";
+              }}
+            />
+            <span
+              style={styles.logoutButton}
+              onClick={() => {
+                handleLogout();
+                window.location.href = "/";
+              }}
+            >
+              Logout
+            </span>
+          </li>
+          <li style={styles.listItem}>
+            <AiOutlineUser
+              style={styles.icon}
+              onClick={() => window.location.href = "/profile"}
+            />
+            <Link to="/profile" style={styles.link}>
+              Profile
+            </Link>
+          </li>
+          <li style={styles.listItem}>
+            <AiOutlineSetting
+              style={styles.icon}
+              onClick={() => window.location.href = "/settings"}
+            />
+            <Link to="/settings" style={styles.link}>
+              Settings
+            </Link>
+          </li>
         </ul>
       </div>
-
-      <div>
-        <Link to="/profile">
-          {/* <img src={require('../images/navBar/profile.jpg')} alt="Profile" style={styles.profileImg} /> */}
-        </Link>
-      </div>
-
-      <div>
-        <Link to="/settings">
-          {/* <img src={require('../images/navBar/set.PNG')} alt="Settings" style={styles.settingsImg} /> */}
-        </Link>
-      </div>
-
-      <Link to="/" style={styles.logoutButton} onClick={handleLogout}>Logout</Link>
     </nav>
   );
 }

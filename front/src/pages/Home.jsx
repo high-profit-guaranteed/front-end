@@ -13,7 +13,7 @@ const styles = {
     gap: '20px',
     marginTop: '30px',
     marginLeft: '150px',
-    marginRight: '150px'
+    marginRight: '150px',
   },
   imageContainer: {
     backgroundColor: '#f0f0f0',
@@ -22,6 +22,7 @@ const styles = {
   },
   image: {
     marginTop: '10px',
+
     width: '250px',
     height: '150px'
   }
