@@ -11,54 +11,12 @@ const Navbar = () => {
       alignItems: 'flex-start',
       padding: '20px 10px',
       position: 'fixed',
-      top: 0,
-      left: 0,
+      top: 30,
+      left: 10,
       height: '100%',
-      width: '120px',
+      width: '150px',
       marginLeft: 'auto',
       marginRight: 'auto'
-    },
-    logo: {
-      marginBottom: '30px'
-    },
-    duckling: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '20px',
-      cursor: 'pointer'
-    },
-    ducklingText: {
-      fontSize: '25px',
-      fontWeight: 'bold',
-      marginLeft: '10px',
-      color: 'black',
-      textDecoration: 'none'
-    },
-    ducklingImage: {
-      width: '50px',
-      height: '50px',
-      marginRight: '-15px',
-    },
-    searchBox: {
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: '20px',
-      width: '100%', // 가로로 긴 박스
-      padding: '8px',
-      border: '1px solid #ccc',
-      borderRadius: '20px',
-      boxSizing: 'border-box'
-    },
-    searchIcon: {
-      marginRight: '5px',
-      cursor: 'pointer'
-    },
-    searchInput: {
-      border: 'none',
-      outline: 'none',
-      width: '100%',
-      fontSize: '16px',
-      paddingLeft: '5px'
     },
     pageNames: {
       marginBottom: '50px',
@@ -85,6 +43,28 @@ const Navbar = () => {
       color: 'black',
       textDecoration: 'none',
       fontSize: '18px'
+    },
+    searchBox: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: '10px',
+      marginBottom: '2px',
+      width: '100%',
+      padding: '8px',
+      border: '1px solid #ccc',
+      borderRadius: '20px',
+      boxSizing: 'border-box'
+    },
+    searchIcon: {
+      marginRight: '3px',
+      cursor: 'pointer'
+    },
+    searchInput: {
+      border: 'none',
+      outline: 'none',
+      width: '100%',
+      fontSize: '16px',
+      paddingLeft: '5px'
     }
   };
 
@@ -93,11 +73,6 @@ const Navbar = () => {
 
   return (
     <nav style={styles.navbar}>
-      <Link to="/home" style={styles.duckling}>
-        <img src={ducklingImage} alt="Duckling" style={styles.ducklingImage} />
-        <span style={styles.ducklingText}>Duckling</span>
-      </Link>
-
       <div style={styles.searchBox}>
         <AiOutlineSearch style={styles.searchIcon} />
         <input
