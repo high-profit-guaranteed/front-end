@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 
-function Channel() {
+function Total_assets() {
   return (
     <div>
       <Navbar />
@@ -12,4 +13,4 @@ function Channel() {
   );
 }
 
-export default Channel;
+export default Total_assets;

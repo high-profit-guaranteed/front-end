@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineInfoCircle, AiOutlineBook, AiOutlinePlayCircle, AiOutlineLogout, AiOutlineUser, AiOutlineSetting, AiOutlineSearch } from 'react-icons/ai';
 import ducklingImage from '../images/logo/Duckling2.png';
 
 const Navbar = () => {
+  const location = useLocation();
+
   const styles = {
     navbar: {
       display: 'flex',
@@ -35,8 +37,8 @@ const Navbar = () => {
       color: 'black'
     },
     icon: {
+      marginLeft: '-20px', 
       marginRight: '10px',
-      marginLeft: '-30px',
       cursor: 'pointer'
     },
     link: {
@@ -65,11 +67,28 @@ const Navbar = () => {
       width: '100%',
       fontSize: '16px',
       paddingLeft: '5px'
+    },
+    activeItem: {
+      backgroundColor: '#65bf97',
+      width: '100%',
+      marginLeft: '-10px',
+      padding: '2px 10px',
+      borderRadius: '10px'
     }
   };
 
   const handleLogout = () => {
   };
+
+  const menuItems = [
+    { Icon: AiOutlineHome, text: 'Home', path: '/home' },
+    { Icon: AiOutlineInfoCircle, text: 'Info', path: '/info' },
+    { Icon: AiOutlineBook, text: 'News', path: '/news' },
+    { Icon: AiOutlinePlayCircle, text: 'Channel', path: '/channel' },
+    { Icon: AiOutlineUser, text: 'Profile', path: '/profile' },
+    { Icon: AiOutlineSetting, text: 'Settings', path: '/settings' },
+    { Icon: AiOutlineLogout, text: 'Logout', path: '/' }
+  ];
 
   return (
     <nav style={styles.navbar}>
@@ -77,85 +96,23 @@ const Navbar = () => {
         <AiOutlineSearch style={styles.searchIcon} />
         <input
           type="text"
-          placeholder="Search..."
           style={styles.searchInput}
         />
       </div>
 
       <div style={styles.pageNames}>
         <ul>
-          <li style={styles.listItem}>
-            <AiOutlineHome
-              style={styles.icon}
-              onClick={() => window.location.href = "/home"}
-            />
-            <Link to="/home" style={styles.link}>
-              Home
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <AiOutlineInfoCircle
-              style={styles.icon}
-              onClick={() => window.location.href = "/info"}
-            />
-            <Link to="/info" style={styles.link}>
-              Info
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <AiOutlineBook
-              style={styles.icon}
-              onClick={() => window.location.href = "/news"}
-            />
-            <Link to="/news" style={styles.link}>
-              News
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <AiOutlinePlayCircle
-              style={styles.icon}
-              onClick={() => window.location.href = "/channel"}
-            />
-            <Link to="/channel" style={styles.link}>
-              Channel
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <AiOutlineLogout
-              style={styles.icon}
-              onClick={() => {
-                handleLogout();
-                window.location.href = "/";
-              }}
-            />
-            <span
-              style={styles.logoutButton}
-              onClick={() => {
-                handleLogout();
-                window.location.href = "/";
-              }}
-            >
-              Logout
-            </span>
-          </li>
-          <li style={styles.listItem}>
-            <AiOutlineUser
-              style={styles.icon}
-              onClick={() => window.location.href = "/profile"}
-            />
-            <Link to="/profile" style={styles.link}>
-              Profile
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <AiOutlineSetting
-              style={styles.icon}
-              onClick={() => window.location.href = "/settings"}
-            />
-            <Link to="/settings" style={styles.link}>
-              Settings
-            </Link>
-          </li>
+          {menuItems.map((item, index) => (
+            <li key={index} style={{ ...styles.listItem, ...(location.pathname === item.path && styles.activeItem) }}>
+              <item.Icon
+                style={{ ...styles.icon, ...(location.pathname === item.path && styles.activeItem) }}
+                onClick={() => window.location.href = item.path}
+              />
+              <Link to={item.path} style={{ ...styles.link, ...(location.pathname === item.path && styles.activeItem) }}>
+                {item.text}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

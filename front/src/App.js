@@ -6,6 +6,15 @@ import Home from './pages/Home';
 import Info from './pages/Info';
 import News from './pages/News';
 import Channel from './pages/Channel';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import Holding_news from './Home_pages/Holding_news';
+import Interest_news from './Home_pages/Interest_news';
+import Portfolio from './Home_pages/Portfolio';
+import Total_assets from './Home_pages/Total_assets';
+import Major_Indices from './Info_pages/Major_Indices';
+import RealTime_Status from './Info_pages/RealTime_Status';
+import Popular_Categories from './Info_pages/Popular_Categories';
 
 function App() {
   return (
@@ -23,6 +32,15 @@ function App() {
         <Route path="/Info" element={<Info />} />
         <Route path="/News" element={<News />} />
         <Route path="/Channel" element={<Channel />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Settings" element={<Settings />} />
+        <Route path="/Holding_news" element={<Holding_news />} />
+        <Route path="/Interest_news" element={<Interest_news />} />
+        <Route path="/Portfolio" element={<Portfolio />} />
+        <Route path="/Total_assets" element={<Total_assets />} />
+        <Route path="/Major_Indices" element={<Major_Indices />} />
+        <Route path="/RealTime_Status" element={<RealTime_Status />} />
+        <Route path="/Popular_Categories" element={<Popular_Categories />} />
       </Routes>
     </div>
   );

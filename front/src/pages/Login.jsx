@@ -33,8 +33,7 @@ function LoginPage() {
         body {
             background: url('your-background-image.jpg') no-repeat center center fixed;
             background-size: cover;
-            background-color: #fffcf5; /* Fallback color */
-            /* Add your gradient styles below */
+            background-color: #fffcf5;
             background-image: linear-gradient(to right top, #85D8CE, #E8CE5B);
           }
           *,
@@ -280,9 +279,9 @@ function LoginPage() {
         <div className="login__img">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="circle-icon">
           <circle cx="12" cy="12" r="10" fill="#005C42" />
-          <text x="0.4" y="46%" textAnchor="start" alignmentBaseline="middle" fill="#fff" style={{ overflow: 'visible' }}>
+          <text x="1.2%" y="46%" textAnchor="start" alignmentBaseline="middle" fill="#fff" style={{ overflow: 'visible' }}>
             DUCKLING
-            <tspan x="0.8" dy="3.5em" style={{ fontSize: '0.2em' }}>데이터 분석을 통한 주식거래, 더클링</tspan>
+            <tspan x="3%" dy="9%" style={{ fontSize: '0.2em' }}>데이터 분석을 통한 주식거래, 더클링</tspan>
           </text>
         </svg>
         </div>

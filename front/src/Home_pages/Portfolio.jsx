@@ -1,8 +1,8 @@
 import React from 'react';
-import Navbar from '../components/Navbar.jsx';
+import Navbar from '../components/Navbar.jsx'
 import Topbar from '../components/Topbar.jsx';
 
-function Channel() {
+function Portfolio() {
   return (
     <div>
       <Navbar />
@@ -12,4 +12,4 @@ function Channel() {
   );
 }
 
-export default Channel;
+export default Portfolio;

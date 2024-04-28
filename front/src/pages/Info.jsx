@@ -33,17 +33,17 @@ function Info() {
 
       <div style={styles.infoContainer}>
 
-        <Link to="/Total_assets" style={styles.infoBox}>
+        <Link to="/Major_Indices" style={styles.infoBox}>
           <h2>주요지수</h2>
           <p>테슬라 29.32</p>
         </Link>
 
-        <Link to="/Total_assets" style={styles.infoBox}>
+        <Link to="/RealTime_Status" style={styles.infoBox}>
           <h2>실시간현황</h2>
           <p>거래량 인기 급상승 급하락 관심</p>
         </Link>
 
-        <Link to="/Total_assets" style={styles.infoBox}>
+        <Link to="/Popular_Categories" style={styles.infoBox}>
           <h2>인기 카테고리</h2>
           <p>삼성전자</p>
           <p>LG전자</p>
