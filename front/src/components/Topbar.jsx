@@ -48,7 +48,7 @@ const Topbar = () => {
 
   return (
     <div style={styles.topbar}>
-      <Link to="/home" style={styles.duckling}>
+      <Link to="/Home" style={styles.duckling}>
         <img src={ducklingImage} alt="Duckling" style={styles.ducklingImage} />
         <span style={styles.ducklingText}>Duckling</span>
       </Link>
