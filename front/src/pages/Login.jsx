@@ -5,7 +5,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const login = () => {
-    navigate('/home');
+    navigate('/Home');
   }
 
   const handleSignUpClick = () => {
