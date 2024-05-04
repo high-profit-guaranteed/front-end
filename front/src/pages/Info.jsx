@@ -6,6 +6,7 @@ import Topbar from '../components/Topbar.jsx';
 const styles = {
   infoContainer: {
     display: 'grid',
+    marginLeft: '300px',
     gap: '20px',
     marginTop: '30px',
     marginLeft: '200px',
