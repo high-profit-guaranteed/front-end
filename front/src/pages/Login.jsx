@@ -1,14 +1,53 @@
-import React from 'react';
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function LoginPage() {
   const navigate = useNavigate();
 
-  const login = () => {
-    navigate('/Home');
-  }
+  const [signInInputId, setSignInInputId] = useState("");
+  const [signInInputPW, setSignInInputPW] = useState("");
 
-  const handleSignUpClick = () => {
+  const handleSignInInputId = (e) => {
+    setSignInInputId(e.target.value);
+  };
+
+  const handleSignInInputPW = (e) => {
+    setSignInInputPW(e.target.value);
+  };
+
+  const onClickSignIn = (event) => {
+    event.preventDefault();
+
+    console.log("onClickSignIn");
+    console.log("ID: ", signInInputId);
+    console.log("PW: ", signInInputPW);
+    axios
+      .post(
+        "backend/api/signin",
+        {
+          uid: signInInputId,
+          password: signInInputPW,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("answer");
+        console.log(response.headers);
+        console.log(response.data);
+        navigate('/Home');
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+
+  };
+
+  const handleChangeToSignUpClick = () => {
     const loginIn = document.getElementById("login-in");
     const loginUp = document.getElementById("login-up");
     loginIn.classList.remove("block");
@@ -17,7 +56,7 @@ function LoginPage() {
     loginUp.classList.add("block");
   };
 
-  const handleSignInClick = () => {
+  const handleChangeToSignInClick = () => {
     const loginIn = document.getElementById("login-in");
     const loginUp = document.getElementById("login-up");
     loginIn.classList.remove("none");
@@ -276,66 +315,151 @@ function LoginPage() {
       </style>
       <div className="login">
         <div className="login__content">
-        <div className="login__img">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="circle-icon">
-          <circle cx="12" cy="12" r="10" fill="#005C42" />
-          <text x="1.2%" y="46%" textAnchor="start" alignmentBaseline="middle" fill="#fff" style={{ overflow: 'visible' }}>
-            DUCKLING
-            <tspan x="3%" dy="9%" style={{ fontSize: '0.2em' }}>데이터 분석을 통한 주식거래, 더클링</tspan>
-          </text>
-        </svg>
-        </div>
+          <div className="login__img">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className="circle-icon"
+            >
+              <circle cx="12" cy="12" r="10" fill="#005C42" />
+              <text
+                x="1.2%"
+                y="46%"
+                textAnchor="start"
+                alignmentBaseline="middle"
+                fill="#fff"
+                style={{ overflow: "visible" }}
+              >
+                DUCKLING
+                <tspan x="3%" dy="9%" style={{ fontSize: "0.2em" }}>
+                  데이터 분석을 통한 주식거래, 더클링
+                </tspan>
+              </text>
+            </svg>
+          </div>
 
           <div className="login__forms">
-            <form action="" className="login__register" id="login-in">
+            <form action="" className="login__register block" id="login-in">
               <h1 className="login__title">Sign In</h1>
               <div className="login__box">
-                <i className='bx bx-user login__icon'></i>
-                <input type="text" placeholder="ID" className="login__input" />
+                <i className="bx bx-user login__icon"></i>
+                {/* signin id 입력 */}
+                <input
+                  type="text"
+                  placeholder="ID"
+                  className="login__input"
+                  name="signin_input_id"
+                  value={signInInputId}
+                  onChange={handleSignInInputId}
+                />
               </div>
               <div className="login__box">
-                <i className='bx bx-lock login__icon'></i>
-                <input type="password" placeholder="Password" className="login__input" />
+                <i className="bx bx-lock login__icon"></i>
+                {/* signin password 입력 */}
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="login__input"
+                  name="signin_input_password"
+                  value={signInInputPW}
+                  onChange={handleSignInInputPW}
+                />
               </div>
               <div className="login__forgot-remember">
                 <div className="login__remember">
-                    <input type="checkbox" id="remember-me" className="login__checkbox" />
-                    <label htmlFor="remember-me" className="login__remember-label">Remember Me</label>
+                  <input
+                    type="checkbox"
+                    id="remember-me"
+                    className="login__checkbox"
+                  />
+                  <label
+                    htmlFor="remember-me"
+                    className="login__remember-label"
+                  >
+                    Remember Me
+                  </label>
                 </div>
-                <a href="#" className="login__forgot">Forgot Password?</a>
+                <a href="#" className="login__forgot">
+                  Forgot Password?
+                </a>
               </div>
-              <button type="submit" className="login__button" onClick={login}>Sign In</button>
+              <button
+                type="submit"
+                className="login__button"
+                onClick={onClickSignIn}
+              >
+                Sign In
+              </button>
               <div>
-                <span className="login__account login__a005C42ccount--account">Creat Account     </span>
-                <span className="login__signin login__signin--signup" id="sign-up" onClick={handleSignUpClick}>Sign Up</span>
+                <span className="login__account login__a005C42ccount--account">
+                  Creat Account{" "}
+                </span>
+                <span
+                  className="login__signin login__signin--signup"
+                  id="sign-up"
+                  onClick={handleChangeToSignUpClick}
+                >
+                  Sign Up
+                </span>
               </div>
             </form>
             <form action="" className="login__create none" id="login-up">
               <h1 className="login__title">Sign up</h1>
               <div className="login__box">
-                <i className='bx bx-user login__icon'></i>
+                <i className="bx bx-user login__icon"></i>
+                {/* signup id 입력 */}
                 <input type="text" placeholder="ID" className="login__input" />
               </div>
               <div className="login__box">
-                <i className='bx bx-lock login__icon'></i>
-                <input type="password" placeholder="Password" className="login__input" />
+                <i className="bx bx-lock login__icon"></i>
+                {/* signup password 입력 */}
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="login__input"
+                />
               </div>
               <div className="login__box">
-                <i className='bx bx-lock login__icon'></i>
-                <input type="password" placeholder="Password Check" className="login__input" />
+                <i className="bx bx-lock login__icon"></i>
+                {/* signup password 확인 */}
+                <input
+                  type="password"
+                  placeholder="Password Check"
+                  className="login__input"
+                />
               </div>
               <div className="login__box">
-                <i className='bx bx-lock login__icon'></i>
-                <input type="Name" placeholder="Name" className="login__input" />
+                <i className="bx bx-lock login__icon"></i>
+                {/* signup name 입력 */}
+                <input
+                  type="Name"
+                  placeholder="Name"
+                  className="login__input"
+                />
               </div>
               <div className="login__box">
-                <i className='bx bx-at login__icon'></i>
-                <input type="email" placeholder="Email" className="login__input" />
+                <i className="bx bx-at login__icon"></i>
+                {/* signup email 입력 */}
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="login__input"
+                />
               </div>
-              <button type="submit" className="login__button">Sign up</button>
+              <button type="submit" className="login__button">
+                Sign up
+              </button>
               <div>
-                <span className="login__account login__account--account">Already have an Account?     </span>
-                <span className="login__signup login__signup--signup" id="sign-in" onClick={handleSignInClick}>Sign In</span>
+                <span className="login__account login__account--account">
+                  Already have an Account?{" "}
+                </span>
+                <span
+                  className="login__signup login__signup--signup"
+                  id="sign-in"
+                  onClick={handleChangeToSignInClick}
+                >
+                  Sign In
+                </span>
               </div>
             </form>
           </div>

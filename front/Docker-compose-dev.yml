@@ -1,12 +1,13 @@
-version: '3'
 services:
   react-app-dev:
+    container_name: front-react-app-dev
     build:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - '4000:3000'
+      - '3306:3000'
     volumes:
       - ./src:/app/src:ro
     env_file:
       - ./.env.local
+    # network_mode: host
