@@ -5,11 +5,12 @@ import Chart from 'chart.js/auto';
 
 const styles = {
   container: {
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: '1.7fr 1fr',
     marginLeft: '210px',
     marginRight: '1%',
     marginTop: '21px',
-    marginBottom: '15px',
+    marginBottom: '20px',
     padding: '20px',
     backgroundColor: '#F3F3F3',
     borderRadius: '10px',
@@ -21,15 +22,82 @@ const styles = {
     borderRadius: '10px',
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    marginRight: '20px',
-    flex: '4 1 250px',  // flex-grow, flex-shrink, flex-basis
-    minHeight: '250px'  // 최소 높이 설정
+    marginBottom: '20px',
+    minHeight: '250px',  // 최소 높이 설정
+    flex: '3 1 auto',
   },
+  // 대기주문, 관심종목
+  stockSection: { 
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: '20px',
+    marginBottom: '20px',
+    flex: '2 1 10px',
+  },
+  // 대기주문
+  stockSection1: {
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    padding: '20px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    marginBottom: '20px',
+    minHeight: '200px',
+    flex: '2 1 120px',
+  },
+  // 관심종목
+  stockSection2: {
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    padding: '20px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    minHeight: '200px',
+    flex: '2 1 120px',
+    display: 'flex',
+    flexDirection: 'column',
+    overflowY: 'auto' // 세로 스크롤 추가
+  },
+  stockBox: {
+    width: '70%',
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    borderRadius: '10px',
+    padding: '15px',
+    marginBottom: '10px',
+  },
+  addButton: {
+    width: '50px',
+    height: '50px',
+    backgroundColor: '#f3f3f3',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'Black',
+    fontSize: '30px',
+    cursor: 'pointer',
+    alignSelf: 'center',
+    marginTop: '10px'
+  },
+  // 판매 수익, 포트폴리오 
   sectionsContainer: {
     display: 'flex',
-    flexDirection: 'column', 
-    flex: '2 1 100px',
+    flexDirection: 'row',
+    flex: '2 1 200px',
+    marginTop: '-450px',
   },
+  // 판매 수익 
+  revenueSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    padding: '20px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    marginRight: '20px',
+    marginBottom: '20px',
+    minHeight: '100px',
+    minWidth: '240px'  // 최소 가로 길이 설정
+  },
+  // 보유종목 포트폴리오
   section: {
     display: 'flex',
     flexDirection: 'column',
@@ -38,32 +106,83 @@ const styles = {
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
     marginBottom: '20px',  // 섹션 사이의 간격
-    minHeight: '200px',  // 최소 높이 설정
-    flex: '2 1 470px'
-  },
-  revenueSection: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    marginBottom: '20px',
-    minHeight: '200px',
-    flex: '2 1 50px'
+    minHeight: '200px',   // 최소 높이 설정
+    flex: '2 1 470px',  // flex-basis를 줄여 가로 길이 감소
   },
   sectionContent: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '1px',
-    height: '400px', 
+    padding: '0px',
+    height: '300px', 
     width: '100%'
+  },
+  newsSection: {
+    display: 'grid',
+    flexDirection: 'row',
+    flex: '2 1 200px',
+  },
+  // 보유종목 뉴스
+  newsSection1: {
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    padding: '20px',
+    marginTop: '20px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    minHeight: '200px',
+    flex: '2 1 120px',
+    overflowY: 'auto' // 세로 스크롤 추가
+  },
+  // 관심종목 뉴스
+  newsSection2: {
+    backgroundColor: '#fff',
+    borderRadius: '10px',
+    padding: '20px',
+    marginTop: '20px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    minHeight: '200px',
+    flex: '2 1 120px',
+    overflowY: 'auto' // 세로 스크롤 추가
+  },
+  newsBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '10px',
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    borderRadius: '10px',
+    marginBottom: '20px',
+    minHeight: '100px',
+    alignItems: 'center'
+  },
+  newsContent: {
+    flex: '1 1 70%', 
+    marginRight: '20px'
+  },
+  newsTitle: {
+    marginBottom: '5px',
+    fontSize: '18px',
+    fontWeight: 'bold'
+  },
+  newsText: {
+    fontSize: '14px',
+    color: 'black',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',   //유연하게 배치 가능
+    WebkitLineClamp: '3', 
+    WebkitBoxOrient: 'vertical'
+  },
+  newsImageContainer: {
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    flex: '1 1 30%', 
+    height: '110px'
   },
   canvas: {
     height: '150px', 
     width: '150px' 
-  }
+  },
 };
 
 
@@ -93,6 +212,13 @@ function Home() {
     Sunday: { revenue: '90,000', change: -110 }
   };
 
+  // 관심 종목 예시 데이터
+  const interestStocks = ['AAPL', 'TSLA', 'GOOGL', 'NAVER'];
+
+  // 관심 종목 추가, 변경
+  const handleAddStock = () => {
+  };
+
   const handleDayChange = (event) => {
     setSelectedDay(event.target.value);
   };
@@ -101,6 +227,22 @@ function Home() {
     const sign = change >= 0 ? '+' : '';
     return `${sign}${change}%`;
   };
+
+  // 뉴스 데이터
+  const [news, setNews] = useState([
+    {
+      id: 1,
+      title: "뉴스 제목 1",
+      content: "기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 1",
+      imageUrl: "news-image-url-1.jpg"
+    },
+    {
+      id: 2,
+      title: "뉴스 제목 2",
+      content: "기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 2",
+      imageUrl: "news-image-url-2.jpg"
+    }
+  ]);
 
 
   useEffect(() => {
@@ -162,15 +304,55 @@ function Home() {
           </div>
           <canvas ref={chartRef}></canvas>
         </div>
+        <div style={styles.stockSection}>
+          <div style={styles.stockSection1}>
+            <h2>대기 주문</h2>
+          </div>
+          <div style={styles.stockSection2}>
+            <h2>관심 종목</h2>
+            {interestStocks.map((stock, index) => (
+              <div key={index} style={styles.stockBox}>
+                {stock}
+              </div>
+            ))}
+            <div style={styles.addButton} onClick={handleAddStock}>+</div>
+          </div>
+          <div style={styles.newsSection1}>
+            <h2>보유 종목 뉴스</h2>
+            {news.map(item => (
+              <div key={item.id} style={styles.newsBox}>
+                <div style={styles.newsContent}>
+                  <h3 style={styles.newsTitle}>{item.title}</h3>
+                  <p style={styles.newsText}>{item.content}</p>
+                </div>
+                <div style={styles.newsImageContainer}>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={styles.newsSection2}>
+            <h2>관심 종목 뉴스</h2>
+            {news.map(item => (
+              <div key={item.id} style={styles.newsBox}>
+                <div style={styles.newsContent}>
+                  <h3 style={styles.newsTitle}>{item.title}</h3>
+                  <p style={styles.newsText}>{item.content}</p>
+                </div>
+                <div style={styles.newsImageContainer}>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div style={styles.sectionsContainer}>
           <div style={styles.revenueSection}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h2 style={styles.sectionTitle}>판매수익</h2>
+                <h2 style={styles.sectionTitle}>판매 수익</h2>
                 <select
                   value={selectedDay}
                   onChange={handleDayChange}
-                  style={{ marginLeft: '10px', padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px' }}>
+                  style={{ marginLeft: '15px', padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px' }}>
                   {Object.keys(salesData).map(day => (
                     <option key={day} value={day}>{day}</option>
                   ))}
@@ -182,7 +364,7 @@ function Home() {
             </div>
           </div>
           <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>판매 내역</h2>
+            <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>
             <div style={styles.sectionContent}>
               <canvas ref={revenueChartRef} style={styles.canvas}></canvas>
             </div>
