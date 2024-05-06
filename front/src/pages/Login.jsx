@@ -29,7 +29,7 @@ function LoginPage() {
 
     axios
       .post(
-        "/backend/api/signin",
+        "http://duckling-back.d-v.kro.kr/api/signin",
         {
           uid: signInInputId,
           password: signInInputPW,
