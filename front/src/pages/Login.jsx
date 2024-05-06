@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 // import HttpsProxyAgent from "https-proxy-agent";
+// import cors from "cors";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -25,19 +26,21 @@ function LoginPage() {
     console.log("PW: ", signInInputPW);
 
     // const httpsAgent = new HttpsProxyAgent({ host: "http://duckling-back.d-v.kro.kr", port: 80 });
-    // axios = axios.create({ httpsAgent });
+    const axios1 = axios.create({
+      baseURL: "http://duckling-back.d-v.kro.kr",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+        'Access-Control-Allow-Credentials':"true",
+      },
+    });
 
-    axios
+    axios1
       .post(
         "http://duckling-back.d-v.kro.kr/api/signin",
         {
           uid: signInInputId,
           password: signInInputPW,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
         }
       )
       .then((response) => {
