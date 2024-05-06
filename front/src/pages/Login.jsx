@@ -339,7 +339,7 @@ function LoginPage() {
           </div>
 
           <div className="login__forms">
-            <form action="" className="login__register block" id="login-in">
+            <div className="login__register block" id="login-in">
               <h1 className="login__title">Sign In</h1>
               <div className="login__box">
                 <i className="bx bx-user login__icon"></i>
@@ -402,8 +402,8 @@ function LoginPage() {
                   Sign Up
                 </span>
               </div>
-            </form>
-            <form action="" className="login__create none" id="login-up">
+            </div>
+            <div className="login__create none" id="login-up">
               <h1 className="login__title">Sign up</h1>
               <div className="login__box">
                 <i className="bx bx-user login__icon"></i>
@@ -461,7 +461,7 @@ function LoginPage() {
                   Sign In
                 </span>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
