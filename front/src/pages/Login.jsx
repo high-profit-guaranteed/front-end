@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-const HttpsProxyAgent = require("https-proxy-agent");
+// import HttpsProxyAgent from "https-proxy-agent";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -24,9 +24,9 @@ function LoginPage() {
     console.log("ID: ", signInInputId);
     console.log("PW: ", signInInputPW);
 
-    const httpsAgent = new HttpsProxyAgent({ host: "http://duckling-back.d-v.kro.kr", port: 80 });
-    axios = axios.create({ httpsAgent });
-    
+    // const httpsAgent = new HttpsProxyAgent({ host: "http://duckling-back.d-v.kro.kr", port: 80 });
+    // axios = axios.create({ httpsAgent });
+
     axios
       .post(
         "/backend/api/signin",
