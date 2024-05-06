@@ -24,7 +24,7 @@ function LoginPage() {
     console.log("PW: ", signInInputPW);
     axios
       .post(
-        "backend/api/signin",
+        "/backend/api/signin",
         {
           uid: signInInputId,
           password: signInInputPW,
