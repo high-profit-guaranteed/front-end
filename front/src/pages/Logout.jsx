@@ -10,7 +10,7 @@ function Logout() {
   useEffect(() => {
     const getData = async () => {
       const axios1 = axios.create({
-        baseURL: "http://duckling-back.d-v.kro.kr",
+        baseURL: "https://duckling-back.d-v.kro.kr",
         withCredentials: true,
         headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -20,7 +20,7 @@ function Logout() {
       });
 
       const response = await axios1.post(
-        "http://duckling-back.d-v.kro.kr/api/signout", {}
+        "https://duckling-back.d-v.kro.kr/api/signout", {}
       );
       if (response.status === 200) {
         if (response.data === "success") {

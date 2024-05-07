@@ -29,7 +29,7 @@ function LoginPage() {
 
     // const httpsAgent = new HttpsProxyAgent({ host: "http://duckling-back.d-v.kro.kr", port: 80 });
     const axios1 = axios.create({
-      baseURL: "http://duckling-back.d-v.kro.kr",
+      baseURL: "https://duckling-back.d-v.kro.kr",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -40,7 +40,7 @@ function LoginPage() {
 
     axios1
       .post(
-        "http://duckling-back.d-v.kro.kr/api/signin",
+        "https://duckling-back.d-v.kro.kr/api/signin",
         {
           uid: signInInputId,
           password: signInInputPW,

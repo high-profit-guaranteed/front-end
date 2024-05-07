@@ -113,7 +113,7 @@ function Home() {
   useEffect(() => {
 
     const axios1 = axios.create({
-      baseURL: "http://duckling-back.d-v.kro.kr",
+      baseURL: "https://duckling-back.d-v.kro.kr",
       withCredentials: true,
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -124,7 +124,7 @@ function Home() {
 
     const getData = async () => {
       try {
-        const response = await axios1.post("http://duckling-back.d-v.kro.kr/api/checkSession", "{}");
+        const response = await axios1.post("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
         if (response.status === 200) {
           if (response.data === "success") {
             setIsLoading(false);
