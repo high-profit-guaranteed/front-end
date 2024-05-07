@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+// import { Cookies } from "react-cookie";
 // import HttpsProxyAgent from "https-proxy-agent";
 // import cors from "cors";
 
 function LoginPage() {
   const navigate = useNavigate();
+  // const cookies = new Cookies();
 
   const [signInInputId, setSignInInputId] = useState("");
   const [signInInputPW, setSignInInputPW] = useState("");
@@ -28,6 +30,7 @@ function LoginPage() {
     // const httpsAgent = new HttpsProxyAgent({ host: "http://duckling-back.d-v.kro.kr", port: 80 });
     const axios1 = axios.create({
       baseURL: "http://duckling-back.d-v.kro.kr",
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
@@ -41,12 +44,13 @@ function LoginPage() {
         {
           uid: signInInputId,
           password: signInInputPW,
-        }
+        },
       )
       .then((response) => {
         console.log("answer");
         console.log(response.headers);
         console.log(response.data);
+        // window.sessionStorage.setItem("JSESSIONID", cookies.get("JSESSIONID").value);
         navigate('/Home');
       })
       .catch((error) => {

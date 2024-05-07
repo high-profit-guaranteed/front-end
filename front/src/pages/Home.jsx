@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import Chart from "chart.js/auto";
 import axios from "axios";
-import  { Redirect } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -68,10 +68,13 @@ const styles = {
   },
 };
 
-async function Home() {
+function Home() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+
   const chartRef = useRef(null);
   const revenueChartRef = useRef(null);
-  const [showGraph, setShowGraph] = useState(true);
+  const [showGraph, setShowGraph] = useState(false);
 
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
   const [totalAmount, setTotalAmount] = useState("500,000 USD");
@@ -108,6 +111,35 @@ async function Home() {
   };
 
   useEffect(() => {
+
+    const axios1 = axios.create({
+      baseURL: "http://duckling-back.d-v.kro.kr",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+        "Access-Control-Allow-Credentials": "true",
+      },
+    });
+
+    const getData = async () => {
+      try {
+        const response = await axios1.post("http://duckling-back.d-v.kro.kr/api/checkSession", "{}");
+        if (response.status === 200) {
+          if (response.data === "success") {
+            setIsLoading(false);
+            setShowGraph(true);
+          } else {
+            navigate("/");
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getData();
+
     if (showGraph) {
       // 자산 현황 그래프 나중에 수정
       const ctx = chartRef.current.getContext("2d");
@@ -135,7 +167,7 @@ async function Home() {
         },
         options: {},
       });
-
+  
       // 판매내역 비율 그래프 나중에 수정
       const revenueCtx = revenueChartRef.current.getContext("2d");
       const revenueChart = new Chart(revenueCtx, {
@@ -152,32 +184,54 @@ async function Home() {
             },
           ],
         },
-      });
-
+      }, [showGraph]);
+  
       return () => {
         myChart.destroy();
         revenueChart.destroy();
       };
     }
-  }, [showGraph]);
-
-  const axios1 = axios.create({
-    baseURL: "http://duckling-back.d-v.kro.kr",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
-      'Access-Control-Allow-Credentials':"true",
-    },
   });
 
-  const res = await axios1.post("http://duckling-back.d-v.kro.kr/api/checkSession");
-  if (res.status === 200) {
-    return (
-      <div>
-        <Navbar />
-        <Topbar />
-        <div style={styles.container}>
-          <div style={styles.card}>
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div>
+      <Navbar />
+      <Topbar />
+      <div style={styles.container}>
+        <div style={styles.card}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <h2 style={styles.cardTitle}>총 자산 현황</h2>
+            <div>
+              <span style={{ fontSize: "18px", fontWeight: "bold" }}>
+                {totalAmount}
+              </span>
+              <span
+                style={{
+                  fontSize: "16px",
+                  color: amountChange >= 0 ? "green" : "red",
+                  marginLeft: "10px",
+                }}
+              >
+                {displayAmountChange} ({displayPercentageChange})
+              </span>
+            </div>
+          </div>
+          <canvas ref={chartRef}></canvas>
+        </div>
+        <div style={styles.sectionsContainer}>
+          <div style={styles.revenueSection}>
             <div
               style={{
                 display: "flex",
@@ -186,74 +240,46 @@ async function Home() {
                 marginBottom: "20px",
               }}
             >
-              <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <div>
-                <span style={{ fontSize: "18px", fontWeight: "bold" }}>
-                  {totalAmount}
-                </span>
-                <span
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <h2 style={styles.sectionTitle}>판매수익</h2>
+                <select
+                  value={selectedDay}
+                  onChange={handleDayChange}
                   style={{
-                    fontSize: "16px",
-                    color: amountChange >= 0 ? "green" : "red",
                     marginLeft: "10px",
+                    padding: "5px 10px",
+                    border: "2px solid #ccc",
+                    borderRadius: "4px",
                   }}
                 >
-                  {displayAmountChange} ({displayPercentageChange})
-                </span>
+                  {Object.keys(salesData).map((day) => (
+                    <option key={day} value={day}>
+                      {day}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-            <canvas ref={chartRef}></canvas>
+            <div style={styles.sectionContent}>
+              <p>
+                {salesData[selectedDay].revenue}USD (
+                {formatChange(salesData[selectedDay].change)})
+              </p>
+            </div>
           </div>
-          <div style={styles.sectionsContainer}>
-            <div style={styles.revenueSection}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "20px",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <h2 style={styles.sectionTitle}>판매수익</h2>
-                  <select
-                    value={selectedDay}
-                    onChange={handleDayChange}
-                    style={{
-                      marginLeft: "10px",
-                      padding: "5px 10px",
-                      border: "2px solid #ccc",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    {Object.keys(salesData).map((day) => (
-                      <option key={day} value={day}>
-                        {day}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div style={styles.sectionContent}>
-                <p>
-                  {salesData[selectedDay].revenue}USD (
-                  {formatChange(salesData[selectedDay].change)})
-                </p>
-              </div>
-            </div>
-            <div style={styles.section}>
-              <h2 style={styles.sectionTitle}>판매 내역</h2>
-              <div style={styles.sectionContent}>
-                <canvas ref={revenueChartRef} style={styles.canvas}></canvas>
-              </div>
+          <div style={styles.section}>
+            <h2 style={styles.sectionTitle}>판매 내역</h2>
+            <div style={styles.sectionContent}>
+              <canvas
+                ref={revenueChartRef}
+                style={styles.canvas}
+              ></canvas>
             </div>
           </div>
         </div>
       </div>
-    );
-  } else {
-    return ( <Redirect to='/' /> );
-  }
+    </div>
+  );
 }
 
 export default Home;
