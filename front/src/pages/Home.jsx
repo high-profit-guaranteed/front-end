@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import Chart from 'chart.js/auto';
+import ScrollbarStyles from'../components/ScrollbarStyles.css';
 
 const styles = {
   container: {
