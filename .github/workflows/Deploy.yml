@@ -62,4 +62,4 @@ jobs:
             docker container stop duckling-front;
             docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front;
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest;
-            docker run -d --rm --name duckling-front -p 443:443 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest;
+            docker docker run -d --rm --name duckling-front -v ~/ssl:/etc/ssl:ro -p 443:443 ${{ secrets.DOCKERHUB_USERNAME }}/duckling-front:latest;
