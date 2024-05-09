@@ -38,7 +38,7 @@ const styles = {
     height: 'fit-content',
   },
 
-  // 메인(중요한) 뉴스
+  // 메인 뉴스
   mainCardsContainer: {
     display: 'flex',
     width: '100%',
@@ -241,7 +241,7 @@ const newsData = [
   },
 ];
 
-// 메인 (중요한) 뉴스
+// 메인 뉴스
 function NewsCard({ newsItem }) {
   return (
     <div style={styles.mainCard}>
@@ -308,9 +308,10 @@ function News() {
         <div style={styles.contentContainer}>
           <div style={styles.mainCardsContainer}>
             <NewsCard newsItem={newsData[0]} />
+            <NewsCard newsItem={newsData[1]} />
           </div>
           <div style={styles.additionalContainer}>
-            {newsData.slice(1, 4).map(item => (
+            {newsData.slice(2, 5).map(item => (
               <AdditionalCard newsItem={item} key={item.id} />
             ))}
           </div>
@@ -319,7 +320,7 @@ function News() {
           <div>
             <div style={styles.sideNewsContainer1}>
               <h2 style={styles.sectionHeader}>보유종목 뉴스</h2>
-              {newsData.slice(4,6).map(item => (
+              {newsData.slice(5, 7).map(item => (
                 <SideNewsCard1 newsItem={item} key={item.id} />
               ))}
             </div>
@@ -327,7 +328,7 @@ function News() {
           <div>
             <div style={styles.sideNewsContainer2}>
               <h2 style={styles.sectionHeader}>관심종목 뉴스</h2>
-              {newsData.slice(6,8).map(item => (
+              {newsData.slice(7, 9).map(item => (
                 <SideNewsCard2 newsItem={item} key={item.id} />
               ))}
             </div>
