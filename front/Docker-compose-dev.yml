@@ -8,6 +8,7 @@ services:
       - '3306:3000'
     volumes:
       - ./src:/app/src:ro
+      - ~/ssl:/etc/ssl:ro
     env_file:
       - ./.env.local
     # network_mode: host
