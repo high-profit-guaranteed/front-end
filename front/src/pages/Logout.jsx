@@ -3,23 +3,23 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const axiosInstance = axios.create({
+  baseURL: "https://duckling-back.d-v.kro.kr",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
+
 function Logout() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
-      const axios1 = axios.create({
-        baseURL: "https://duckling-back.d-v.kro.kr",
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
-          "Access-Control-Allow-Credentials": "true",
-        },
-      });
-
-      const response = await axios1.post(
+      const response = await axiosInstance.post(
         "https://duckling-back.d-v.kro.kr/api/signout", {}
       );
       if (response.status === 200) {

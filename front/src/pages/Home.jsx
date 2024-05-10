@@ -189,6 +189,16 @@ const styles = {
   },
 };
 
+const axiosInstance = axios.create({
+  baseURL: "https://duckling-back.d-v.kro.kr",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
+
 function Home() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -256,19 +266,9 @@ function Home() {
 
   useEffect(() => {
 
-    const axios1 = axios.create({
-      baseURL: "https://duckling-back.d-v.kro.kr",
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
-        "Access-Control-Allow-Credentials": "true",
-      },
-    });
-
     const checkSession = async () => {
       try {
-        const response = await axios1.post("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
+        const response = await axiosInstance.post("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
         if (response.status === 200) {
           if (response.data === "success") {
             setIsLoading(false);
@@ -282,19 +282,7 @@ function Home() {
       }
     }
 
-    const getAccounts = async () => {
-      try {
-        const response = await axios1.get("https://duckling-back.d-v.kro.kr/api/getAccounts");
-        if (response.status === 200) {
-          
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
     checkSession();
-    getAccounts();
 
     if (showGraph) {
       // 자산 현황 그래프 나중에 수정
