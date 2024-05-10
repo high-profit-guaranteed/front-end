@@ -266,7 +266,7 @@ function Home() {
       },
     });
 
-    const getData = async () => {
+    const checkSession = async () => {
       try {
         const response = await axios1.post("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
         if (response.status === 200) {
@@ -282,7 +282,19 @@ function Home() {
       }
     }
 
-    getData();
+    const getAccounts = async () => {
+      try {
+        const response = await axios1.get("https://duckling-back.d-v.kro.kr/api/getAccounts");
+        if (response.status === 200) {
+          
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    checkSession();
+    getAccounts();
 
     if (showGraph) {
       // 자산 현황 그래프 나중에 수정
