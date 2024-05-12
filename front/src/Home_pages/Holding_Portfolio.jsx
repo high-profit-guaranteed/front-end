@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar.jsx'
 import Topbar from '../components/Topbar.jsx';
 
-function Portfolio() {
+function Holding_Portfolio() {
   return (
     <div>
       <Navbar />
@@ -12,4 +12,4 @@ function Portfolio() {
   );
 }
 
-export default Portfolio;
+export default Holding_Portfolio;

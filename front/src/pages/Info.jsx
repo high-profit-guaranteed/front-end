@@ -1,26 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
+import commonStyles from './commonStyles.jsx';
+import Chart from './Info_page/Info.jsx';
+import Stock from './Info_page/Stock.jsx';
+import Detail from './Info_page/Detail.jsx'
+import Order from './Info_page/Order.jsx';
+import orderData from './Info_page/components/orderdata.jsx';
 
 const styles = {
-  infoContainer: {
-    display: 'grid',
-    gap: '20px',
-    marginTop: '30px',
-    marginLeft: '200px',
-    marginRight: '20px',
-    justifyContent: 'center',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+  container: {
+    ...commonStyles.container,
   },
-  infoBox: {
-    backgroundColor: '#f0f0f0',
-    padding: '1px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    textAlign: 'center',
-    textDecoration: 'none',
-    color: 'black'
+  chart: {
+    flex: 1,
+  },
+  mystock: {
+    top: '610px',
+    position: 'absolute',
+  },
+  present: {
+    position: 'absolute',
+    top: '610px',
+    left: '800px',
+  },
+  order: {
+    left: '50'
   },
 };
 
@@ -29,26 +34,19 @@ function Info() {
     <div>
       <Navbar />
       <Topbar />
-      <br/><br/>
-
-      <div style={styles.infoContainer}>
-
-        <Link to="/Major_Indices" style={styles.infoBox}>
-          <h2>주요지수</h2>
-          <p>테슬라 29.32</p>
-        </Link>
-
-        <Link to="/RealTime_Status" style={styles.infoBox}>
-          <h2>실시간현황</h2>
-          <p>거래량 인기 급상승 급하락 관심</p>
-        </Link>
-
-        <Link to="/Popular_Categories" style={styles.infoBox}>
-          <h2>인기 카테고리</h2>
-          <p>삼성전자</p>
-          <p>LG전자</p>
-        </Link>
-
+      <div style={styles.container}>
+        <div style={styles.chart}>
+          <Chart />
+        </div>
+        <div style={styles.mystock}>
+          <Stock />
+        </div>
+        <div style={styles.present}>
+          <Detail />
+        </div>
+        <div style={styles.order}>
+          <Order orderData={orderData} />
+        </div>
       </div>
     </div>
   );

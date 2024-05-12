@@ -21,13 +21,6 @@ import Popular_Categories from './Info_pages/Popular_Categories';
 function App() {
   return (
     <div className="App">
-      {/* <nav>
-        <Link to="/Login">Login</Link> |
-        <Link to="/Home">Home</Link> |
-        <Link to="/Info"> Info</Link> |
-        <Link to="/News"> News</Link> |
-        <Link to="/Channel"> Channel</Link> |
-      </nav> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />
