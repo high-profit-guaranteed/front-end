@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Home from './pages/Home';
 import Info from './pages/Info';
 import News from './pages/News';
@@ -29,6 +30,7 @@ function App() {
       </nav> */}
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/Logout" element={<Logout />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Info" element={<Info />} />
         <Route path="/News" element={<News />} />
