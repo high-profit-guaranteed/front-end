@@ -84,7 +84,7 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
 
@@ -97,7 +97,7 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
     marginBottom: '10px',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
   item: {
@@ -143,7 +143,7 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
 
@@ -155,7 +155,7 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
 
