@@ -14,9 +14,9 @@ import Settings from './pages/Settings';
 // import Holding_Portfolio from './Home_pages/Holding_Portfolio';
 // import Interest_Portfolio from './Home_pages/Interest_Portfolio';
 // import Total_assets from './Home_pages/Total_assets';
-import Detail from './pages/Info_pages/Detail.jsx';
-import Order from './pages/Info_pages/Order';
-import Stock from './pages/Info_pages/Stock';
+import Detail from './pages/Info_page/Detail.jsx';
+import Order from './pages/Info_page/Order';
+import Stock from './pages/Info_page/Stock';
 
 function App() {
   return (
