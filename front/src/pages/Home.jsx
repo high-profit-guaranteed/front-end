@@ -282,6 +282,7 @@ function Home() {
       }
     }
 
+    // 세션 체크
     checkSession();
 
     if (showGraph) {

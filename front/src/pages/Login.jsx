@@ -333,6 +333,16 @@ function LoginPage() {
       });
   };
 
+  // 임시 로그인 패스 코드
+  // const onClickSignIn = (event) => {
+  //   event.preventDefault();
+
+  //   console.log("onClickSignIn");
+  //   console.log("ID: ", signInInputId);
+  //   console.log("PW: ", signInInputPW);
+  //   navigate("/Home");
+  // };
+
   const onClickSignUp = (event) => {
     event.preventDefault();
 
