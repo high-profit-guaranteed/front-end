@@ -2,11 +2,11 @@ import React from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import commonStyles from './commonStyles.jsx';
-import Chart from './Info_page/Info.jsx';
-import Stock from './Info_page/Stock.jsx';
-import Detail from './Info_page/Detail.jsx'
-import Order from './Info_page/Order.jsx';
-import orderData from './Info_page/components/orderdata.jsx';
+import Chart from './Info_pages/Info.jsx';
+import Stock from './Info_pages/Stock.jsx';
+import Detail from './Info_pages/Detail.jsx'
+import Order from './Info_pages/Order.jsx';
+import orderData from './Info_pages/components/orderdata.jsx';
 
 const styles = {
   container: {

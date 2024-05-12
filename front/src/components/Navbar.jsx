@@ -55,7 +55,7 @@ const Navbar = () => {
     { Icon: AiOutlinePlayCircle, text: 'Channel', path: '/Channel' },
     { Icon: AiOutlineUser, text: 'Profile', path: '/Profile' },
     { Icon: AiOutlineSetting, text: 'Settings', path: '/Settings' },
-    { Icon: AiOutlineLogout, text: 'Logout', path: '/' }
+    { Icon: AiOutlineLogout, text: 'Logout', path: '/Logout' }
   ];
 
   return (

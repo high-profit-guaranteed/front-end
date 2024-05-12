@@ -7,6 +7,6 @@ Docker-compose-prod.yml
 .git
 .gitignore
 .dockerignore
-.env
+# .env
 .env.local
 README.md
