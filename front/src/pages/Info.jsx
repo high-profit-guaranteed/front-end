@@ -16,13 +16,13 @@ const styles = {
     flex: 1,
   },
   mystock: {
-    top: '500px',
+    top: '610px',
     position: 'absolute',
   },
   present: {
     position: 'absolute',
-    top: '390px',
-    left: '570px',
+    top: '610px',
+    left: '800px',
   },
   order: {
     left: '50'

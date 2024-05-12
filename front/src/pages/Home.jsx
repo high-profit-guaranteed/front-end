@@ -370,7 +370,6 @@ function Home() {
     return <p>Loading...</p>;
   }
 
-
   return (
     <div>
       <Navbar />
