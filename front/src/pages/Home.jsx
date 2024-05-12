@@ -2,15 +2,15 @@ import React, { useRef, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import Chart from 'chart.js/auto';
-import ScrollbarStyles from'../components/ScrollbarStyles.css';
+import ScrollbarStyles from '../components/ScrollbarStyles.css';
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 const styles = {
   container: {
-    display: 'grid',
-    gridTemplateColumns: '1.7fr 1fr',
+    display: 'flex',
+    flexDirection: 'row',
     marginLeft: '210px',
     marginRight: '1%',
     marginTop: '21px',
@@ -19,173 +19,174 @@ const styles = {
     backgroundColor: '#F3F3F3',
     borderRadius: '10px',
     fontFamily: 'Arial, sans-serif',
-    alignItems: 'flex-start' 
+    justifyContent: 'space-between',
   },
+  leftsection: {
+    width: '60%',
+    padding: '10px',
+    borderRadius: '8px',
+    marginRight: '2%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px', // 각 섹션 사이의 간격
+  },
+  rightsection: {
+    width: '38%',
+    padding: '10px',
+    borderRadius: '8px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
+  // leftsection
+  // leftsection - up
+  // 총 자산 현황
   card: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    marginBottom: '20px',
-    minHeight: '250px',  // 최소 높이 설정
-    flex: '3 1 auto',
-  },
-  // 대기주문, 관심종목
-  stockSection: { 
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: '20px',
-    marginBottom: '20px',
-    flex: '2 1 10px',
-  },
-  // 대기주문
-  stockSection1: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    marginBottom: '20px',
-    minHeight: '200px',
-    flex: '2 1 120px',
-  },
-  // 관심종목
-  stockSection2: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    minHeight: '200px',
-    flex: '2 1 120px',
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'auto' // 세로 스크롤 추가
-  },
-  stockBox: {
-    width: '70%',
-    backgroundColor: 'rgba(242, 246, 239, 1)',
-    borderRadius: '10px',
+    backgroundColor: '#F8F9FA',
+    borderRadius: '8px',
     padding: '15px',
-    marginBottom: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
   },
-  addButton: {
-    width: '50px',
-    height: '50px',
-    backgroundColor: '#f3f3f3',
-    borderRadius: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'Black',
-    fontSize: '30px',
-    cursor: 'pointer',
-    alignSelf: 'center',
-    marginTop: '10px'
-  },
-  // 판매 수익, 포트폴리오 
+
+  // leftsection - down
+  // 판매 수익, 보유종목 포트폴리오
   sectionsContainer: {
     display: 'flex',
     flexDirection: 'row',
-    flex: '2 1 200px',
-    marginTop: '-450px',
+    gap: '10px', // 내부 섹션 사이의 간격
   },
-  // 판매 수익 
+  // 판매 수익
   revenueSection: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    marginRight: '20px',
-    marginBottom: '20px',
-    minHeight: '100px',
-    minWidth: '240px'  // 최소 가로 길이 설정
+    flex: 1,
+    backgroundColor: '#F8F9FA',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
   },
   // 보유종목 포트폴리오
-  section: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    marginBottom: '20px',  // 섹션 사이의 간격
-    minHeight: '200px',   // 최소 높이 설정
-    flex: '2 1 470px',  // flex-basis를 줄여 가로 길이 감소
+  portfolioSection: {
+    flex: 0.5,
+    backgroundColor: '#F8F9FA',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
   },
-  sectionContent: {
+
+  // rightsection
+  // 대기주문
+  pendingOrders: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    maxHeight: '250px',
+    overflowY: 'auto',
+  },
+
+  // 관심주문
+  favoriteOrders: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    marginBottom: '10px',
+    maxHeight: '250px',
+    overflowY: 'auto',
+  },
+  item: {
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: '0px',
-    height: '300px', 
-    width: '100%'
+    justifyContent: 'space-between',
+    marginBottom: '10px',
+    padding: '10px',
+    backgroundColor: 'rgba(242, 246, 239, 1)', 
+    borderRadius: '8px',
   },
-  newsSection: {
-    display: 'grid',
-    flexDirection: 'row',
-    flex: '2 1 200px',
+  percentage: {
+    fontWeight: 'bold',
+    marginLeft: '10px',
   },
+  upArrow: {
+    color: 'red',
+    marginRight: '5px',
+  },
+  downArrow: {
+    color: 'blue',
+    marginRight: '5px',
+  },
+  addButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    backgroundColor: '#E0E0E0',
+    color: '#000',
+    fontSize: '24px',
+    cursor: 'pointer',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  },
+
   // 보유종목 뉴스
-  newsSection1: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
+  ownedStocksNews: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
     padding: '20px',
-    marginTop: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    minHeight: '200px',
-    flex: '2 1 120px',
-    overflowY: 'auto' // 세로 스크롤 추가
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    maxHeight: '250px',
+    overflowY: 'auto',
   },
+
   // 관심종목 뉴스
-  newsSection2: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
+  favoriteStocksNews: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
     padding: '20px',
-    marginTop: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    minHeight: '200px',
-    flex: '2 1 120px',
-    overflowY: 'auto' // 세로 스크롤 추가
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    maxHeight: '250px',
+    overflowY: 'auto',
   },
-  newsBox: {
+
+  // 뉴스 스타일
+  newsCard: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '10px',
+    alignItems: 'center',
+    padding: '15px',
     backgroundColor: 'rgba(242, 246, 239, 1)',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     borderRadius: '10px',
+    margin: '10px 0',
+    fontSize: '16px',
+    fontFamily: 'Arial, sans-serif',
     marginBottom: '20px',
-    minHeight: '100px',
-    alignItems: 'center'
   },
-  newsContent: {
-    flex: '1 1 70%', 
-    marginRight: '20px'
-  },
-  newsTitle: {
-    marginBottom: '5px',
-    fontSize: '18px',
-    fontWeight: 'bold'
+  newsImage: {
+    width: '80px',
+    height: '80px',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    borderRadius: '10px',
+    backgroundColor: '#f0f0f0',
   },
   newsText: {
-    fontSize: '14px',
-    color: 'black',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: '-webkit-box',   //유연하게 배치 가능
-    WebkitLineClamp: '3', 
-    WebkitBoxOrient: 'vertical'
-  },
-  newsImageContainer: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    flex: '1 1 30%', 
-    height: '110px'
-  },
-  canvas: {
-    height: '150px', 
-    width: '150px'
+    flex: 1,
+    marginRight: '15px',
   },
 };
 
@@ -233,10 +234,24 @@ function Home() {
   };
 
   // 관심 종목 예시 데이터
-  const interestStocks = ['AAPL', 'TSLA', 'GOOGL', 'NAVER'];
+  const [favoriteOrders, setFavoriteOrders] = useState([
+    { id: 1, name: 'TSLA', percentage: '20.3%' },
+    { id: 2, name: 'AAPL', percentage: '15.6%' }
+  ]);;
 
   // 관심 종목 추가, 변경
-  const handleAddStock = () => {
+  const handleAddItem = () => {
+    // 새로운 아이템 생성
+    const newItem = {
+      id: favoriteOrders.length + 1, // 간단한 ID 할당
+      name: '새 종목', // 기본 이름, 실제로는 입력받을 수 있도록 해야 함
+      percentage: '0.0%' // 기본 백분율
+    };
+    setFavoriteOrders([...favoriteOrders, newItem]);
+  };
+  
+  const handleRemoveItem = (id) => {
+    setFavoriteOrders(favoriteOrders.filter(item => item.id !== id));
   };
 
   const handleDayChange = (event) => {
@@ -248,7 +263,6 @@ function Home() {
     return `${sign}${change}%`;
   };
 
-  // 뉴스 데이터
   const [news, setNews] = useState([
     {
       id: 1,
@@ -263,6 +277,16 @@ function Home() {
       imageUrl: "news-image-url-2.jpg"
     }
   ]);
+  
+  // const fetchNews = async () => {
+  //   try {
+  //     const response = await fetch('https://your-api-url/news');
+  //     const data = await response.json();
+  //     setNews(data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch news:", error);
+  //   }
+  // };
 
   useEffect(() => {
 
@@ -284,8 +308,11 @@ function Home() {
 
     // 세션 체크
     checkSession();
-
-    if (showGraph) {
+  
+  
+    // fetchNews();
+    
+    if (showGraph && chartRef.current && revenueChartRef.current) {
       // 자산 현황 그래프 나중에 수정
       const ctx = chartRef.current.getContext("2d");
       const myChart = new Chart(ctx, {
@@ -343,82 +370,29 @@ function Home() {
     return <p>Loading...</p>;
   }
 
+
   return (
     <div>
       <Navbar />
       <Topbar />
       <div style={styles.container}>
-        <div style={styles.card}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "20px",
-            }}
-          >
-            <h2 style={styles.cardTitle}>총 자산 현황</h2>
-            <div>
-              <span style={{ fontSize: "18px", fontWeight: "bold" }}>
-                {totalAmount}
-              </span>
-              <span
-                style={{
-                  fontSize: "16px",
-                  color: amountChange >= 0 ? "green" : "red",
-                  marginLeft: "10px",
-                }}
-              >
-                {displayAmountChange} ({displayPercentageChange})
-              </span>
-            </div>
-          </div>
-          <canvas ref={chartRef}></canvas>
-        </div>
-        <div style={styles.stockSection}>
-          <div style={styles.stockSection1}>
-            <h2>대기 주문</h2>
-          </div>
-          <div style={styles.stockSection2}>
-            <h2>관심 종목</h2>
-            {interestStocks.map((stock, index) => (
-              <div key={index} style={styles.stockBox}>
-                {stock}
-              </div>
-            ))}
-            <div style={styles.addButton} onClick={handleAddStock}>+</div>
-          </div>
-          <div style={styles.newsSection1}>
-            <h2>보유 종목 뉴스</h2>
-            {news.map(item => (
-              <div key={item.id} style={styles.newsBox}>
-                <div style={styles.newsContent}>
-                  <h3 style={styles.newsTitle}>{item.title}</h3>
-                  <p style={styles.newsText}>{item.content}</p>
-                </div>
-                <div style={styles.newsImageContainer}>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={styles.newsSection2}>
-            <h2>관심 종목 뉴스</h2>
-            {news.map(item => (
-              <div key={item.id} style={styles.newsBox}>
-                <div style={styles.newsContent}>
-                  <h3 style={styles.newsTitle}>{item.title}</h3>
-                  <p style={styles.newsText}>{item.content}</p>
-                </div>
-                <div style={styles.newsImageContainer}>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style={styles.sectionsContainer}>
-          <div style={styles.revenueSection}>
+        <div style={styles.leftsection}>
+          <div style={styles.card}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h2 style={styles.cardTitle}>총 자산 현황</h2>
+              <div>
+                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{totalAmount}</span>
+                <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
+                  {displayAmountChange} ({displayPercentageChange})
+                </span>
+              </div>
+            </div>
+            <canvas ref={chartRef}></canvas>
+          </div>
+          <div style={styles.sectionsContainer}>
+            <div style={styles.revenueSection}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
                 <h2 style={styles.sectionTitle}>판매 수익</h2>
                 <select
                   value={selectedDay}
@@ -428,23 +402,69 @@ function Home() {
                     <option key={day} value={day}>{day}</option>
                   ))}
                 </select>
+                </div>
+              </div>
+              <div style={styles.sectionContent}>
+                <p>{salesData[selectedDay].revenue}USD ({formatChange(salesData[selectedDay].change)})</p>
               </div>
             </div>
-            <div style={styles.sectionContent}>
-              <p>
-                {salesData[selectedDay].revenue}USD (
-                {formatChange(salesData[selectedDay].change)})
-              </p>
+            <div style={styles.portfolioSection}>
+              <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>
+              <div style={styles.sectionContent}>
+                <canvas ref={revenueChartRef} style={styles.canvas}></canvas>
+              </div>
             </div>
           </div>
-          <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>
-            <div style={styles.sectionContent}>
-              <canvas
-                ref={revenueChartRef}
-                style={styles.canvas}
-              ></canvas>
-            </div>
+        </div>
+
+        <div style={styles.rightsection}>
+          <div style={styles.pendingOrders}>
+            <h2>대기 주문</h2>
+          </div>
+
+          <div style={styles.favoriteOrders}>
+            <h2>관심 주문</h2>
+            {favoriteOrders.map((item, index) => (
+              <div key={index} style={styles.item}>
+                <span>{item.name}</span>
+                <span style={item.percentage.startsWith('-') ? {color: 'blue'} : {color: 'red'}}>
+                  {item.percentage.startsWith('-') ? 
+                    <span style={styles.downArrow}>↓</span> :
+                    <span style={styles.upArrow}>↑</span>
+                  }
+                  {item.percentage}
+                </span>
+                <button onClick={() => handleRemoveItem(item.id)}>delete</button>
+              </div>
+            ))}
+            <div style={styles.addButton} onClick={handleAddItem}>+</div>
+          </div>
+
+          <div style={styles.ownedStocksNews}>
+            <h2>보유 종목 뉴스</h2>
+            {news.map(item => (
+              <div key={item.id} style={styles.newsCard}>
+                <div style={styles.newsText}>
+                  <h3 style={styles.newsTitle}>{item.title}</h3>
+                  <p>{item.content}</p>
+                </div>
+              <div style={styles.newsImage}></div>
+              </div>
+            ))}
+          </div>
+
+
+          <div style={styles.favoriteStocksNews}>
+            <h2>관심 종목 뉴스</h2>
+            {news.map(item => (
+              <div key={item.id} style={styles.newsCard}>
+                <div style={styles.newsText}>
+                  <h3 style={styles.newsTitle}>{item.title}</h3>
+                  <p>{item.content}</p>
+                </div>
+              <div style={styles.newsImage}></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
