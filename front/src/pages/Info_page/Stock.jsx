@@ -3,27 +3,44 @@ import React from 'react';
 const styles = {
   mystockContainer: {
     backgroundColor: '#fff',
-    borderRadius: '10px',
+    borderRadius: '8px',
     padding: '20px',
-    width: '500px',
-    height: '250px',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
   title: {
     textAlign: 'center',
     marginBottom: '15px',
   },
   contentContainer: {
+    borderRadius: '8px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
     justifyContent: 'space-between',
     display: 'flex',
-    marginBottom: '-15px',
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    marginBottom: '10px',
   },
   total: {
     marginTop: '15px',
   },
+  price: {
+    justifyContent: 'space-between',
+    display: 'flex',
+  },
   change: {
-    marginTop: '-5px',
     textAlign: 'right',
     color: '#007bff',
+    marginLeft: '10px',
+  },
+  line: {
+    borderTop: '1px solid rgba(242, 246, 239, 1)',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
 };
 
@@ -44,16 +61,18 @@ const Mystock = () => {
         <p style={styles.label}>보유수량</p>
         <p style={styles.value}>{quantity}</p>
       </div>
-      <br></br><hr></hr>
+      <div style={styles.line}></div> 
       <div style={styles.total}>
         <div style={styles.contentContainer}>
           <p>총 금액</p>
-          <p>{totalPrice.toFixed(2)}</p>
+          <div style={styles.price}>
+            <p>{totalPrice.toFixed(2)}</p>
+            <p style={styles.change}>+{((totalPrice - averagePrice * quantity) * 100 / (averagePrice * quantity)).toFixed(1)}%</p>
+          </div>
         </div>
-        <p style={styles.change}>+{((totalPrice - averagePrice * quantity) * 100 / (averagePrice * quantity)).toFixed(1)}%</p>
       </div>
     </div>
-);
+  );
 }
 
 export default Mystock;

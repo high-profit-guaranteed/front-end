@@ -6,10 +6,19 @@ import './components/chartstyle.css';
 const styles = {
   chartContainer: {
     backgroundColor: '#fff',
-    borderRadius: '10px',
+    borderRadius: '8px',
     padding: '20px',
-    width: '1100px',
-    height: '450px',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+
+  topContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   titleContainer: {
@@ -18,53 +27,56 @@ const styles = {
   },
 
   image: {
-    width: '60px',
-    height: '60px',
+    width: '50px',
+    height: '50px',
+    marginTop: '5px',
     marginRight: '10px',
   },
-
-  title: {
-    marginTop: '10px',
-  },
-
+  
   contentContainer: {
     alignItems: 'center',
-    marginLeft: '70px', 
-    marginTop: '-28px',
-  },
-
-  percent: {
-    marginTop: '-20px',
-    color: 'blue',
-  },
-
-  lineContainer: {
-    marginLeft: '255px',
-    marginTop: '-150px',
-    width: '900px',
-  },
-
-  period: {
-    marginLeft: '60px',
-    marginTop: '-5px',
-    marginRight: '100px',
     display: 'flex',
     justifyContent: 'space-between',
   },
 
-  
+  won: {
+    fontSize: '18px',
+  },
+
+  percent: {
+    fontSize: '16px',
+    marginLeft: '10px',
+  },
+
+  lineContainer: {
+    width: '100%',
+    marginTop: '20px',
+  },
+
+  period: {
+    marginTop: '10px',
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
 };
 
 const Chart = () => {
+  const percentValue = +2800; // 임시
+
   return (
     <div style={styles.chartContainer}>
-      <div style={styles.titleContainer}>
-        <img src={NaverImage} alt="Naver" style={styles.image}/>
-        <h2 style={styles.title}>NAVER</h2>
-      </div>
-      <div style={styles.contentContainer}>
-        <h2 style={styles.won}>22,000 ￦</h2>
-        <p style={styles.percent}>+2,800 (14.5%)</p>
+      <div style={styles.topContainer}>
+        <div style={styles.titleContainer}>
+          <img src={NaverImage} alt="Naver" style={styles.image}/>
+          <h2 style={styles.title}>NAVER</h2>
+        </div>
+        <div style={styles.contentContainer}>
+          <h2 style={styles.won}>22,000 USD</h2>
+          <p style={{ ...styles.percent, color: percentValue >= 0 ? 'green' : 'red' }}>
+            {percentValue >= 0 ? '+' : ''}{percentValue} USD ({((percentValue / 22000) * 100).toFixed(1)}%)
+          </p>
+        </div>
       </div>
       <div style={styles.lineContainer}>
         <LineChart />

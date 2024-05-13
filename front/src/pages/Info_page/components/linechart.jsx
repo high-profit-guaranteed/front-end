@@ -1,47 +1,52 @@
-import React from 'react';
-import { ResponsiveLine } from '@nivo/line';
+import React, { useEffect, useRef } from 'react';
+import ApexCharts from 'apexcharts';
 
 const LineChart = () => {
-  const data = [
-    {
-      id: 'series1',
-      data: [
-        { x: 0, y: 5 },
-        { x: 1, y: 7 },
-        { x: 2, y: 8 },
-        { x: 3, y: 6 },
-        { x: 4, y: 9 },
-      ],
-    },
-  ];
+  const chartRef = useRef(null);
 
-  return (
-    <div style={{ height: '430px', width: '100%'}}>
-      <ResponsiveLine
-        data={data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: 'linear' }}
-        yScale={{ type: 'linear', min: 0, max: 'auto', stacked: false, reverse: false }}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          orient: 'bottom',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-        }}
-        axisLeft={{
-          orient: 'left',
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-        }}
-        enablePoints={false}
-        enableGridX={true}
-        enableGridY={true}
-      />
-    </div>
-  );
+  useEffect(() => {
+    const options = {
+      chart: {
+        type: 'candlestick',
+        height:500
+      },
+      series: [{
+        data: [{
+          x: new Date(2024, 5, 10),
+          y: [51.98, 56.29, 51.59, 53.85]
+        },
+        {
+          x: new Date(2024, 5, 11),
+          y: [53.66, 54.99, 51.35, 52.95]
+        },
+        {
+          x: new Date(2024, 5, 12),
+          y: [52.76, 57.35, 52.15, 57.03]
+        }]
+      }],
+    //   xaxis: {
+    //     categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+    //   },
+        plotOptions: {
+            candlestick: {
+            colors: {
+                upward: '#3C90EB',
+                downward: '#DF7D46'
+            }
+            }
+        }
+    };
+
+    
+    const chart = new ApexCharts(chartRef.current, options);
+    chart.render();
+
+    return () => {
+      chart.destroy();
+    };
+  }, []);
+
+  return <div id="chart" ref={chartRef} />;
 };
 
 export default LineChart;

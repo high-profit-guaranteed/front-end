@@ -1,18 +1,17 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const styles = {
   orderContainer: {
     backgroundColor: '#fff',
-    borderRadius: '10px',
+    borderRadius: '8px',
     padding: '20px',
-    width: '500px',
-    height: '760px',
+    width: '95%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     overflowY: 'auto',
-    position: 'relative',
-    margin: 'auto', // 수평 가운데 정렬
-    display: 'flex', // 내부 요소 가운데 정렬
-    flexDirection: 'column', // 내부 요소 수직
-    justifyContent: 'center', // 내부 요소 수직 가운데 정렬
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
   buyOrder: {
     color: 'green',
@@ -27,13 +26,10 @@ const styles = {
     marginLeft: 'auto',
   },
   quantity: {
-    fontSize: '0.8em',
+    fontSize: '20px',
   },
-  currentOrderMarker: {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    width: '100%',
+  boldRow: {
+    fontWeight: 'bold',
   },
   buttonContainer: {
     position: 'sticky',
@@ -53,27 +49,48 @@ const styles = {
     cursor: 'pointer',
   },
   table: {
-    marginTop: '100px',
     marginBottom: '30px',
-  }
+    borderCollapse: 'separate',
+    borderSpacing: '20px 7px',
+    fontSize: '25px',
+  },
+  clickedRow: {
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    padding: '20px',
+  },
 };
 
-const Order = ({ orderData }) => {
-  const currentPrice = 101.80;
-  const currentOrderRef = useRef(null); 
+const Order = ({ orderData, currentPrice }) => {
+  const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
-    if (currentOrderRef.current) {
-      currentOrderRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, [currentPrice]);
+    setSelectedRow(currentPrice !== null ? orderData.findIndex(order => order.price === currentPrice) : null);
+  }, [currentPrice, orderData]);
+
+  const handleRowClick = (index) => {
+    setSelectedRow(index);
+  };
+
+  const buyStock = () => {
+    console.log('주식을 구매합니다.');
+    // 주식 구매 추가 예정
+  };
+
+  const sellStock = () => {
+    console.log('주식을 판매합니다.');
+    // 주식 판매 추가 예정
+  };
 
   return (
     <div style={styles.orderContainer}>
       <table style={styles.table}>
         <tbody>
           {orderData.map((order, index) => (
-            <tr key={index} style={{ ...styles.tableRow, fontWeight: order.price === currentPrice ? 'bold' : 'normal' }} ref={order.price === currentPrice ? currentOrderRef : null}>
+            <tr
+              key={index}
+              style={selectedRow === index ? styles.clickedRow : null}
+              onClick={() => handleRowClick(index)}
+            >
               <td style={styles.buyOrder}>
                 {order.type === 'bid' ? (
                   <span style={styles.quantity}>{order.quantity}</span>
@@ -91,10 +108,9 @@ const Order = ({ orderData }) => {
           ))}
         </tbody>
       </table>
-      <div style={styles.currentOrderMarker}></div>
       <div style={styles.buttonContainer}>
-        <button style={styles.button}>구매</button>
-        <button style={styles.button}>판매</button>
+        <button style={styles.button} onClick={buyStock}>구매</button>
+        <button style={styles.button} onClick={sellStock}>판매</button>
       </div>
     </div>
   );
