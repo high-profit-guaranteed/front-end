@@ -4,7 +4,6 @@ import Topbar from '../components/Topbar.jsx';
 import Chart from 'chart.js/auto';
 import ScrollbarStyles from '../components/ScrollbarStyles.css';
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 
 const styles = {
