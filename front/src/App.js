@@ -18,6 +18,10 @@ import Detail from './pages/Info_page/Detail.jsx';
 import Order from './pages/Info_page/Order';
 import Stock from './pages/Info_page/Stock';
 
+import Board from './pages/Channel_page/board.jsx';
+import BoardList from './pages/Channel_page/boardlist.jsx';
+import Write from './pages/Channel_page/write.jsx';
+
 function App() {
   return (
     <div className="App">
@@ -46,6 +50,10 @@ function App() {
         <Route path="/Detail" element={<Detail />} />
         <Route path="/Order" element={<Order />} />
         <Route path="/Stock" element={<Stock />} />
+
+        <Route path="/Board" element={<Board />} />
+        <Route path="/BoardList" element={<BoardList />} />
+        <Route path="/Write" element={<Write />} />
       </Routes>
     </div>
   );
