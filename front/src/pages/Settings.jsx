@@ -187,12 +187,12 @@ function Settings() {
               <input type="checkbox" style={{...styles.inputField, width: 'auto', margin: '10px'}} />
             </label>
             <label>
-              APP KEY
-              <input type="text" placeholder="Enter APP KEY" style={styles.inputField} />
+              API KEY
+              <input type="text" placeholder="Enter API KEY" style={styles.inputField} />
             </label>
             <label>
-              APP SECRET
-              <input type="text" placeholder="Enter APP SECRET" style={styles.inputField} />
+              API SECRET
+              <input type="text" placeholder="Enter API SECRET KEY" style={styles.inputField} />
             </label>
             <button style={styles.button} onClick={() => console.log('Add account clicked')}>Add Account</button>
           </div>
