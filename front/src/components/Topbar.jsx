@@ -79,22 +79,20 @@ const axiosInstance = axios.create({
 const Topbar = () => {
   const [accounts, setAccounts] = useState(['']); // 계좌 목록 상태
 
-  const getAccounts = async () => {
-    try {
-      const response = await axiosInstance.get(
-        "https://duckling-back.d-v.kro.kr/api/getAccounts"
-      );
-      if (response.status === 200) {
-        setAccounts(response.data.accounts);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    if (accounts.length === 1 && accounts[0] === '') getAccounts();
-  });
+    const getAccounts = async () => {
+      try {
+        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/getAccounts");
+        if (response.status === 200 && response.data.accounts) {
+          setAccounts(response.data.accounts);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getAccounts();
+  }, []);
 
   return (
     <div style={styles.topbar}>
