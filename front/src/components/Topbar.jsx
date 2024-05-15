@@ -87,7 +87,7 @@ const Topbar = ({selectAccount}) => {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/accounts"
       );
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.accounts.length > 0) {
         let accountList = [];
         response.data.accounts.forEach(account => {
           accountList.push([account.accountName, account.accountId]);
