@@ -23,10 +23,8 @@ function Logout() {
         "https://duckling-back.d-v.kro.kr/api/signout", {}
       );
       if (response.status === 200) {
-        if (response.data === "success") {
-          setIsLoading(false);
-          navigate("/");
-        }
+        setIsLoading(false);
+        navigate("/");
       }
     };
     getData();

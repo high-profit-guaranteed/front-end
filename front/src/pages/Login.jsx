@@ -319,11 +319,8 @@ function LoginPage() {
         password: signInInputPW,
       })
       .then((response) => {
-        console.log("answer");
-        console.log(response.headers);
-        console.log(response.data);
-        // window.sessionStorage.setItem("JSESSIONID", cookies.get("JSESSIONID").value);
-        navigate("/Home");
+        if (response.status === 200) navigate("/Home");
+        else throw new Error("로그인 실패 (200 아님)");
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -389,10 +386,7 @@ function LoginPage() {
         email: signUpInputEmail,
       })
       .then((response) => {
-        console.log("answer");
-        console.log(response.headers);
-        console.log(response.data);
-        // window.sessionStorage.setItem("JSESSIONID", cookies.get("JSESSIONID").value);
+        if (response.status !== 200) throw new Error("회원가입 실패 (200 아님)");
         alert("회원가입에 성공했습니다.");
         setSignUpInputId("");
         setSignUpInputPW("");
