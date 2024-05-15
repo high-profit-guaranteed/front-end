@@ -292,9 +292,9 @@ function Home() {
 
     const checkSession = async () => {
       try {
-        const response = await axiosInstance.post("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
+        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
         if (response.status === 200) {
-          if (response.data === "success") {
+          if (response.data === "Success") {
             setIsLoading(false);
             setShowGraph(true);
           } else {
