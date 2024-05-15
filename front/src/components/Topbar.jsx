@@ -109,7 +109,7 @@ const Topbar = ({selectAccount}) => {
   }
 
   useEffect(() => {
-    if (accounts.length === 1 && accounts[0] === nullAccount) getAccounts();
+    if (accounts.length === 1 && accounts[0][0] === "" && accounts[0][1] === "") getAccounts();
     else setSelectedAccount(accounts[0][1]);
   }, [accounts]);
 
