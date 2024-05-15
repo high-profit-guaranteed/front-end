@@ -8,12 +8,13 @@ import Info from './pages/Info';
 import Detail from './pages/Detail';
 import News from './pages/News';
 import Channel from './pages/Channel';
-import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 
 import Ddetail from './pages/Info_page/Detail';
 import Order from './pages/Info_page/Order';
 import Stock from './pages/Info_page/Stock';
+import Holding_news from './pages/News_pages/Holding_news';
+import Interest_news from './pages/News_pages/Interest_news';
 
 import Board from './pages/Channel_page/Board';
 import BoardList from './pages/Channel_page/BoardList';
@@ -30,7 +31,6 @@ function App() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/news" element={<News />} />
         <Route path="/channel" element={<Channel />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
 
         <Route path="/ddetail" element={<Ddetail />} />

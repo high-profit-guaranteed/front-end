@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import newsImage from '../images/news/news1.png';
 import additionalImage1 from '../images/news/test.png';
 import additionalImage2 from '../images/news/test1.jpg';
 import sideNewsIcon from '../images/news/test2.jpg';
+
 
 const styles = {
   container: {
@@ -127,7 +129,7 @@ const styles = {
     gap: '50px',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    overflow: 'hidden', // 넘치는 내용은 숨김 처리
+    overflow: 'hidden',
   },
   
 
@@ -300,6 +302,16 @@ function SideNewsCard2({ newsItem }) {
 }
 
 function News() {
+  const navigate = useNavigate();
+
+  const handleHoldingNewsClick = () => {
+    navigate('/Holding_news');
+  };
+
+  const handleInterestNewsClick = () => {
+    navigate('/Interest_news');
+  };
+
   return (
     <div>
       <Navbar />
@@ -319,7 +331,7 @@ function News() {
         <div style={styles.sideNewsContainer}>
           <div>
             <div style={styles.sideNewsContainer1}>
-              <h2 style={styles.sectionHeader}>보유종목 뉴스</h2>
+              <h2 style={{ ...styles.sectionHeader, cursor: 'pointer' }} onClick={handleHoldingNewsClick}>보유종목 뉴스</h2>
               {newsData.slice(5, 7).map(item => (
                 <SideNewsCard1 newsItem={item} key={item.id} />
               ))}
@@ -327,7 +339,7 @@ function News() {
           </div>
           <div>
             <div style={styles.sideNewsContainer2}>
-              <h2 style={styles.sectionHeader}>관심종목 뉴스</h2>
+              <h2 style={{ ...styles.sectionHeader, cursor: 'pointer' }} onClick={handleInterestNewsClick}>관심종목 뉴스</h2>
               {newsData.slice(7, 9).map(item => (
                 <SideNewsCard2 newsItem={item} key={item.id} />
               ))}
