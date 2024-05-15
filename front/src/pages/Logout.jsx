@@ -20,11 +20,11 @@ function Logout() {
   useEffect(() => {
     const getData = async () => {
       const response = await axiosInstance.get(
-        "https://duckling-back.d-v.kro.kr/api/signout", {}
+        "https://duckling-back.d-v.kro.kr/api/signout"
       );
       if (response.status === 200) {
-          setIsLoading(false);
-          navigate("/");
+        setIsLoading(false);
+        navigate("/");
       }
     };
     getData();

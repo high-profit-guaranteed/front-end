@@ -224,6 +224,14 @@ function Home() {
   const revenueChartRef = useRef(null);
   const [showGraph, setShowGraph] = useState(false);
 
+  const [accountId, setAccountId] = useState(''); // 계좌 id
+
+  const selectAccount = (id) => {
+    setAccountId(id);
+    console.log(id);
+    getBalance(id);
+  }
+
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
   const [totalAmount, setTotalAmount] = useState("500,000 USD");
   const [amountChange, setAmountChange] = useState(50000); // 숫자로 변동 금액 저장
@@ -304,23 +312,40 @@ function Home() {
   //   }
   // };
 
-  useEffect(() => {
-
-    const checkSession = async () => {
-      try {
-        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
-        if (response.status === 200) {
-          if (response.data === "Success") {
-            setIsLoading(false);
-            setShowGraph(true);
-          } else {
-            navigate("/");
-          }
+  const checkSession = async () => {
+    try {
+      const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession");
+      if (response.status === 200) {
+        if (response.data === "Success") {
+          setIsLoading(false);
+          setShowGraph(true);
+        } else {
+          navigate("/");
         }
-      } catch (error) {
-        console.error(error);
       }
+    } catch (error) {
+      console.error(error);
     }
+  }
+
+  const getBalance = async (id) => {
+    try {
+      const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/balance?accountId=" + id);
+      if (response.status === 200) {
+        console.log(response.data.balance);
+        let price = Number(response.data.balance.toString().replaceAll(',', ''));
+        if(isNaN(price)) {
+          setTotalAmount('error');
+        } else {
+          setTotalAmount(price.toLocaleString('ko-KR') + '원');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
 
     // 세션 체크
     checkSession();
@@ -389,7 +414,7 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <Topbar />
+      <Topbar selectAccount={selectAccount} />
       <div style={styles.container}>
         <div style={styles.leftsection}>
           <div style={styles.card}>

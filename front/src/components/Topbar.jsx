@@ -76,23 +76,39 @@ const axiosInstance = axios.create({
   },
 });
 
-const Topbar = () => {
-  const [accounts, setAccounts] = useState(['']); // 계좌 목록 상태
+const nullAccount = ["", ""]; // 계좌 정보가 없을 때의 상태
 
-  useEffect(() => {
-    const getAccounts = async () => {
-      try {
-        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/getAccounts");
-        if (response.status === 200 && response.data.accounts) {
-          setAccounts(response.data.accounts);
-        }
-      } catch (error) {
-        console.error(error);
+const Topbar = ({selectAccount}) => {
+  const [accounts, setAccounts] = useState([nullAccount]); // 계좌 목록 상태
+  const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 상태
+
+  const getAccounts = async () => {
+    try {
+      const response = await axiosInstance.get(
+        "https://duckling-back.d-v.kro.kr/api/accounts"
+      );
+      if (response.status === 200) {
+        let accountList = [];
+        response.data.accounts.forEach(account => {
+          accountList.push([account.accountName, account.accountId]);
+        });
+        
+        setAccounts(accountList);
       }
     };
 
-    getAccounts();
-  }, []);
+  const handleSelectChange = (event) => {
+    // console.log(event.target.value);
+  
+    // 계좌 변경
+    setSelectedAccount(event.target.value);
+    if (selectAccount) selectAccount(event.target.value);
+  }
+
+  useEffect(() => {
+    if (accounts.length === 1 && accounts[0] === nullAccount) getAccounts();
+    else setSelectedAccount(accounts[0][1]);
+  }, [accounts]);
 
   return (
     <div style={styles.topbar}>
@@ -105,10 +121,10 @@ const Topbar = () => {
         <input type="text" placeholder="Search" style={styles.searchInput} />
         <AiOutlineBell style={styles.icon} />
         <AiOutlineUser style={styles.icon} />
-        <select style={styles.select}>
+        <select style={styles.select} onChange={handleSelectChange}>
           {accounts.map((account, index) => (
-            <option key={index} value={account}>
-              {account}
+            <option key={index} value={account[1]}>
+              {account[0]}
             </option>
           ))}
         </select>
