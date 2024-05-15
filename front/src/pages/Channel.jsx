@@ -1,57 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import Topbar from '../components/Topbar.jsx';
-import commonStyles from './commonStyles.jsx';
-import BoardList from './Channel_page/BoardList.jsx';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Topbar from '../components/Topbar';
+import commonStyles from './commonStyles';
+import Board from './Channel_page/Board';
 
 const styles = {
   container: {
     ...commonStyles.container,
   },
-  selectContainer: {
-    marginBottom: '20px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  select: {
-    padding: '8px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-  },
 };
 
-function Channel() {
-  const [selectedBoard, setSelectedBoard] = useState('자유게시판');
+function Channel({ posts, setPosts }) {
+  const navigate = useNavigate();
 
-  const handleBoardChange = (e) => {
-    setSelectedBoard(e.target.value);
+  const handleWriteClick = () => {
+    navigate('/post');
   };
 
-  useEffect(() => {
-    setSelectedBoard('자유게시판');
-  }, []);
+  const addPost = (title, author, date, views) => {
+    const newPost = { title, author, date, views };
+    setPosts([...posts, newPost]);
+  };
 
   return (
     <div>
       <Navbar />
       <Topbar />
       <div style={styles.container}>
-        <div style={styles.selectContainer}>
-          <select value={selectedBoard} onChange={handleBoardChange} style={styles.select}>
-            <option value="자유게시판">자유게시판</option>
-            <option value="애플 게시판">애플 게시판</option>
-            <option value="MS 게시판">MS 게시판</option>
-            <option value="알파벳 게시판">알파벳 게시판</option>
-            <option value="아마존 게시판">아마존 게시판</option>
-            <option value="엔비디아 게시판">엔비디아 게시판</option>
-            <option value="메타 게시판">메타 게시판</option>
-            <option value="테슬라 게시판">테슬라 게시판</option>
-            <option value="브로드컴 게시판">브로드컴 게시판</option>
-            <option value="코스트코 게시판">코스트코 게시판</option>
-            <option value="ASML 게시판">ASML 게시판</option>
-          </select>
-        </div>
-        <BoardList selectedBoard={selectedBoard} />
+        <Board posts={posts} setPosts={setPosts} onWriteClick={handleWriteClick} onAddPost={addPost} />
       </div>
     </div>
   );
