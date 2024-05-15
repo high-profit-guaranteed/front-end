@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const styles = {
   mystockContainer: {
@@ -52,7 +52,7 @@ const styles = {
   }
 };
 
-const Present = () => {
+const Detail = () => {
   const companyName = "NAVER";
   const navigate = useNavigate();
 
@@ -89,4 +89,4 @@ const Present = () => {
   );
 };
 
-export default Present;
+export default Detail;

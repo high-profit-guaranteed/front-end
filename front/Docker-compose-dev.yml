@@ -7,7 +7,7 @@ services:
     ports:
       - '3306:3000'
     volumes:
-      - ./src:/app/src:ro
+      - ./src:/app/src:rw
       - ~/ssl:/etc/ssl:ro
     env_file:
       - ./.env.local
