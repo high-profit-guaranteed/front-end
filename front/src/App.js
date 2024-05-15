@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -9,51 +9,35 @@ import News from './pages/News';
 import Channel from './pages/Channel';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
-// import Holding_news from './Home_pages/Holding_news';
-// import Interest_news from './Home_pages/Interest_news';
-// import Holding_Portfolio from './Home_pages/Holding_Portfolio';
-// import Interest_Portfolio from './Home_pages/Interest_Portfolio';
-// import Total_assets from './Home_pages/Total_assets';
-import Detail from './pages/Info_page/Detail.jsx';
+
+import Detail from './pages/Info_page/Detail';
 import Order from './pages/Info_page/Order';
 import Stock from './pages/Info_page/Stock';
 
-import Board from './pages/Channel_page/board.jsx';
-import BoardList from './pages/Channel_page/boardlist.jsx';
-import Write from './pages/Channel_page/write.jsx';
+import Board from './pages/Channel_page/Board';
+import BoardList from './pages/Channel_page/BoardList';
+import Post from './pages/Channel_page/Post';
 
 function App() {
   return (
     <div className="App">
-      {/* <nav>
-        <Link to="/Login">Login</Link> |
-        <Link to="/Home">Home</Link> |
-        <Link to="/Info"> Info</Link> |
-        <Link to="/News"> News</Link> |
-        <Link to="/Channel"> Channel</Link> |
-      </nav> */}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/Logout" element={<Logout />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/Info" element={<Info />} />
-        <Route path="/News" element={<News />} />
-        <Route path="/Channel" element={<Channel />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/Settings" element={<Settings />} />
-          
-        {/* <Route path="/Holding_news" element={<Holding_news />} />
-        <Route path="/Interest_news" element={<Interest_news />} />
-        <Route path="/Holding_Portfolio" element={<Holding_Portfolio />} />
-        <Route path="/Interest_Portfolio" element={<Interest_Portfolio />} />
-        <Route path="/Total_assets" element={<Total_assets />} /> */}
-        <Route path="/Detail" element={<Detail />} />
-        <Route path="/Order" element={<Order />} />
-        <Route path="/Stock" element={<Stock />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/channel" element={<Channel />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
 
-        <Route path="/Board" element={<Board />} />
-        <Route path="/BoardList" element={<BoardList />} />
-        <Route path="/Write" element={<Write />} />
+        <Route path="/detail" element={<Detail />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/stock" element={<Stock />} />
+
+        <Route path="/board" element={<Board />} />
+        <Route path="/boardlist" element={<BoardList />} />
+        <Route path="/post" element={<Post />} />
       </Routes>
     </div>
   );

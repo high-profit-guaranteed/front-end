@@ -11,6 +11,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-between',
     overflowY: 'auto',
+    maxHeight: '1000px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
   buyOrder: {

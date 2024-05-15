@@ -1,34 +1,16 @@
-import React, { useState } from 'react';
-import Board from './board';
+import React from 'react';
 
-function BoardList() {
-  const [selectedBoard, setSelectedBoard] = useState('자유게시판');
-
-  const handleBoardChange = (event) => {
-    setSelectedBoard(event.target.value);
-  };
-
+const BoardList = () => {
+  const boards = ['자유 게시판', '애플 게시판', 'MS 게시판', '알파벳 게시판', '아마존 게시판', '엔비디아 게시판',
+                  '메타 게시판', '테슬라 게시판', '브로드컴 게시판', '코스트코 게시판', 'ASML 게시판'];
+  
   return (
-    <div>
-      <select value={selectedBoard} onChange={handleBoardChange}
-      style={{padding: '5px 10px',
-              border: '2px solid #ccc',
-              borderRadius: '4px'}}>
-        <option value="자유게시판">자유게시판</option>
-        <option value="애플게시판">애플게시판</option>
-        <option value="MS게시판">MS게시판</option>
-        <option value="알파벳게시판">알파벳게시판</option>
-        <option value="아마존게시판">아마존게시판</option>
-        <option value="엔비디아게시판">엔비디아게시판</option>
-        <option value="메타게시판">메타게시판</option>
-        <option value="테슬라게시판">테슬라게시판</option>
-        <option value="브로드컴게시판">브로드컴게시판</option>
-        <option value="코스트코게시판">코스트코게시판</option>
-        <option value="ASML게시판">ASML게시판</option>
-      </select>
-      <Board boardName={selectedBoard} />
-    </div>
+    <>
+      {boards.map((board, index) => (
+        <option key={index} value={board}>{board}</option>
+      ))}
+    </>
   );
-}
+};
 
 export default BoardList;

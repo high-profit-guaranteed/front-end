@@ -53,8 +53,6 @@ const styles = {
   order: {
     marginTop:'20px',
     marginBottom:'20px',
-    overflowY: 'auto',
-    maxHeight: 'calc(100vh - 80px)',
   },
 };
 
