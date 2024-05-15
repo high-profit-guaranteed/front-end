@@ -220,6 +220,14 @@ function Home() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleHoldingNewsClick = () => {
+    navigate('/News/Holding_news');
+  };
+
+  const handleInterestNewsClick = () => {
+    navigate('/News/Interest_news');
+  };
+
   const chartRef = useRef(null);
   const revenueChartRef = useRef(null);
   const [showGraph, setShowGraph] = useState(false);
@@ -495,7 +503,7 @@ function Home() {
           </div>
 
           <div style={styles.ownedStocksNews}>
-            <h2>보유 종목 뉴스</h2>
+            <h2 style={{ ...styles.sectionHeader, cursor: 'pointer' }} onClick={handleHoldingNewsClick}>보유종목 뉴스</h2>
             {news.map(item => (
               <div key={item.id} style={styles.newsCard}>
                 <div style={styles.newsText}>
@@ -509,7 +517,7 @@ function Home() {
 
 
           <div style={styles.favoriteStocksNews}>
-            <h2>관심 종목 뉴스</h2>
+            <h2 style={{ ...styles.sectionHeader, cursor: 'pointer' }} onClick={handleInterestNewsClick}>관심종목 뉴스</h2>
             {news.map(item => (
               <div key={item.id} style={styles.newsCard}>
                 <div style={styles.newsText}>

@@ -218,10 +218,6 @@ function Settings() {
         return (
           <div style={styles.profileDetails}>
             <h2>Service center</h2>
-            <label>
-              Enable Two-Factor Authentication
-              <input type="checkbox" style={{...styles.inputField, width: 'auto', margin: '10px'}} />
-            </label>
           </div>
         );
   

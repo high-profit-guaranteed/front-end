@@ -36,6 +36,9 @@ function App() {
         <Route path="/ddetail" element={<Ddetail />} />
         <Route path="/order" element={<Order />} />
         <Route path="/stock" element={<Stock />} />
+          
+        <Route path="/News/Holding_news" element={<Holding_news />} />
+        <Route path="/News/Interest_news" element={<Interest_news />} />
 
         <Route path="/board" element={<Board />} />
         <Route path="/boardlist" element={<BoardList />} />
