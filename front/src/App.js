@@ -29,8 +29,8 @@ function App() {
         <Route path="/News" element={<News />} />
         <Route path="/Channel" element={<Channel />} />
         <Route path="/Settings" element={<Settings />} />
-        <Route path="/Holding_news" element={<Holding_news />} />
-        <Route path="/Interest_news" element={<Interest_news />} />
+        <Route path="/News/Holding_news" element={<Holding_news />} />
+        <Route path="/News/Interest_news" element={<Interest_news />} />
       </Routes>
     </div>
   );

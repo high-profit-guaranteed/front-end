@@ -305,11 +305,11 @@ function News() {
   const navigate = useNavigate();
 
   const handleHoldingNewsClick = () => {
-    navigate('/Holding_news');
+    navigate('/News/Holding_news');
   };
 
   const handleInterestNewsClick = () => {
-    navigate('/Interest_news');
+    navigate('/News/Interest_news');
   };
 
   return (
