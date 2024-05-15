@@ -6,7 +6,7 @@ import Logout from './pages/Logout';
 import Home from './pages/Home';
 import Info from './pages/Info';
 import Detail from './pages/Detail';
-import News from './pages/NewsEx';
+import News from './pages/News';
 import Channel from './pages/Channel';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
