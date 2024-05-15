@@ -4,7 +4,6 @@ import Topbar from '../components/Topbar.jsx';
 import Chart from 'chart.js/auto';
 import ScrollbarStyles from '../components/ScrollbarStyles.css';
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 
 const styles = {
@@ -67,9 +66,26 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
   },
+  // 보유종목 
+  holdSection: {
+    flex: 1,
+    backgroundColor: '#F8F9FA',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+  },
+  holdSectionItem: {
+    padding: '5px 10px',
+    margin: '5px 0',
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    borderRadius: '5px',
+    textAlign: 'center',
+  },
   // 보유종목 포트폴리오
   portfolioSection: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: '#F8F9FA',
     borderRadius: '8px',
     padding: '10px',
@@ -87,7 +103,7 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
 
@@ -100,7 +116,7 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
     marginBottom: '10px',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
   item: {
@@ -146,7 +162,7 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
 
@@ -158,7 +174,7 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
-    maxHeight: '250px',
+    maxHeight: '200px',
     overflowY: 'auto',
   },
 
@@ -292,9 +308,9 @@ function Home() {
 
     const checkSession = async () => {
       try {
-        const response = await axiosInstance.post("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
+        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
         if (response.status === 200) {
-          if (response.data === "success") {
+          if (response.data === "Success") {
             setIsLoading(false);
             setShowGraph(true);
           } else {
@@ -405,6 +421,20 @@ function Home() {
               </div>
               <div style={styles.sectionContent}>
                 <p>{salesData[selectedDay].revenue}USD ({formatChange(salesData[selectedDay].change)})</p>
+              </div>
+            </div>
+            <div style={styles.holdSection}>
+              <h2 style={styles.sectionTitle}>보유 종목</h2>
+              <div style={styles.sectionContent}>
+                {favoriteOrders.length > 0 ? (
+                  favoriteOrders.map((order, index) => (
+                  <div key={index} style={styles.holdSectionItem}>
+                    {order.name}
+                    </div>
+                    ))
+                ) : (
+                  <p>보유 종목이 없습니다.</p>
+                )}
               </div>
             </div>
             <div style={styles.portfolioSection}>

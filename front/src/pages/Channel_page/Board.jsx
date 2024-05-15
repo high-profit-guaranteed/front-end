@@ -52,15 +52,22 @@ const styles = {
   },
 };
 
-const Board = ({ posts = [], setPosts, onWriteClick, onAddPost }) => {
-  const [selectedBoard, setSelectedBoard] = useState('자유 게시판');
+const Board = ({ posts, setPosts }) => {
+  const [selectedBoard, setSelectedBoard] = useState('자유');
   const navigate = useNavigate();
 
   const handleBoardChange = (event) => {
     setSelectedBoard(event.target.value);
   };
+  
+  const handleWriteClick = () => {
+    navigate('/post');
+  };
 
-  console.log('Posts:', posts); // Debug statement to log posts
+  // 새로운 글을 추가하는 함수
+  const handleAddPost = (newPost) => {
+    setPosts([...posts, newPost]); // 새로운 글을 기존 게시물 목록에 추가
+  };
 
   return (
     <div style={styles.boardContainer}>
@@ -68,8 +75,8 @@ const Board = ({ posts = [], setPosts, onWriteClick, onAddPost }) => {
         <BoardList />
       </select>
       <div style={styles.boardHeader}>
-        <h2>{selectedBoard}</h2>
-        <button style={styles.postButton} onClick={onWriteClick}>글 올리기</button>
+        <h2>{selectedBoard} 게시판</h2>
+        <button style={styles.postButton} onClick={handleWriteClick}>글 올리기</button>
       </div>
       <table style={styles.tableStyle}>
         <thead>
@@ -78,11 +85,11 @@ const Board = ({ posts = [], setPosts, onWriteClick, onAddPost }) => {
             <th style={styles.tableCell}>제목</th>
             <th style={styles.tableCell}>작성자</th>
             <th style={styles.tableCell}>작성일</th>
-            <th style={styles.tableCell}>조회수</th>
+            <th style={styles.tableCell}>댓글수</th>
           </tr>
         </thead>
         <tbody>
-          {posts.map((post, index) => (
+          {posts && posts.map((post, index) => (
             <tr key={index} style={index % 2 === 0 ? styles.tableRowEven : null}>
               <td style={styles.tableCell}>{index + 1}</td>
               <td style={styles.tableCell}>{post.title}</td>

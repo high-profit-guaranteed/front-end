@@ -24,6 +24,7 @@ const styles = {
     fontSize: '16px',
     borderRadius: '4px',
     border: '1px solid #ddd',
+    resize: 'none',
   },
   buttonContainer: {
     display: 'flex',
@@ -51,20 +52,27 @@ const styles = {
 const Post = ({ location }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const selectedBoard = location?.state?.selectedBoard || '자유 게시판';
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (!title.trim() || !content.trim()) {
-      alert('제목과 내용을 모두 입력해주세요.');
-      return;
+    const newPost = {
+      title: title,
+      content: content,
+      author: 'Some Author',
+      date: new Date().toLocaleDateString(),
+    };
+    console.log('Submitted:', newPost);
+    const onAddPost = location?.state?.onAddPost;
+    if (onAddPost) {
+      onAddPost(newPost);
     }
-    console.log('Submitted:', { title, content });
-    navigate('/');
+    navigate(-1);
   };
 
   const handleCancel = () => {
-    navigate('/');
+    setTitle('');
+    setContent('');
+    navigate(-1);
   };
 
   return (
@@ -72,7 +80,7 @@ const Post = ({ location }) => {
       <Navbar />
       <Topbar />
       <div style={styles.container}>
-        <h2>{selectedBoard}</h2>
+        <h2>글 작성하기</h2>
         <input
           style={styles.input}
           type="text"
