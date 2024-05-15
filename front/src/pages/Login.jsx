@@ -386,7 +386,7 @@ function LoginPage() {
         email: signUpInputEmail,
       })
       .then((response) => {
-        if (response.status !== 200) throw new Error("회원가입 실패 (200 아님)");
+        if (response.status !== 200) throw new Error("회원가입 실패");
         alert("회원가입에 성공했습니다.");
         setSignUpInputId("");
         setSignUpInputPW("");
