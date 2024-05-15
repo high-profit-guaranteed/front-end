@@ -252,9 +252,8 @@ function Settings() {
               onClick={() => setActiveMenu(menuItem)}
             >
               <div style={styles.iconBox(activeMenu === menuItem)}>
-                {/* 여기에 React.cloneElement 수정 적용 */}
                 {React.cloneElement(iconMapping[menuItem], {
-                  style: styles.icon  // 직접 객체를 전달
+                  style: styles.icon
                 })}
               </div>
               <div>

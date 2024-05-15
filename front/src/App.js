@@ -7,16 +7,9 @@ import Home from './pages/Home';
 import Info from './pages/Info';
 import News from './pages/News';
 import Channel from './pages/Channel';
-import Profile from './pages/Profile';
 import Settings from './pages/Settings';
-// import Holding_news from './Home_pages/Holding_news';
-// import Interest_news from './Home_pages/Interest_news';
-// import Holding_Portfolio from './Home_pages/Holding_Portfolio';
-// import Interest_Portfolio from './Home_pages/Interest_Portfolio';
-// import Total_assets from './Home_pages/Total_assets';
-import Detail from './pages/Info_page/Detail.jsx';
-import Order from './pages/Info_page/Order';
-import Stock from './pages/Info_page/Stock';
+import Holding_news from './pages/News_pages/Holding_news';
+import Interest_news from './pages/News_pages/Interest_news';
 
 function App() {
   return (
@@ -35,17 +28,9 @@ function App() {
         <Route path="/Info" element={<Info />} />
         <Route path="/News" element={<News />} />
         <Route path="/Channel" element={<Channel />} />
-        <Route path="/Profile" element={<Profile />} />
         <Route path="/Settings" element={<Settings />} />
-          
-        {/* <Route path="/Holding_news" element={<Holding_news />} />
+        <Route path="/Holding_news" element={<Holding_news />} />
         <Route path="/Interest_news" element={<Interest_news />} />
-        <Route path="/Holding_Portfolio" element={<Holding_Portfolio />} />
-        <Route path="/Interest_Portfolio" element={<Interest_Portfolio />} />
-        <Route path="/Total_assets" element={<Total_assets />} /> */}
-        <Route path="/Detail" element={<Detail />} />
-        <Route path="/Order" element={<Order />} />
-        <Route path="/Stock" element={<Stock />} />
       </Routes>
     </div>
   );

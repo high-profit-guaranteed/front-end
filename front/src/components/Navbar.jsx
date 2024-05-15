@@ -53,7 +53,6 @@ const Navbar = () => {
     { Icon: AiOutlineInfoCircle, text: 'Info', path: '/Info' },
     { Icon: AiOutlineBook, text: 'News', path: '/News' },
     { Icon: AiOutlinePlayCircle, text: 'Channel', path: '/Channel' },
-    { Icon: AiOutlineUser, text: 'Profile', path: '/Profile' },
     { Icon: AiOutlineSetting, text: 'Settings', path: '/Settings' },
     { Icon: AiOutlineLogout, text: 'Logout', path: '/Logout' }
   ];

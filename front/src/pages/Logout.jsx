@@ -19,14 +19,12 @@ function Logout() {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await axiosInstance.post(
+      const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/signout", {}
       );
       if (response.status === 200) {
-        if (response.data === "success") {
           setIsLoading(false);
           navigate("/");
-        }
       }
     };
     getData();
