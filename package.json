@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "chart.js": "^4.4.2",
-    "d3-format": "^3.1.0",
-    "d3-time-format": "^4.1.0",
-    "react-chartjs-2": "^5.2.0",
-    "react-financial-charts": "^2.0.1"
-  }
-}

@@ -95,10 +95,7 @@ const Topbar = ({selectAccount}) => {
         
         setAccounts(accountList);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    };
 
   const handleSelectChange = (event) => {
     // console.log(event.target.value);
