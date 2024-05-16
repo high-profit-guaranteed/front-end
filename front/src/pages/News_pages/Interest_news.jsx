@@ -24,14 +24,13 @@ const styles = {
     borderRadius: '8px',
   },
   rightSection: {
-    width: '35%', 
-    padding: '10px',
+    width: '35%',
+    padding: '20px',
     backgroundColor: '#FFFFFF',
     borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   
   // leftSection
@@ -70,6 +69,7 @@ const styles = {
     borderRadius: '8px',
     overflow: 'hidden',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    cursor: 'pointer',
   },
   newsImage: {
     width: '100%',
@@ -88,6 +88,42 @@ const styles = {
     fontSize: '12px',
     color: '#666',
   },
+
+  // rightSection
+  newsItem: {
+    display: 'flex',
+    marginBottom: '10px',
+    width: '98%',
+    border: '1px solid #DDD',
+    overflow: 'hidden',
+    cursor: 'pointer',
+  },
+  newsItemImage: {
+    width: '40%',
+    height: '100%',
+  },
+  newsItemContent: {
+    padding: '20px',
+    width: '70%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  newsItemTitle: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: '10px',
+  },
+  newsItemMeta: {
+    fontSize: '13px',
+    color: '#666',
+  },
+  newsItemAuthor: {
+    fontSize: '13px',
+    color: '#888',
+    marginBottom: '7px',
+  },  
 };
 
 const tabs = ['Apple', 'MS', 'Alphabet', 'Amazon'];
@@ -130,7 +166,7 @@ function getFourNewsItems(newsArray) {
 }
 
 
-function Interest_news() {
+function Holding_news() {
     // const [stocks, setStocks] = useState([]); // 보유 종목 목록 상태
     const [activeTab, setActiveTab] = useState('Apple'); // 초기 탭 설정
     const [activeNews, setActiveNews] = useState(newsData['Apple']); // 초기 뉴스 설정
@@ -195,10 +231,20 @@ function Interest_news() {
         </div>
         <div style={styles.rightSection}>
           <h3>More {activeTab} News</h3>
+          {activeNews.map((item, index) => (
+            <div key={index} style={styles.newsItem}>
+              <img src={item.imageUrl} alt="News" style={styles.newsItemImage} />
+              <div style={styles.newsItemContent}>
+                <div style={styles.newsItemAuthor}>By {item.author}</div>
+                <div style={styles.newsItemTitle}>{item.title}</div>
+                <div style={styles.newsItemMeta}>{item.date} • {item.readTime}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-export default Interest_news;
+export default Holding_news;

@@ -9,7 +9,7 @@ const LineChart = () => {
       chart: {
         type: 'candlestick',
         toolbar: { show: false },
-        height:500
+        height:380
       },
       series: [{
         data: [{
