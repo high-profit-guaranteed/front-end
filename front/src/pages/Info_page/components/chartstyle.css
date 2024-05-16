@@ -1,9 +1,9 @@
-  .small {
-    padding: 5px;
-  }
-  .small:hover {
-    background-color: rgba(100, 120, 50);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+.small {
+  padding: 5px;
+}
+.small:hover {
+  background-color: rgba(100, 120, 50);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}

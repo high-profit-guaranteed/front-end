@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const styles = {
-  orderContainer: {
+  dummyContainer: {
     backgroundColor: '#fff',
     borderRadius: '8px',
     padding: '20px',
@@ -10,21 +10,14 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    overflowY: 'auto',
+    
     maxHeight: '1000px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
-  buyOrder: {
-    color: 'green',
-    fontSize: '20px',
-    textAlign: 'left',
-    marginRight: 'auto',
-  },
-  sellOrder: {
-    color: 'red',
-    fontSize: '20px',
-    textAlign: 'right',
-    marginLeft: 'auto',
+  orderContainer: {
+    width: '100%',
+    height: '100%',
+    overflowY: 'auto',
   },
   quantity: {
     fontSize: '20px',
@@ -33,6 +26,7 @@ const styles = {
     fontWeight: 'bold',
   },
   buttonContainer: {
+    margin: '10px 0 0 0',
     position: 'sticky',
     width: '100%',
     display: 'flex',
@@ -49,16 +43,29 @@ const styles = {
     border: 'none',
     cursor: 'pointer',
   },
-  table: {
-    marginBottom: '30px',
-    borderCollapse: 'separate',
-    borderSpacing: '20px 7px',
-    fontSize: '25px',
-  },
   clickedRow: {
     backgroundColor: 'rgba(242, 246, 239, 1)',
-    padding: '20px',
   },
+  buy_sell_box: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignitems: 'center',
+  },
+  buyOrder: {
+    width: '10%',
+    textAlign: 'right',
+    margin: 'auto',
+  },
+  sellOrder: {
+    width: '10%',
+    textAlign: 'left',
+    margin: 'auto',
+  },
+  price: {
+    textAlign: 'center',
+    fontSize: '25px',
+    margin: 'auto',
+  }
 };
 
 const Order = ({ orderData, currentPrice }) => {
@@ -83,32 +90,26 @@ const Order = ({ orderData, currentPrice }) => {
   };
 
   return (
-    <div style={styles.orderContainer}>
-      <table style={styles.table}>
-        <tbody>
-          {orderData.map((order, index) => (
-            <tr
-              key={index}
-              style={selectedRow === index ? styles.clickedRow : null}
-              onClick={() => handleRowClick(index)}
-            >
-              <td style={styles.buyOrder}>
-                {order.type === 'bid' ? (
-                  <span style={styles.quantity}>{order.quantity}</span>
-                ) : null}
-              </td>
-              <td style={{ textAlign: 'center' }}>
-                <span>{order.price.toFixed(2)}</span>
-              </td>
-              <td style={styles.sellOrder}>
-                {order.type === 'ask' ? (
-                  <span style={styles.quantity}>{order.quantity}</span>
-                ) : null}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={styles.dummyContainer}>
+      <div style={styles.orderContainer}>
+        {orderData.map((order, index) => (
+          <div style={styles.buy_sell_box}>
+            <div style={styles.buyOrder}>
+              {order.type === 'bid' ? (
+                <span style={styles.quantity}>{order.quantity}</span>
+              ) : null}
+            </div>
+            <div style={styles.price}>
+              <span>{order.price.toFixed(2)}</span>
+            </div>
+            <div style={styles.sellOrder}>
+              {order.type === 'ask' ? (
+                <span style={styles.quantity}>{order.quantity}</span>
+              ) : null}
+            </div>
+          </div>
+        ))}
+      </div>
       <div style={styles.buttonContainer}>
         <button style={styles.button} onClick={buyStock}>구매</button>
         <button style={styles.button} onClick={sellStock}>판매</button>
