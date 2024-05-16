@@ -83,41 +83,61 @@ const styles = {
     borderRadius: "5px",
     textAlign: "center",
   },
+  // 보유종목 
+  holdSection: {
+    flex: 1,
+    backgroundColor: '#F8F9FA',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+  },
+  holdSectionItem: {
+    padding: '5px 10px',
+    margin: '5px 0',
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    borderRadius: '5px',
+    textAlign: 'center',
+  },
   // 보유종목 포트폴리오
   portfolioSection: {
     flex: 1,
-    backgroundColor: "#F8F9FA",
-    borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
+    backgroundColor: '#F8F9FA',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
   },
 
   // rightsection
   // 대기주문
   pendingOrders: {
-    backgroundColor: "#F9F9F9",
-    borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-    maxHeight: "200px",
-    overflowY: "auto",
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    maxHeight: '200px',
+    overflowY: 'auto',
+  },
+  develop:{
+    color: '#808080',
   },
 
   // 관심주문
   favoriteOrders: {
-    backgroundColor: "#F9F9F9",
-    borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-    marginBottom: "10px",
-    maxHeight: "200px",
-    overflowY: "auto",
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
+    padding: '10px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    marginBottom: '10px',
+    maxHeight: '200px',
+    overflowY: 'auto',
   },
   item: {
     display: "flex",
@@ -156,26 +176,26 @@ const styles = {
 
   // 보유종목 뉴스
   ownedStocksNews: {
-    backgroundColor: "#F9F9F9",
-    borderRadius: "8px",
-    padding: "20px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-    maxHeight: "200px",
-    overflowY: "auto",
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
+    padding: '20px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    maxHeight: '200px',
+    overflowY: 'auto',
   },
 
   // 관심종목 뉴스
   favoriteStocksNews: {
-    backgroundColor: "#F9F9F9",
-    borderRadius: "8px",
-    padding: "20px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-    maxHeight: "200px",
-    overflowY: "auto",
+    backgroundColor: '#F9F9F9',
+    borderRadius: '8px',
+    padding: '20px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    maxHeight: '200px',
+    overflowY: 'auto',
   },
 
   // 뉴스 스타일
@@ -439,9 +459,7 @@ function Home() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const response = await axiosInstance.get(
-          "https://duckling-back.d-v.kro.kr/api/checkSession"
-        );
+        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession");
         if (response.status === 200) {
           if (response.data === "Success") {
             setIsLoading(false);
@@ -658,6 +676,20 @@ function Home() {
                 )}
               </div>
             </div>
+            <div style={styles.holdSection}>
+              <h2 style={styles.sectionTitle}>보유 종목</h2>
+              <div style={styles.sectionContent}>
+                {favoriteOrders.length > 0 ? (
+                  favoriteOrders.map((order, index) => (
+                  <div key={index} style={styles.holdSectionItem}>
+                    {order.name}
+                    </div>
+                    ))
+                ) : (
+                  <p>보유 종목이 없습니다.</p>
+                )}
+              </div>
+            </div>
             <div style={styles.portfolioSection}>
               <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>
               <div style={styles.sectionContent}>
@@ -673,6 +705,7 @@ function Home() {
         <div style={styles.rightsection}>
           <div style={styles.pendingOrders}>
             <h2>대기 주문</h2>
+            <p style={styles.develop}>추후 개발 예정입니다</p>
           </div>
 
           <div style={styles.favoriteOrders}>
