@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import Chart from 'chart.js/auto';
 import ScrollbarStyles from '../components/ScrollbarStyles.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const styles = {
@@ -461,9 +461,11 @@ function Home() {
               <div style={styles.sectionContent}>
                 {favoriteOrders.length > 0 ? (
                   favoriteOrders.map((order, index) => (
-                  <div key={index} style={styles.holdSectionItem}>
-                    {order.name}
-                    </div>
+                    <Link to={`/detail/${order.name}`}>
+                      <div key={index} style={styles.holdSectionItem}>
+                          {order.name}
+                        </div>
+                    </Link>
                     ))
                 ) : (
                   <p>보유 종목이 없습니다.</p>

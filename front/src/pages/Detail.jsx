@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import commonStyles from './commonStyles.jsx';
@@ -57,6 +58,9 @@ const styles = {
 };
 
 function Info() {
+  const ticker = useParams();
+  console.log("ticker", ticker);
+
   return (
     <div>
       <Navbar />

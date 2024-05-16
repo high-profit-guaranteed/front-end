@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -28,7 +28,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/home" element={<Home />} />
         <Route path="/info" element={<Info />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:ticker" element={<Detail />} />
         <Route path="/news" element={<News />} />
         <Route path="/channel" element={<Channel />} />
         <Route path="/settings" element={<Settings />} />

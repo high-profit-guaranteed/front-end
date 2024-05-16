@@ -53,6 +53,7 @@ const styles = {
 };
 
 const Detail = () => {
+  const ticker = useParams();
   const companyName = "NAVER";
   const navigate = useNavigate();
 
