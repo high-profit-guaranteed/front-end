@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import Topbar from '../components/Topbar.jsx';
-import Chart from 'chart.js/auto';
-import ScrollbarStyles from '../components/ScrollbarStyles.css';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useRef, useEffect, useState } from "react";
+import Navbar from "../components/Navbar.jsx";
+import Topbar from "../components/Topbar.jsx";
+import Chart from "chart.js/auto";
+import ScrollbarStyles from "../components/ScrollbarStyles.css";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const styles = {
@@ -49,13 +49,13 @@ const styles = {
     fontFamily: "Arial, sans-serif",
   },
   timeButton: {
-    margin: '0 5px',
-    padding: '5px 10px',
-    backgroundColor: '#EFEFEF',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
+    margin: "0 5px",
+    padding: "5px 10px",
+    backgroundColor: "#EFEFEF",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 
   // leftsection - down
@@ -68,71 +68,71 @@ const styles = {
   // 판매 수익
   revenueSection: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    backgroundColor: "#F8F9FA",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
-  // 보유종목 
+  // 보유종목
   holdSection: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
+    backgroundColor: "#F8F9FA",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
   },
   holdSectionItem: {
-    padding: '5px 10px',
-    margin: '5px 0',
-    backgroundColor: 'rgba(242, 246, 239, 1)',
-    borderRadius: '5px',
-    textAlign: 'center',
+    padding: "5px 10px",
+    margin: "5px 0",
+    backgroundColor: "rgba(242, 246, 239, 1)",
+    borderRadius: "5px",
+    textAlign: "center",
   },
   // 보유종목 포트폴리오
   portfolioSection: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
+    backgroundColor: "#F8F9FA",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
   },
 
   // rightsection
   // 대기주문
   pendingOrders: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
-  develop:{
-    color: '#808080',
+  develop: {
+    color: "#808080",
   },
 
   // 관심주문
   favoriteOrders: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    marginBottom: '10px',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    marginBottom: "10px",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
   item: {
     display: "flex",
@@ -171,26 +171,26 @@ const styles = {
 
   // 보유종목 뉴스
   ownedStocksNews: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "20px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
 
   // 관심종목 뉴스
   favoriteStocksNews: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "20px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
 
   // 뉴스 스타일
@@ -241,7 +241,7 @@ function Home() {
   const handleInterestNewsClick = () => {
     navigate("/News/Interest_news");
   };
-  
+
   const [isLoading, setIsLoading] = useState(true);
 
   const chartRefCanvas = useRef(null);
@@ -338,14 +338,14 @@ function Home() {
 
   // 보유 종목 예시 데이터
   const [holdOrders, setHoldOrders] = useState([
-    { id: 1, name: 'TSLA' },
-    { id: 2, name: 'AAPL' }
+    { id: 1, name: "TSLA" },
+    { id: 2, name: "AAPL" },
   ]);
 
-   // 관심 종목 예시 데이터
+  // 관심 종목 예시 데이터
   const [favoriteOrders, setFavoriteOrders] = useState([
-    { id: 1, name: 'GOOG', percentage: '20.3%' },
-    { id: 2, name: 'MSFT', percentage: '15.6%' }
+    { id: 1, name: "GOOG", percentage: "20.3%" },
+    { id: 2, name: "MSFT", percentage: "15.6%" },
   ]);
 
   // 관심 종목 추가, 변경
@@ -460,16 +460,16 @@ function Home() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession");
-        if (response.status === 200) {
-          if (response.data === "Success") {
-            setIsLoading(false);
-          } else {
-            navigate("/");
-          }
+        const response = await axiosInstance.get(
+          "https://duckling-back.d-v.kro.kr/api/checkSession"
+        );
+        if (response.status === 200 && response.data === "Success") {
+          setIsLoading(false);
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
+        console.log("Session is not valid");
+        navigate("/");
       }
     };
 
@@ -568,7 +568,7 @@ function Home() {
       let nameList = [];
       let valueList = [];
       stockBalance.forEach((stock) => {
-        nameList.push(stock.name+"("+stock.ticker+")");
+        nameList.push(stock.name + "(" + stock.ticker + ")");
         valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
       });
       // 판매내역 비율 그래프 나중에 수정
@@ -596,40 +596,75 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <Topbar />
+      <Topbar selectAccount={selectAccount} />
       <div style={styles.container}>
         <div style={styles.leftsection}>
-        <div style={styles.card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <div>
-              <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{totalAmount}</span>
-              <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
-                {displayAmountChange} ({displayPercentageChange})
-              </span>
+          <div style={styles.card}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
+              <div>
+                <h2 style={styles.cardTitle}>총 자산 현황</h2>
+                <span style={{ fontSize: "22px", fontWeight: "bold" }}>
+                  {balance}
+                </span>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    color: amountChange >= 0 ? "green" : "red",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {displayAmountChange} ({displayPercentageChange})
+                </span>
+              </div>
+              <div>
+                <button style={styles.timeButton}>1h</button>
+                <button style={styles.timeButton}>24h</button>
+                <button style={styles.timeButton}>1 Week</button>
+                <button style={styles.timeButton}>1 Month</button>
+                <button style={styles.timeButton}>1 Year</button>
+                <button style={styles.timeButton}>All time</button>
+              </div>
             </div>
-            <div>
-              <button style={styles.timeButton}>1h</button>
-              <button style={styles.timeButton}>24h</button>
-              <button style={styles.timeButton}>1 Week</button>
-              <button style={styles.timeButton}>1 Month</button>
-              <button style={styles.timeButton}>1 Year</button>
-              <button style={styles.timeButton}>All time</button>
-            </div>
+            <canvas ref={chartRefCanvas}></canvas>
           </div>
-          <canvas ref={chartRefCanvas}></canvas>
-        </div>
           <div style={styles.sectionsContainer}>
             <div style={styles.revenueSection}>
-              <div style={{ display: 'flex',  alignItems: 'center', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    marginBottom: "20px",
+                  }}
+                >
                   <h2 style={styles.sectionTitle}>판매 수익</h2>
                   <select
                     value={selectedDay}
                     onChange={handleDayChange}
-                    style={{ padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px'}}>
+                    style={{
+                      padding: "5px 10px",
+                      border: "2px solid #ccc",
+                      borderRadius: "4px",
+                    }}
+                  >
                     {Object.keys(salesData).map((day) => (
-                      <option key={day} value={day}>{day}</option>
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -647,10 +682,11 @@ function Home() {
                 {/* 배열에 하나 이상의 보유 종목이 있는지 확인 */}
                 {holdOrders.length > 0 ? (
                   holdOrders.map((order, index) => (
-                    <Link to={`/detail/${order.name.toLowerCase()}`}>
-                      <div key={index} style={styles.holdSectionItem}>
-                        {order.name}
-                      </div>
+                    <Link
+                      key={index}
+                      to={`/detail/${order.name.toLowerCase()}`}
+                    >
+                      <div style={styles.holdSectionItem}>{order.name}</div>
                     </Link>
                   ))
                 ) : (
