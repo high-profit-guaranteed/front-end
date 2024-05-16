@@ -78,9 +78,17 @@ const axiosInstance = axios.create({
 
 const nullAccount = ["", ""]; // 계좌 정보가 없을 때의 상태
 
-const Topbar = ({selectAccount}) => {
+const Topbar = ({ selectAccount }) => {
   const [accounts, setAccounts] = useState([nullAccount]); // 계좌 목록 상태
-  const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 상태
+  const [selectedAccount, setSelectedAccount] = useState(""); // 선택된 계좌 상태
+
+  const handleSelectChange = (event) => {
+    // console.log(event.target.value);
+
+    // 계좌 변경
+    setSelectedAccount(event.target.value);
+    if (selectAccount) selectAccount(event.target.value);
+  };
 
   const getAccounts = async () => {
     try {
@@ -89,10 +97,10 @@ const Topbar = ({selectAccount}) => {
       );
       if (response.status === 200 && response.data.accounts.length > 0) {
         let accountList = [];
-        response.data.accounts.forEach(account => {
+        response.data.accounts.forEach((account) => {
           accountList.push([account.accountName, account.accountId]);
         });
-        
+
         setAccounts(accountList);
       }
     } catch (error) {
@@ -100,18 +108,16 @@ const Topbar = ({selectAccount}) => {
     }
   };
 
-  const handleSelectChange = (event) => {
-    // console.log(event.target.value);
-  
-    // 계좌 변경
-    setSelectedAccount(event.target.value);
-    if (selectAccount) selectAccount(event.target.value);
-  }
+  useEffect(() => {
+    if (accounts.length === 1 && accounts[0][0] === "" && accounts[0][1] === "")
+      getAccounts();
+    else
+      setSelectedAccount(accounts[0][1]);
+  }, [accounts]);
 
   useEffect(() => {
-    if (accounts.length === 1 && accounts[0][0] === "" && accounts[0][1] === "") getAccounts();
-    else setSelectedAccount(accounts[0][1]);
-  }, [accounts]);
+    if (selectedAccount !== "" && selectAccount) selectAccount(selectedAccount);
+  }, [selectedAccount, selectAccount]);
 
   return (
     <div style={styles.topbar}>
