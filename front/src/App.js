@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Login from './pages/Login';
@@ -17,10 +17,26 @@ import Holding_news from './pages/News_pages/Holding_news';
 import Interest_news from './pages/News_pages/Interest_news';
 
 import Board from './pages/Channel_page/Board';
-import BoardList from './pages/Channel_page/BoardList';
 import Post from './pages/Channel_page/Post';
+import NewPost from './pages/Channel_page/NewPost';
+import PostDetail from './pages/Channel_page/PostDetail';
 
-function App() {
+const App = () => {
+  const initialBoards = [
+    { title: 'Free', posts: [] },
+    { title: 'Apple', posts: [] },
+    { title: 'MS', posts: [] },
+    { title: 'Alphabet', posts: [] },
+    { title: 'Amazon', posts: [] },
+    { title: 'NVIDIA', posts: [] },
+    { title: 'Meta', posts: [] },
+    { title: 'TSLA', posts: [] },
+    { title: 'Broadcom', posts: [] },
+    { title: 'COST', posts: [] },
+    { title: 'ASML', posts: [] },
+  ];
+  const [boards, setBoards] = useState(initialBoards);
+
   return (
     <div className="App">
       <Routes>
@@ -30,7 +46,7 @@ function App() {
         <Route path="/info" element={<Info />} />
         <Route path="/detail/:ticker" element={<Detail />} />
         <Route path="/news" element={<News />} />
-        <Route path="/channel" element={<Channel />} />
+        <Route path="/channel" element={<Channel boards={boards} setBoards={setBoards} />} />
         <Route path="/settings" element={<Settings />} />
 
         <Route path="/ddetail" element={<Ddetail />} />
@@ -41,8 +57,9 @@ function App() {
         <Route path="/News/Interest_news" element={<Interest_news />} />
 
         <Route path="/board" element={<Board />} />
-        <Route path="/boardlist" element={<BoardList />} />
-        <Route path="/post" element={<Post />} />
+        <Route path="/channel/board" element={<Board />} />
+        <Route path="/new-post" element={<NewPost boards={boards} setBoards={setBoards} />} />
+        <Route path="/post/:postId" element={<PostDetail boards={boards} />} />
       </Routes>
     </div>
   );
