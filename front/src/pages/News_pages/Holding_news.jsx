@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar.jsx';
 import Topbar from '../../components/Topbar.jsx';
-import additionalImage1 from '../../images/news/test.png';
+import apple1 from '../../images/news/apple1.png';
+import apple2 from '../../images/news/apple2.png';
+import apple3 from '../../images/news/apple3.png';
+import apple4 from '../../images/news/apple4.png';
+import tesla1 from '../../images/news/tesla1.png';
+import tesla2 from '../../images/news/tesla2.png';
+import tesla3 from '../../images/news/tesla3.png';
+import tesla4 from '../../images/news/tesla4.png';
 
 const styles = {
   container: {
@@ -90,33 +97,21 @@ const styles = {
   },
 };
 
-const tabs = ['Apple', 'MS', 'Alphabet', 'Amazon'];
+const tabs = ['Apple', 'Tesla'];
 
 const newsData = {
   'Apple': [
-    { title: "Apple Launches New iPhone", date: "Oct 5", readTime: "5 Mins read", imageUrl: additionalImage1 },
-    { title: "Apple Stock Hits New Highs", date: "Oct 12", readTime: "3 Mins read", imageUrl: additionalImage1 },
-    { title: "Exploring Apple's Latest MacOS", date: "Nov 1", readTime: "8 Mins read", imageUrl: additionalImage1 },
-    { title: "Apple Announces New iPad", date: "Nov 20", readTime: "6 Mins read", imageUrl: additionalImage1 }
+    { title: "Shiny Apple? 3 Reasons to Buy and Hold AAPL Stock Forever.", date: "May 16", readTime: "5 Mins read", imageUrl: apple1, newsUrl:"https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/" },
+    { title: "Apple Shares Are Back to Winning Ways as AI Optimism Builds", date:"May 16", readTime: "3 Mins read", imageUrl: apple2, newsUrl:"https://finance.yahoo.com/news/apple-shares-back-winning-ways-122134268.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAALcwVlRbuaS0VdmeCRpOVcUDndK1NBN34yD6Q7ycVu5Hv3MsKYiKF-tHVJXiIjhKwwrAs64-nauLUdp75B7EvuO6pMK4NdL6hkxA5OIRV2wPJDIn7eKlNy_DR3YyhVOnCevO3ruxJtYkYqYN0IitE0L4bNM9uHBEtK_RBtQFJ15k" },
+    { title: "Apple Stock Rises. It May Be Bringing OpenAI to the iPhone.", date: "May 13", readTime: "8 Mins read", imageUrl: apple3, newsUrl:"https://www.barrons.com/articles/apple-stock-price-openai-580dfcb0" },
+    { title: "Apple Addiction: 3 Fund Managers Doubling Down on AAPL Stock", date: "May 16", readTime: "6 Mins read", imageUrl: apple4, newsUrl:"https://investorplace.com/2024/05/apple-addiction-3-fund-managers-doubling-down-on-aapl-stock/" }
   ],
-  'MS': [
-    { title: "Microsoft Releases Surface Pro", date: "Sep 22", readTime: "4 Mins read", imageUrl: additionalImage1 },
-    { title: "Microsoft", date: "Oct 12", readTime: "3 Mins read", imageUrl: additionalImage1 },
-    { title: "Microsoft", date: "Nov 1", readTime: "8 Mins read", imageUrl: additionalImage1 },
-    { title: "Microsoft", date: "Nov 20", readTime: "6 Mins read", imageUrl: additionalImage1 }
-  ],
-  'Alphabet': [
-    { title: "Alphabet", date: "Sep 22", readTime: "4 Mins read", imageUrl: additionalImage1 },
-    { title: "Alphabet", date: "Oct 12", readTime: "3 Mins read", imageUrl: additionalImage1 },
-    { title: "Alphabet", date: "Nov 1", readTime: "8 Mins read", imageUrl: additionalImage1 },
-    { title: "Alphabet", date: "Nov 20", readTime: "6 Mins read", imageUrl: additionalImage1 }
-  ],
-  'Amazon': [
-    { title: "Amazon", date: "Sep 22", readTime: "4 Mins read", imageUrl: additionalImage1 },
-    { title: "Amazon", date: "Oct 12", readTime: "3 Mins read", imageUrl: additionalImage1 },
-    { title: "Amazon", date: "Nov 1", readTime: "8 Mins read", imageUrl: additionalImage1 },
-    { title: "Amazon", date: "Nov 20", readTime: "6 Mins read", imageUrl: additionalImage1 }
-  ],
+  'Tesla': [
+    { title: "Should I buy Tesla shares?", date: "May 17", readTime: "4 Mins read", imageUrl: tesla1, newsUrl:"https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares" },
+    { title: "Tesla Stock: Hold or Fold? Unpacking the Robotaxi Roadmap and EV Outlook.", date: "May 16", readTime: "3 Mins read", imageUrl: tesla2, newsUrl:"https://investorplace.com/2024/05/tesla-stock-hold-or-fold-unpacking-the-robotaxi-roadmap-and-ev-outlook/" },
+    { title: "Magnificent Seven Stocks: Nvidia, Tesla Rally; Google, Meta Slide", date: "May 16", readTime: "8 Mins read", imageUrl: tesla3, newsUrl:"https://www.investors.com/research/magnificent-seven-stocks-to-buy-and-and-watch/" },
+    { title: "Tesla Stock in Focus after EV Maker Launches Model Y Financing Initiative", date: "May 13", readTime: "6 Mins read", imageUrl: tesla4, newsUrl:"https://www.investopedia.com/tesla-stock-in-focus-after-ev-maker-launches-model-y-financing-initiative-8647318" }
+  ]
 };
 
 function getFourNewsItems(newsArray) {
@@ -130,7 +125,7 @@ function getFourNewsItems(newsArray) {
 }
 
 
-function Holding_news() {
+function Interest_news() {
     // const [stocks, setStocks] = useState([]); // 보유 종목 목록 상태
     const [activeTab, setActiveTab] = useState('Apple'); // 초기 탭 설정
     const [activeNews, setActiveNews] = useState(newsData['Apple']); // 초기 뉴스 설정
@@ -184,7 +179,9 @@ function Holding_news() {
           <div style={styles.underSection}>
             {activeNews.map((item, index) => (
               <div key={index} style={styles.newsCard}>
-                <img src={item.imageUrl} alt="News" style={styles.newsImage} />
+                <a href={item.newsUrl} target="_blank">
+                  <img src={item.imageUrl} alt="News" style={styles.newsImage} />
+                </a>
                 <div style={styles.newsContent}>
                   <div style={styles.newsTitle}>{item.title}</div>
                   <div style={styles.newsMeta}>{item.date} • {item.readTime}</div>
@@ -201,4 +198,4 @@ function Holding_news() {
   );
 }
 
-export default Holding_news;
+export default Interest_news;

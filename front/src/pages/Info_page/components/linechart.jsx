@@ -42,7 +42,7 @@ const LineChart = () => {
                 upward: '#3C90EB',
                 downward: '#DF7D46'
             }
-            }
+          }
         }
     };
 
