@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
-import Navbar from "../components/Navbar.jsx";
-import Topbar from "../components/Topbar.jsx";
-import Chart from "chart.js/auto";
-import ScrollbarStyles from "../components/ScrollbarStyles.css";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useEffect, useState } from 'react';
+import Navbar from '../components/Navbar.jsx';
+import Topbar from '../components/Topbar.jsx';
+import Chart from 'chart.js/auto';
+import ScrollbarStyles from '../components/ScrollbarStyles.css';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from "axios";
 
 const styles = {
@@ -68,7 +68,6 @@ const styles = {
   // 판매 수익
   revenueSection: {
     flex: 1,
-<<<<<<< front-sh
     backgroundColor: '#F8F9FA',
     borderRadius: '8px',
     padding: '10px',
@@ -78,31 +77,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-=======
-    backgroundColor: "#F8F9FA",
-    borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-  },
-  // 보유종목
-  holdSection: {
-    flex: 1,
-    backgroundColor: "#F8F9FA",
-    borderRadius: "8px",
-    padding: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-  },
-  holdSectionItem: {
-    padding: "5px 10px",
-    margin: "5px 0",
-    backgroundColor: "rgba(242, 246, 239, 1)",
-    borderRadius: "5px",
-    textAlign: "center",
->>>>>>> main
   },
   // 보유종목 
   holdSection: {
@@ -277,9 +251,6 @@ function Home() {
   const revenueChartRef = useRef(null);
 
   const [showGraph, setShowGraph] = useState(false);
-
-<<<<<<< front-sh
-=======
   const [accountId, setAccountId] = useState(""); // 계좌 id
 
   const selectAccount = (id) => {
@@ -337,7 +308,6 @@ function Home() {
     }
   };
 
->>>>>>> main
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
   const [balance, setBalance] = useState("0.0");
   const [stockBalance, setStockBalance] = useState([]);
@@ -374,13 +344,8 @@ function Home() {
 
    // 관심 종목 예시 데이터
   const [favoriteOrders, setFavoriteOrders] = useState([
-<<<<<<< front-sh
     { id: 1, name: 'GOOG', percentage: '20.3%' },
     { id: 2, name: 'MSFT', percentage: '15.6%' }
-=======
-    { id: 1, name: "TSLA", percentage: "20.3%" },
-    { id: 2, name: "AAPL", percentage: "15.6%" },
->>>>>>> main
   ]);
 
   // 관심 종목 추가, 변경
@@ -435,15 +400,6 @@ function Home() {
   // };
 
   useEffect(() => {
-<<<<<<< front-sh
-    const checkSession = async () => {
-      try {
-        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
-        if (response.status === 200) {
-          if (response.data === "Success") {
-            setIsLoading(false);
-            setShowGraph(true);
-=======
     // fetchNews();
 
     if (showGraph) {
@@ -508,7 +464,6 @@ function Home() {
         if (response.status === 200) {
           if (response.data === "Success") {
             setIsLoading(false);
->>>>>>> main
           } else {
             navigate("/");
           }
@@ -516,16 +471,6 @@ function Home() {
       } catch (error) {
         console.error(error);
       }
-<<<<<<< front-sh
-    }
-
-    // 세션 체크
-    checkSession();
-  
-    // fetchNews();
-    
-    if (showGraph && chartRef.current && revenueChartRef.current) {
-=======
     };
 
     checkSession();
@@ -591,7 +536,6 @@ function Home() {
         }
       }
 
->>>>>>> main
       // 자산 현황 그래프 나중에 수정
       const ctx = chartRefCanvas.current.getContext("2d");
       const myChart = new Chart(ctx, {
@@ -655,7 +599,6 @@ function Home() {
       <Topbar />
       <div style={styles.container}>
         <div style={styles.leftsection}>
-<<<<<<< front-sh
         <div style={styles.card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <div>
@@ -673,74 +616,20 @@ function Home() {
               <button style={styles.timeButton}>1 Year</button>
               <button style={styles.timeButton}>All time</button>
             </div>
-=======
-          <div style={styles.card}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "20px",
-              }}
-            >
-              <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <div>
-                <span style={{ fontSize: "18px", fontWeight: "bold" }}>
-                  {balance} USD
-                </span>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    color: amountChange >= 0 ? "green" : "red",
-                    marginLeft: "10px",
-                  }}
-                >
-                  {displayAmountChange} ({displayPercentageChange})
-                </span>
-              </div>
-            </div>
-            <canvas ref={chartRefCanvas}></canvas>
->>>>>>> main
           </div>
-          <canvas ref={chartRef}></canvas>
+          <canvas ref={chartRefCanvas}></canvas>
         </div>
           <div style={styles.sectionsContainer}>
             <div style={styles.revenueSection}>
-<<<<<<< front-sh
               <div style={{ display: 'flex',  alignItems: 'center', marginBottom: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
-=======
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "20px",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
->>>>>>> main
                   <h2 style={styles.sectionTitle}>판매 수익</h2>
                   <select
                     value={selectedDay}
                     onChange={handleDayChange}
-<<<<<<< front-sh
                     style={{ padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px'}}>
-                    {Object.keys(salesData).map(day => (
-                      <option key={day} value={day}>{day}</option>
-=======
-                    style={{
-                      marginLeft: "15px",
-                      padding: "5px 10px",
-                      border: "2px solid #ccc",
-                      borderRadius: "4px",
-                    }}
-                  >
                     {Object.keys(salesData).map((day) => (
-                      <option key={day} value={day}>
-                        {day}
-                      </option>
->>>>>>> main
+                      <option key={day} value={day}>{day}</option>
                     ))}
                   </select>
                 </div>
@@ -755,27 +644,15 @@ function Home() {
             <div style={styles.holdSection}>
               <h2 style={styles.sectionTitle}>보유 종목</h2>
               <div style={styles.sectionContent}>
-                {favoriteOrders.length > 0 ? (
-                  favoriteOrders.map((order, index) => (
-                    <div key={index} style={styles.holdSectionItem}>
-                      {order.name}
-                    </div>
-                  ))
-                ) : (
-                  <p>보유 종목이 없습니다.</p>
-                )}
-              </div>
-            </div>
-            <div style={styles.holdSection}>
-              <h2 style={styles.sectionTitle}>보유 종목</h2>
-              <div style={styles.sectionContent}>
                 {/* 배열에 하나 이상의 보유 종목이 있는지 확인 */}
                 {holdOrders.length > 0 ? (
                   holdOrders.map((order, index) => (
-                  <div key={index} style={styles.holdSectionItem}>
-                    {order.name}
-                    </div>
-                    ))
+                    <Link to={`/detail/${order.name.toLowerCase()}`}>
+                      <div key={index} style={styles.holdSectionItem}>
+                        {order.name}
+                      </div>
+                    </Link>
+                  ))
                 ) : (
                   <p>보유 종목이 없습니다.</p>
                 )}

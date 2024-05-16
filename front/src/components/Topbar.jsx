@@ -124,8 +124,6 @@ const Topbar = ({ selectAccount }) => {
     }
   };
 
-  // 여기부터
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -146,8 +144,6 @@ const Topbar = ({ selectAccount }) => {
       executeSearch();
     }
   };
-
-  // 여기까지 수정하기
 
   useEffect(() => {
     if (accounts.length === 1 && accounts[0][0] === "" && accounts[0][1] === "")

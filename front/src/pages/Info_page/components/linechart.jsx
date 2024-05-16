@@ -13,6 +13,10 @@ const LineChart = () => {
       },
       series: [{
         data: [{
+          x: new Date(2024, 5, 9),
+          y: [53.66, 54.99, 51.35, 52.95]
+        },
+        {
           x: new Date(2024, 5, 10),
           y: [51.98, 56.29, 51.59, 53.85]
         },
@@ -38,7 +42,7 @@ const LineChart = () => {
                 upward: '#3C90EB',
                 downward: '#DF7D46'
             }
-            }
+          }
         }
     };
 
