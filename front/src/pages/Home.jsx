@@ -461,7 +461,7 @@ function Home() {
               <div style={styles.sectionContent}>
                 {favoriteOrders.length > 0 ? (
                   favoriteOrders.map((order, index) => (
-                    <Link to={`/detail/${order.name}`}>
+                    <Link to={`/detail/${order.name.toLowerCase()}`}>
                       <div key={index} style={styles.holdSectionItem}>
                           {order.name}
                         </div>

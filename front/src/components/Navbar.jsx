@@ -51,7 +51,6 @@ const Navbar = () => {
   const menuItems = [
     { Icon: AiOutlineHome, text: 'Home', path: '/Home' },
     { Icon: AiOutlineInfoCircle, text: 'Info', path: '/Info' },
-    { Icon: AiOutlineInfoCircle, text: 'Detail', path: '/Detail' },
     { Icon: AiOutlineBook, text: 'News', path: '/News' },
     { Icon: AiOutlinePlayCircle, text: 'Channel', path: '/Channel' },
     { Icon: AiOutlineSetting, text: 'Settings', path: '/Settings' },
