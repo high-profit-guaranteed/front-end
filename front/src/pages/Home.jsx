@@ -106,6 +106,9 @@ const styles = {
     maxHeight: '200px',
     overflowY: 'auto',
   },
+  develop:{
+    color: '#808080',
+  },
 
   // 관심주문
   favoriteOrders: {
@@ -449,6 +452,7 @@ function Home() {
         <div style={styles.rightsection}>
           <div style={styles.pendingOrders}>
             <h2>대기 주문</h2>
+            <p style={styles.develop}>추후 개발 예정입니다</p>
           </div>
 
           <div style={styles.favoriteOrders}>

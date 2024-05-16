@@ -1,7 +1,7 @@
 import React from 'react';
 
 const BoardList = () => {
-  const boards = ['자유', 'Apple', 'MS', 'Alphabet', 'Amazon', 'NVIDIA', 'Meta', 'TSLA', 
+  const boards = ['Free', 'Apple', 'MS', 'Alphabet', 'Amazon', 'NVIDIA', 'Meta', 'TSLA', 
                   'Broadcom', 'COST', 'ASML'];
   
   return (
