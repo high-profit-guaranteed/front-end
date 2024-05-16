@@ -210,6 +210,7 @@ function Settings() {
                 <option>Dark</option>
               </select>
             </label>
+            <p style={styles.develop}>추후 개발 예정입니다</p>
           </div>
         );
   
@@ -218,6 +219,7 @@ function Settings() {
         return (
           <div style={styles.profileDetails}>
             <h2>Service center</h2>
+            <p style={styles.develop}>추후 개발 예정입니다</p>
           </div>
         );
   

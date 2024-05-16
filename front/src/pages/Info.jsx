@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
+import LineChart from './Info_page/components/linechart.jsx';
 
 const styles = {
   container: {
@@ -89,9 +90,9 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: '15px 10px',
-    borderBottom: '1px solid #eee',
+    borderBottom: '2px solid #eee',
     fontSize: '16px',
-    fontWeight: '500',
+    fontWeight: '700',
     cursor: 'pointer',
   },
   symbolUp: {
@@ -116,8 +117,8 @@ const styles = {
   },
   // lrightSection - top
   downSection2: {
-    width: '90%',
-    height: '83.5%',
+    width: '95%',
+    height: '100%',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -235,7 +236,7 @@ const styles = {
 
 
 function Info() {
-  const [selectedMenu, setSelectedMenu] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState('Trading');
   const [selectedStock, setSelectedStock] = useState(null);
 
   const menuItems = ["Trading", "Popularity", "Soaring", "Decline", "Interest"];
@@ -303,6 +304,11 @@ function Info() {
     ]
   };
 
+  useEffect(() => {
+    setSelectedMenu('Trading');
+    setSelectedStock(stockData.Trading[0]);
+  }, []);
+
   function renderStockList(category) {
     const list = stockData[category]?.map(stock => (
       <div key={stock.rank} 
@@ -349,7 +355,9 @@ function Info() {
               {selectedStock ? (
               <React.Fragment>
                 <div style={styles.stockBox}>
-                  <h3>그래프 넣을 예정</h3>
+                  <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                    <LineChart />
+                  </div>
                 </div>
                 <div style={styles.stockDetail}><b>Name:</b> {selectedStock.name}</div>
                 <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>

@@ -48,6 +48,15 @@ const styles = {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
   },
+  timeButton: {
+    margin: '0 5px',
+    padding: '5px 10px',
+    backgroundColor: '#EFEFEF',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+  },
 
   // leftsection - down
   // 판매 수익, 보유종목 포트폴리오
@@ -65,6 +74,9 @@ const styles = {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Arial, sans-serif',
     textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   // 보유종목 
   holdSection: {
@@ -105,6 +117,9 @@ const styles = {
     textAlign: 'center',
     maxHeight: '200px',
     overflowY: 'auto',
+  },
+  develop:{
+    color: '#808080',
   },
 
   // 관심주문
@@ -218,7 +233,6 @@ const axiosInstance = axios.create({
 
 function Home() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleHoldingNewsClick = () => {
     navigate('/News/Holding_news');
@@ -227,18 +241,12 @@ function Home() {
   const handleInterestNewsClick = () => {
     navigate('/News/Interest_news');
   };
+  
+  const [isLoading, setIsLoading] = useState(true);
 
   const chartRef = useRef(null);
   const revenueChartRef = useRef(null);
   const [showGraph, setShowGraph] = useState(false);
-
-  const [accountId, setAccountId] = useState(''); // 계좌 id
-
-  const selectAccount = (id) => {
-    setAccountId(id);
-    console.log(id);
-    getBalance(id);
-  }
 
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
   const [totalAmount, setTotalAmount] = useState("500,000 USD");
@@ -265,11 +273,17 @@ function Home() {
     Sunday: { revenue: "90,000", change: -110 },
   };
 
-  // 관심 종목 예시 데이터
+  // 보유 종목 예시 데이터
+  const [holdOrders, setHoldOrders] = useState([
+    { id: 1, name: 'TSLA' },
+    { id: 2, name: 'AAPL' }
+  ]);
+
+   // 관심 종목 예시 데이터
   const [favoriteOrders, setFavoriteOrders] = useState([
-    { id: 1, name: 'TSLA', percentage: '20.3%' },
-    { id: 2, name: 'AAPL', percentage: '15.6%' }
-  ]);;
+    { id: 1, name: 'GOOG', percentage: '20.3%' },
+    { id: 2, name: 'MSFT', percentage: '15.6%' }
+  ]);
 
   // 관심 종목 추가, 변경
   const handleAddItem = () => {
@@ -320,44 +334,25 @@ function Home() {
   //   }
   // };
 
-  const checkSession = async () => {
-    try {
-      const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession");
-      if (response.status === 200) {
-        if (response.data === "Success") {
-          setIsLoading(false);
-          setShowGraph(true);
-        } else {
-          navigate("/");
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const getBalance = async (id) => {
-    try {
-      const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/balance?accountId=" + id);
-      if (response.status === 200) {
-        console.log(response.data.balance);
-        let price = Number(response.data.balance.toString().replaceAll(',', ''));
-        if(isNaN(price)) {
-          setTotalAmount('error');
-        } else {
-          setTotalAmount(price.toLocaleString('ko-KR') + '원');
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession", "{}");
+        if (response.status === 200) {
+          if (response.data === "Success") {
+            setIsLoading(false);
+            setShowGraph(true);
+          } else {
+            navigate("/");
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
     // 세션 체크
     checkSession();
-  
   
     // fetchNews();
     
@@ -422,34 +417,42 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <Topbar selectAccount={selectAccount} />
+      <Topbar />
       <div style={styles.container}>
         <div style={styles.leftsection}>
-          <div style={styles.card}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div style={styles.card}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div>
               <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <div>
-                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{totalAmount}</span>
-                <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
-                  {displayAmountChange} ({displayPercentageChange})
-                </span>
-              </div>
+              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{totalAmount}</span>
+              <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
+                {displayAmountChange} ({displayPercentageChange})
+              </span>
             </div>
-            <canvas ref={chartRef}></canvas>
+            <div>
+              <button style={styles.timeButton}>1h</button>
+              <button style={styles.timeButton}>24h</button>
+              <button style={styles.timeButton}>1 Week</button>
+              <button style={styles.timeButton}>1 Month</button>
+              <button style={styles.timeButton}>1 Year</button>
+              <button style={styles.timeButton}>All time</button>
+            </div>
           </div>
+          <canvas ref={chartRef}></canvas>
+        </div>
           <div style={styles.sectionsContainer}>
             <div style={styles.revenueSection}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h2 style={styles.sectionTitle}>판매 수익</h2>
-                <select
-                  value={selectedDay}
-                  onChange={handleDayChange}
-                  style={{ marginLeft: '15px', padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px' }}>
-                  {Object.keys(salesData).map(day => (
-                    <option key={day} value={day}>{day}</option>
-                  ))}
-                </select>
+              <div style={{ display: 'flex',  alignItems: 'center', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+                  <h2 style={styles.sectionTitle}>판매 수익</h2>
+                  <select
+                    value={selectedDay}
+                    onChange={handleDayChange}
+                    style={{ padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px'}}>
+                    {Object.keys(salesData).map(day => (
+                      <option key={day} value={day}>{day}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div style={styles.sectionContent}>
@@ -459,8 +462,9 @@ function Home() {
             <div style={styles.holdSection}>
               <h2 style={styles.sectionTitle}>보유 종목</h2>
               <div style={styles.sectionContent}>
-                {favoriteOrders.length > 0 ? (
-                  favoriteOrders.map((order, index) => (
+                {/* 배열에 하나 이상의 보유 종목이 있는지 확인 */}
+                {holdOrders.length > 0 ? (
+                  holdOrders.map((order, index) => (
                   <div key={index} style={styles.holdSectionItem}>
                     {order.name}
                     </div>
@@ -482,6 +486,7 @@ function Home() {
         <div style={styles.rightsection}>
           <div style={styles.pendingOrders}>
             <h2>대기 주문</h2>
+            <p style={styles.develop}>추후 개발 예정입니다</p>
           </div>
 
           <div style={styles.favoriteOrders}>

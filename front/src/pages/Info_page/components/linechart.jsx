@@ -8,7 +8,8 @@ const LineChart = () => {
     const options = {
       chart: {
         type: 'candlestick',
-        height:500
+        toolbar: { show: false },
+        height:380
       },
       series: [{
         data: [{
@@ -24,9 +25,13 @@ const LineChart = () => {
           y: [52.76, 57.35, 52.15, 57.03]
         }]
       }],
-    //   xaxis: {
-    //     categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-    //   },
+      xaxis: {
+        labels: { show: false },
+        axisTicks: { show: false },
+        axisBorder: { show: false },
+        categories: ["1660004640", "1660091040", "1660177440"],
+        type: "datetime",
+      },
         plotOptions: {
             candlestick: {
             colors: {
