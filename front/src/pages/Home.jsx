@@ -558,7 +558,7 @@ function Home() {
         valueList = [-1];
       } else {
         stockBalance.forEach((stock) => {
-          nameList.push(stock.name + "(" + stock.ticker + ")");
+          nameList.push(stock.name + "(" + stock.ticker + ") " + stock.amount + "주");
           valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
         });
       }
