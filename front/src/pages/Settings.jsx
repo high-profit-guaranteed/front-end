@@ -95,7 +95,8 @@ const styles = {
     padding: '10px',
     borderRadius: '5px',
     border: '1px solid #ccc',
-    width: '100%'
+    width: '100%',
+    resize: 'none'
   },
 
   // 계좌추가 버튼
@@ -121,6 +122,12 @@ const styles = {
     cursor: 'pointer',
     fontSize: '16px',
     textDecoration: 'none'
+  },
+
+  //추후 업데이트 예정입니다
+  develop:{
+    color: '#808080',
+    fontStyle: 'italic',
   },
 }
 
@@ -210,7 +217,7 @@ function Settings() {
                 <option>Dark</option>
               </select>
             </label>
-            <p style={styles.develop}>추후 개발 예정입니다</p>
+            <p style={styles.develop}>추후 업데이트 예정입니다</p>
           </div>
         );
   
@@ -219,7 +226,7 @@ function Settings() {
         return (
           <div style={styles.profileDetails}>
             <h2>Service center</h2>
-            <p style={styles.develop}>추후 개발 예정입니다</p>
+            <p style={styles.develop}>추후 업데이트 예정입니다</p>
           </div>
         );
   

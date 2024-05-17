@@ -2,11 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
-import newsImage from '../images/news/news1.png';
-import additionalImage1 from '../images/news/test.png';
-import additionalImage2 from '../images/news/test1.jpg';
-import sideNewsIcon from '../images/news/test2.jpg';
-
+import news1 from '../images/news/news1.png';
+import news2 from '../images/news/news2.png';
+import news3 from '../images/news/news3.png';
+import news4 from '../images/news/news4.png';
+import news5 from '../images/news/news5.png';
+import news6 from '../images/news/apple2.png';
+import news7 from '../images/news/apple1.png';
+import news8 from '../images/news/google1.png';
+// 수정 - 사진 추가
 
 const styles = {
   container: {
@@ -23,14 +27,14 @@ const styles = {
     justifyContent: 'space-between',
   },
 
+  // 수정
+  // contentContainer과 sideNewsContainer 비율 바꿈
   contentContainer: {
-    display: 'flex',
-    flex: '3',
+    width: '60%',
     flexDirection: 'column',
   },
   sideNewsContainer: {
-    display: 'flex',
-    flex: '0.5',
+    width: '40%',
     flexDirection: 'column',
     gap: '0px',    
     marginLeft: '6%',
@@ -58,6 +62,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     cursor: 'pointer',
+    // 추가
+    overflow: 'hidden',
   },
 
   // 부가적인 뉴스
@@ -70,6 +76,8 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
     display: 'flex',
     flexDirection: 'column',
+    // 추가
+    overflow: 'hidden',
   },
   additionalContainer: {
     display: 'flex',
@@ -122,13 +130,14 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: '10px',
+    gap: '20px',
   },
   titleButtonContainer: {
     display: 'flex',
     gap: '50px',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'flex-end', // 수정 - 추가
     overflow: 'hidden',
   },
   
@@ -192,61 +201,93 @@ const styles = {
   },  
 };
 
+// newsData 찐뉴스로 수정
 const newsData = [
   {
     id: 1,
-    title: "제주항공, 작년 호텔·지상조업·IT 자회사 역대 최대 매출",
-    image: newsImage,
-    description: "(서울=연합뉴스) 이승연 기자 = 제주항공은 호텔, 지상조업, 정보기술(IT) 서비스 사업 등을 담당하는 자회사들이 지난해 역대 최대 매출을 기록했다고 21일 밝혔다."
+    title: "Stock Market LIVE Updates: Sensex up 230 pts, Nifty near 22,450; auto stocks lead gains",
+    image: news1,
+    description: "Sensex Today | Stock Market LIVE Updates | Nifty Consumer durables Index led gains, up 2.2%. Nifty Auto and Realty followed, rising 1.4% and 1% respectively. Meanwhile, Nifty IT saw the biggest decline, down 0.4%.",
+    // 수정
+    // url 추가
+    newsUrl:"https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares"
   },
   {
     id: 2,
-    title: "새로운 IT 혁신 발표",
-    image: newsImage,
-    description: "최신 IT 기술들이 시장에 미치는 영향에 대한 포괄적 분석."
+    title: "A surging stock market may not need a catalyst — but it's getting one",
+    image: news2,
+    description: "This is The Takeaway from today's Morning Brief, which you can sign up to receive in your inbox every morning along with:",
+    // 수정
+    // url 추가
+    newsUrl: "https://finance.yahoo.com/news/a-surging-stock-market-may-not-need-a-catalyst--but-its-getting-one-100459469.html"
   },
   {
     id: 3,
-    title: "News",
-    image: additionalImage1,
-    description: "News"
+    title: "Stock Market Highlights, May 17: Sensex up 253 pts, Nifty tops 22,450; broader indices outperform",
+    image: news3,
+    description: "Closing Bell on May 17, 2024: Equity markets stayed range-bound on Friday after a significantly volatile session a day before. The S&P BSE Sensex settled 253 points, or 0.34 per cent, higher at 73,917 levels, while the Nifty50 ended at 22,466, up 62 points or 0.28 per cent",
+    // 수정
+    // url 추가
+    newsUrl: "https://www.business-standard.com/markets/news/stock-market-live-updates-may-17-sensex-nifty-q4-vodafone-biocon-vedanta-pb-fintech-ipo-124051700067_1.html"
   },
   {
     id: 4,
-    title: "News",
-    image: additionalImage2,
-    description: "News"
+    title: "Reddit Stock Soars After Company Inks Partnership With ChatGPT Owner OpenAI",
+    image: news4,
+    description: "Reddit (RDDT) shares soared nearly 12% in extended-hours trading Thursday after the company announced a partnership with OpenAI that allows the ChatGPT owner to train its artificial intelligence (AI) models using the news aggregation social network’s content",
+    // 수정
+    // url 추가
+    newsUrl: "https://www.investopedia.com/reddit-stock-soars-after-company-inks-partnership-with-chatgpt-owner-openai-8649996"
   },
   {
     id: 5,
-    title: "News",
-    image: additionalImage2,
-    description: "News"
+    title: "Stock market today: World shares retreat, though China stocks are lifted by new property measures",
+    image: news5,
+    description: "World shares were mostly lower on Friday, though Chinese stocks reversed earlier losses following the announcement of fresh measures to revive the ailing property market.",
+    // 수정
+    // url 추가
+    newsUrl: "https://finance.yahoo.com/news/stock-market-today-asian-shares-070114215.html"
   },
   {
     id: 6,
-    title: "제주항공, 작년 호텔·지상조업·IT 자회사 역대 최대 매출",
-    image: sideNewsIcon,
-    description: "News"
+    title: "Apple Shares Are Back to Winning Ways as AI Optimism Builds",
+    image: news6,
+    // 수정
+    // url 추가
+    newsUrl: "https://finance.yahoo.com/news/apple-shares-back-winning-ways-122134268.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAALcwVlRbuaS0VdmeCRpOVcUDndK1NBN34yD6Q7ycVu5Hv3MsKYiKF-tHVJXiIjhKwwrAs64-nauLUdp75B7EvuO6pMK4NdL6hkxA5OIRV2wPJDIn7eKlNy_DR3YyhVOnCevO3ruxJtYkYqYN0IitE0L4bNM9uHBEtK_RBtQFJ15k"
   },
   {
     id: 7,
-    title: "News",
-    image: sideNewsIcon,
-    description: "News"
+    title: "World shares were mostly lower on Friday, though Chinese stocks reversed earlier losses following the announcement of fresh measures to revive the ailing property market.s",
+    image: news7,
+    description: "News",
+    // 수정
+    // url 추가
+    newsUrl: "https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/"
   },
   {
     id: 8,
-    title: "제주항공, 작년 호텔·지상조업·IT 자회사 역대 최대 매출",
-    image: sideNewsIcon,
-    description: "News"
+    title: "Google surges after buying back billions of dollars of its own stock",
+    image: news8,
+    description: "News",
+    // 수정
+    // url 추가
+    newsUrl: "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html"
   },
 ];
 
 // 메인 뉴스
 function NewsCard({ newsItem }) {
+  // 수정 - 추가
+  // url로 갈 수 있는 hadleCardClick
+  const handleCardClick = () => {
+    if (newsItem.newsUrl) {
+      window.open(newsItem.newsUrl, '_blank');
+    }
+  };
   return (
-    <div style={styles.mainCard}>
+    // onClick 추가
+    <div style={styles.mainCard} onClick={handleCardClick}> 
       <img src={newsItem.image} alt={newsItem.title} style={styles.newsImage} />
       <h2 style={styles.cardHeader}>{newsItem.title}</h2>
       <p style={styles.note}>{newsItem.description}</p>
@@ -256,8 +297,16 @@ function NewsCard({ newsItem }) {
 
 // 부가적인 뉴스
 function AdditionalCard({ newsItem }) {
+  // 수정 - 추가
+  // url로 갈 수 있는 hadleCardClick
+  const handleCardClick = () => {
+    if (newsItem.newsUrl) {
+      window.open(newsItem.newsUrl, '_blank');
+    }
+  };
   return (
-    <div style={styles.additionalCard}>
+    // onClick 추가
+    <div style={styles.additionalCard} onClick={handleCardClick}>
       <img src={newsItem.image} alt={newsItem.title} style={styles.additionalImage} />
       <h2 style={styles.cardHeader}>{newsItem.title}</h2>
       <p style={styles.note}>{newsItem.description}</p>
@@ -267,13 +316,21 @@ function AdditionalCard({ newsItem }) {
 
 // 보유종목 뉴스 자세히
 function SideNewsCard1({ newsItem }) {
+  // 수정 - 추가
+  // url로 갈 수 있는 hadleCardClick
+  const handleCardClick = () => {
+    if (newsItem.newsUrl) {
+      window.open(newsItem.newsUrl, '_blank');
+    }
+  };
   return (
     <div style={styles.sideNewsCard1}>
       <div style={styles.sideNewsContent}>
         <img src={newsItem.image} alt={newsItem.title} style={styles.sideNewsIcon} />
         <div style={styles.titleButtonContainer}>
           <h2 style={styles.cardHeader}>{newsItem.title}</h2>
-          <button style={styles.detailButton}>
+          {/* onClick 추가 */}
+          <button style={styles.detailButton} onClick={handleCardClick}> 
             자세히
             <span style={styles.arrowIcon}>→</span>
           </button>
@@ -285,13 +342,21 @@ function SideNewsCard1({ newsItem }) {
 
 // 관심종목 뉴스 자세히
 function SideNewsCard2({ newsItem }) {
+  // 수정 - 추가
+  // url로 갈 수 있는 hadleCardClick
+  const handleCardClick = () => {
+    if (newsItem.newsUrl) {
+      window.open(newsItem.newsUrl, '_blank');
+    }
+  };
   return (
     <div style={styles.sideNewsCard2}>
       <div style={styles.sideNewsContent}>
         <img src={newsItem.image} alt={newsItem.title} style={styles.sideNewsIcon} />
         <div style={styles.titleButtonContainer}>
           <h2 style={styles.cardHeader}>{newsItem.title}</h2>
-          <button style={styles.detailButton}>
+          {/* onClick 추가 */}
+          <button style={styles.detailButton} onClick={handleCardClick}>
             자세히
             <span style={styles.arrowIcon}>→</span>
           </button>
