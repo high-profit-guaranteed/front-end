@@ -80,14 +80,23 @@ const Order = ({ orderData, currentPrice }) => {
   };
 
   const buyStock = () => {
-    console.log('주식을 구매합니다.');
-    // 주식 구매 추가 예정
+    const quantity = prompt('구매할 수량을 입력하세요:');
+    if (quantity !== null && !isNaN(quantity) && quantity !== '') {
+      console.log('주식을 구매합니다. 수량:', quantity);
+    } else {
+      console.log('올바르지 않은 입력입니다.');
+    }
   };
-
+  
   const sellStock = () => {
-    console.log('주식을 판매합니다.');
-    // 주식 판매 추가 예정
+    const quantity = prompt('판매할 수량을 입력하세요:');
+    if (quantity !== null && !isNaN(quantity) && quantity !== '') {
+      console.log('주식을 판매합니다. 수량:', quantity);
+    } else {
+      console.log('올바르지 않은 입력입니다.');
+    }
   };
+  
 
   return (
     <div style={styles.dummyContainer}>
