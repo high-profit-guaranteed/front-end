@@ -543,7 +543,7 @@ function Home() {
     } else {
       const change = balanceList[nowDate - 1] - balanceList[nowDate - 2];
       setAmountChange(change);
-      setPercentageChange(change/balanceList[nowDate - 2]*100.0);
+      setPercentageChange((change / balanceList[nowDate - 2]) * 100.0);
     }
   }, [balanceRecord]);
 
@@ -553,10 +553,15 @@ function Home() {
 
       let nameList = [];
       let valueList = [];
-      stockBalance.forEach((stock) => {
-        nameList.push(stock.name + "(" + stock.ticker + ")");
-        valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
-      });
+      if (stockBalance.length === 0) {
+        nameList = ["계좌 정보가 없습니다."];
+        valueList = [-1];
+      } else {
+        stockBalance.forEach((stock) => {
+          nameList.push(stock.name + "(" + stock.ticker + ")");
+          valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
+        });
+      }
       // 판매내역 비율 그래프 나중에 수정
       const revenueCtx = revenueChartRefCanvas.current.getContext("2d");
       const revenueChart = new Chart(revenueCtx, {

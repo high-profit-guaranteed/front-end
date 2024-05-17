@@ -11,7 +11,7 @@ const styles = {
   }
 };
 
-const Post = ({ boardTitle, postIndex, deletePost }) => {
+const DeletePost = ({ boardTitle, postIndex, deletePost }) => {
   const handleDelete = () => {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
       deletePost(boardTitle, postIndex);
@@ -25,4 +25,4 @@ const Post = ({ boardTitle, postIndex, deletePost }) => {
   );
 };
 
-export default Post;
+export default DeletePost;

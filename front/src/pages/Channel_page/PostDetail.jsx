@@ -97,23 +97,24 @@ const styles = {
   }
 };
 
-const PostDetail = ({ boards }) => {
-  const { postId } = useParams();
+const PostDetail = ({ boards, setBoards }) => {
+  const { ticker, postId } = useParams();
   const navigate = useNavigate();
   const postIndex = parseInt(postId, 10);
-  const post = boards[0].posts[postIndex];
-  const boardName = boards[0].title;
+  // const post = boards[0].posts[postIndex];
+  const post = boards.find((board) => board.title === ticker).posts[postIndex];
+  const boardName = ticker;
 
   const [comments, setComments] = useState(post.comments || []);
   const [newComment, setNewComment] = useState('');
-  const [authorIndex, setAuthorIndex] = useState(1);
+  const [authorIndex, setAuthorIndex] = useState(comments.length + 1);
 
   if (!post) {
     return <div>게시글이 없습니다.</div>;
   }
 
   const handleBackToBoard = () => {
-    navigate(-1);
+    navigate(`/channel/${ticker}`);
   };
 
   const handleCommentChange = (e) => {
@@ -123,17 +124,32 @@ const PostDetail = ({ boards }) => {
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     const comment = {
-      id: new Date().getTime(),
+      createAt: new Date().getTime(),
       author: `오리${authorIndex}`,
       content: newComment,
     };
+
     setComments([...comments, comment]);
     setNewComment('');
     setAuthorIndex(authorIndex + 1);
+    const newBoards = boards.map((board) => {
+      if (board.title === ticker) {
+        const newPosts = board.posts.map((p, index) => {
+          if (index === postIndex) {
+            return { ...p, comments: [...p.comments, comment] };
+          }
+          return p;
+        });
+        return { ...board, posts: newPosts };
+      }
+      return board;
+    });
+    setBoards(newBoards);
   };
 
   const handleDeleteComment = (id) => {
-    setComments(comments.filter(comment => comment.id !== id));
+    // setComments(comments.filter(comment => comment.id !== id));
+    setComments(comments.filter((comment, index) => index !== id));
   };
 
   return (
@@ -156,12 +172,12 @@ const PostDetail = ({ boards }) => {
         </div>
         <div style={styles.comment}>
           <p>Comments</p>
-          {comments.map((comment) => (
-            <div key={comment.id} style={styles.commentItem}>
+          {comments.map((comment, id) => (
+            <div key={id} style={styles.commentItem}>
               <pre><strong>{comment.author}</strong>   {comment.content}</pre>
               <button
                 style={styles.deleteButton}
-                onClick={() => handleDeleteComment(comment.id)}
+                onClick={() => handleDeleteComment(id)}
               >
                 삭제
               </button>

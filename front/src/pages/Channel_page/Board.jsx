@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Post from './Post';
+import DeletePost from './DeletePost';
 
 const styles = {
   tableStyle: {
@@ -76,13 +76,13 @@ const Board = ({ boardTitle, boards, deletePost }) => {
             <tr key={index}>
               <td style={styles.tableCellNumber}>{index + 1}</td>
               <td style={styles.tableCellTitle}>
-                <Link to={`/post/${index}`}>{post.title}</Link>
+                <Link to={`/post/${boardTitle}/${index}`}>{post.title}</Link>
               </td>
               <td style={styles.tableCellAuthor}>{post.author}</td>
               <td style={styles.tableCellDate}>{post.date}</td>
-              <td style={styles.tableCellComments}>{post.comments}</td>
+              <td style={styles.tableCellComments}>{post.comments.length}</td>
               <td style={styles.tableCellButton}>
-                <Post 
+                <DeletePost 
                   boardTitle={boardTitle}
                   postIndex={index}
                   deletePost={deletePost}

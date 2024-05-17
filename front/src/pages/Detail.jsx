@@ -1,75 +1,74 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar.jsx';
-import Topbar from '../components/Topbar.jsx';
-import Chart from './Info_page/Info.jsx';
-import Stock from './Info_page/Stock.jsx';
-import Detail from './Info_page/Detail.jsx';
-import Order from './Info_page/Order.jsx';
-import orderData from './Info_page/components/orderdata.jsx';
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Navbar from "../components/Navbar.jsx";
+import Topbar from "../components/Topbar.jsx";
+import Chart from "./Detail_page/Info.jsx";
+import Stock from "./Detail_page/Stock.jsx";
+import StockInfo from "./Detail_page/Detail.jsx";
+import Order from "./Detail_page/Order.jsx";
+import orderData from "./Detail_page/components/orderdata.jsx";
 
 const styles = {
   container: {
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      marginLeft: '210px',
-      marginRight: '1%',
-      marginTop: '21px',
-      marginBottom: '20px',
-      padding: '20px',
-      backgroundColor: '#F3F3F3',
-      borderRadius: '10px',
-      fontFamily: 'Arial, sans-serif',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-    }
+    display: "flex",
+    flexWrap: "wrap",
+    marginLeft: "210px",
+    marginRight: "1%",
+    marginTop: "21px",
+    marginBottom: "20px",
+    padding: "20px",
+    backgroundColor: "#F3F3F3",
+    borderRadius: "10px",
+    fontFamily: "Arial, sans-serif",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   leftsection: {
-    width: '57%',
-    padding: '10px',
-    borderRadius: '8px',
-    marginRight: '2%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
+    width: "57%",
+    padding: "10px",
+    borderRadius: "8px",
+    marginRight: "2%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
   },
   rightsection: {
-    width: '38%',
-    padding: '10px',
-    borderRadius: '8px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
+    width: "38%",
+    padding: "10px",
+    borderRadius: "8px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
   },
-  leftsectionDown: { //stock, detail
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: '10px',
-   },
-  chart: { },
-  stock: { 
+  leftsectionDown: {
+    //stock, detail
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: "10px",
+  },
+  chart: {},
+  stock: {
     flex: 0.48,
-    marginBottom:'40px',
-    '@media (min-width: 768px)': {
-      flex: '0.48', // 화면 크기 768px 이상 - 너비 조절
-    }
+    marginBottom: "40px",
+    "@media (min-width: 768px)": {
+      flex: "0.48", // 화면 크기 768px 이상 - 너비 조절
+    },
   },
   detail: {
     flex: 0.48,
-    marginBottom:'40px',
-    '@media (min-width: 768px)': {
-      flex: '0.48', // 화면 크기 768px 이상 - 너비 조절
-    }
+    marginBottom: "40px",
+    "@media (min-width: 768px)": {
+      flex: "0.48", // 화면 크기 768px 이상 - 너비 조절
+    },
   },
   order: {
-    marginTop:'20px',
-    marginBottom:'20px',
+    marginTop: "20px",
+    marginBottom: "20px",
   },
 };
 
-function Info() {
+function Detail() {
   const ticker = useParams();
   console.log("ticker", ticker);
 
@@ -87,13 +86,13 @@ function Info() {
               <Stock />
             </div>
             <div style={styles.detail}>
-              <Detail />
+              <StockInfo />
             </div>
           </div>
         </div>
         <div style={styles.rightsection}>
           <div style={styles.order}>
-            <Order orderData={orderData} currentPrice={101.80} />
+            <Order orderData={orderData} currentPrice={101.8} />
           </div>
         </div>
       </div>
@@ -101,4 +100,4 @@ function Info() {
   );
 }
 
-export default Info;
+export default Detail;
