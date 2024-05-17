@@ -75,7 +75,9 @@ const Board = ({ boardTitle, boards, deletePost }) => {
           {board.posts.map((post, index) => (
             <tr key={index}>
               <td style={styles.tableCellNumber}>{index + 1}</td>
-              <td style={styles.tableCellTitle}><Link to={`/post/${index}`}>{post.title}</Link></td>
+              <td style={styles.tableCellTitle}>
+                <Link to={`/post/${index}`}>{post.title}</Link>
+              </td>
               <td style={styles.tableCellAuthor}>{post.author}</td>
               <td style={styles.tableCellDate}>{post.date}</td>
               <td style={styles.tableCellComments}>{post.comments}</td>

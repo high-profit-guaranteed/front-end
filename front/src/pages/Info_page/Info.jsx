@@ -1,5 +1,5 @@
 import React from 'react';
-import NaverImage from '../../images/ent/naver.png';
+import Apple from '../../images/ent/Apple.png';
 import LineChart from './components/linechart.jsx';
 import './components/chartstyle.css';
 
@@ -62,14 +62,14 @@ const styles = {
 };
 
 const Chart = () => {
-  const percentValue = +2800; // 임시
+  const percentValue = +2800;
 
   return (
     <div style={styles.chartContainer}>
       <div style={styles.topContainer}>
         <div style={styles.titleContainer}>
-          <img src={NaverImage} alt="Naver" style={styles.image}/>
-          <h2 style={styles.title}>NAVER</h2>
+          <img src={Apple} alt="Apple" style={styles.image}/>
+          <h2 style={styles.title}>Apple</h2>
         </div>
         <div style={styles.contentContainer}>
           <h2 style={styles.won}>22,000 USD</h2>

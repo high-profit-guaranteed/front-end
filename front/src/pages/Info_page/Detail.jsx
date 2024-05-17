@@ -22,7 +22,7 @@ const styles = {
     marginTop: '-15px',
     backgroundColor: 'rgba(242, 246, 239, 1)',
     borderRadius: '8px',
-    padding: '20px',
+    padding: '10px',
   },
   line: {
     borderTop: '1px solid rgba(242, 246, 239, 1)',
@@ -34,27 +34,25 @@ const styles = {
     justifyContent: 'center',
   },
   button: {
-    width: '30%',
+    width: '20%',
     padding: '10px',
     borderRadius: '10px',
-    backgroundColor: 'rgba(100,120,50)',
+    backgroundColor: '#8bc78e',
     color: '#fff',
     textAlign: 'center',
     cursor: 'pointer',
-    marginLeft: '10px',
-    marginRight: '10px',
+    margin: '0px 5px',
   },
-  a:{
+  develop:{
+    fontStyle: 'italic',
     textAlign:'center',
+    color: '#808080',
   },
-  section: {
-    //최신글 인기글 커뮤/뉴스별로 왼쪽 오른쪽 섹션 나눠서 불러오기
-  }
 };
 
 const Detail = () => {
   const ticker = useParams();
-  const companyName = "NAVER";
+  const companyName = "APPLE";
   const navigate = useNavigate();
 
   const goToCommunityPage = () => {
@@ -71,11 +69,16 @@ const Detail = () => {
         <h2>{companyName}</h2>
       </div>
       <div style={styles.text}>
-        {`${companyName}는 대한민국의 인터넷 서비스 기업이다.`}
+        <pre>
+        {`미국 캘리포니아의 아이폰, 아이패드, 애플 워치, 에어팟, 아이맥, 맥북, 맥 스튜디오와
+맥 프로, 홈팟, 비전 프로, 에어태그 등의 하드웨어와
+그 제품들의 iOS, iPadOS, Watch OS, macOS, Vision OS, TV OS 등의 소프트웨어를
+설계, 디자인하는 기업이다.`}
+        </pre>
       </div>
       <div style={styles.line}></div> 
       <div style={styles.section}>
-        <p style={styles.a}>최신 글 혹은 인기 글 불러오기</p>
+        <p style={styles.develop}>추후 개발 예정입니다</p>
       </div>
       <div style={styles.buttonContainer}>
         <div style={styles.button} onClick={goToCommunityPage}>

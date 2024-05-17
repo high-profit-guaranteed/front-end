@@ -43,10 +43,12 @@ const styles = {
     width: '130px',
   },
   button: {
+    border: 'none',
     borderRadius: '5px',
     padding: '5px 10px',
     fontSize: '16px',
     marginLeft: '10px',
+    cursor: 'pointer',
   },
 };
 

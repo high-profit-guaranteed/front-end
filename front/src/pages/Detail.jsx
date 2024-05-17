@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
-import commonStyles from './commonStyles.jsx';
 import Chart from './Info_page/Info.jsx';
 import Stock from './Info_page/Stock.jsx';
 import Detail from './Info_page/Detail.jsx';
@@ -11,7 +10,20 @@ import orderData from './Info_page/components/orderdata.jsx';
 
 const styles = {
   container: {
-    ...commonStyles.container,
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      marginLeft: '210px',
+      marginRight: '1%',
+      marginTop: '21px',
+      marginBottom: '20px',
+      padding: '20px',
+      backgroundColor: '#F3F3F3',
+      borderRadius: '10px',
+      fontFamily: 'Arial, sans-serif',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    }
   },
   leftsection: {
     width: '57%',

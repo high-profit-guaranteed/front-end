@@ -45,9 +45,11 @@ const styles = {
 };
 
 const Mystock = () => {
-  const averagePrice = 22.16;
-  const quantity = 700;
+  const averagePrice = 189.87;
+  const quantity = 50;
   const totalPrice = averagePrice * quantity;
+  const changePercentage = ((totalPrice - averagePrice * quantity) * 100 / (averagePrice * quantity)).toFixed(1);
+
 
   return (
     <div style={styles.mystockContainer}>
@@ -55,7 +57,7 @@ const Mystock = () => {
 
       <div style={styles.contentContainer}>
         <p style={styles.label}>1주 평균가격</p>
-        <p style={styles.value}>{averagePrice.toFixed(2)}</p>
+        <p style={styles.value}>{averagePrice.toFixed(2)} USD</p>
       </div>
       <div style={styles.contentContainer}>
         <p style={styles.label}>보유수량</p>
@@ -66,9 +68,9 @@ const Mystock = () => {
         <div style={styles.contentContainer}>
           <p>총 금액</p>
           <div style={styles.price}>
-            <p>{totalPrice.toFixed(2)}</p>
-            <p style={styles.change}>+{((totalPrice - averagePrice * quantity) * 100 / (averagePrice * quantity)).toFixed(1)}%</p>
-          </div>
+            <p>{totalPrice.toFixed(2)} USD</p>
+            <p style={styles.change}>(+{changePercentage}%)</p>
+            </div>
         </div>
       </div>
     </div>

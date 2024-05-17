@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Topbar from '../../components/Topbar';
-import { useParams, useNavigate } from 'react-router-dom';
 
 const styles = {
   container: {
@@ -93,6 +93,7 @@ const styles = {
     border: '1px solid #ddd',
     cursor: 'pointer',
     fontSize: '14px',
+    
   }
 };
 
