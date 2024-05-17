@@ -45,16 +45,13 @@ const Navbar = () => {
     }
   };
 
-  const handleLogout = () => {
-  };
-
   const menuItems = [
-    { Icon: AiOutlineHome, text: 'Home', path: '/Home' },
-    { Icon: AiOutlineInfoCircle, text: 'Info', path: '/Info' },
-    { Icon: AiOutlineBook, text: 'News', path: '/News' },
-    { Icon: AiOutlinePlayCircle, text: 'Channel', path: '/Channel' },
-    { Icon: AiOutlineSetting, text: 'Settings', path: '/Settings' },
-    { Icon: AiOutlineLogout, text: 'Logout', path: '/Logout' }
+    { Icon: AiOutlineHome, text: 'Home', path: '/home' },
+    { Icon: AiOutlineInfoCircle, text: 'Info', path: '/info' },
+    { Icon: AiOutlineBook, text: 'News', path: '/news' },
+    { Icon: AiOutlinePlayCircle, text: 'Channel', path: '/channel/Free' },
+    { Icon: AiOutlineSetting, text: 'Settings', path: '/settings' },
+    { Icon: AiOutlineLogout, text: 'Logout', path: '/logout' }
   ];
 
   return (

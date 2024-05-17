@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Topbar from '../../components/Topbar';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const styles = {
     container: {
@@ -42,9 +42,8 @@ const styles = {
 }
 
 const NewPost = ({ boards, setBoards }) => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { boardTitle } = location.state;
+  const { ticker } = useParams();
   
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -62,13 +61,13 @@ const NewPost = ({ boards, setBoards }) => {
         comments: ''
       };
       const newBoards = boards.map((board) => {
-        if (board.title === boardTitle) {
+        if (board.title === ticker) {
           return { ...board, posts: [...board.posts, newPost] };
         }
         return board;
       });
       setBoards(newBoards);
-      navigate('/channel');
+      navigate(`/channel/${ticker}`);
     } else {
       alert('제목과 내용을 입력하세요.');
     }
@@ -84,7 +83,7 @@ const NewPost = ({ boards, setBoards }) => {
         <Topbar />
         <div style={styles.container}>
             <div>
-                <h2>{boardTitle} Board</h2>
+                <h2>{ticker} Board</h2>
                 <input style={styles.input}
                     type="text" 
                     placeholder="제목을 입력하세요" 
@@ -97,8 +96,8 @@ const NewPost = ({ boards, setBoards }) => {
                     onChange={(e) => setContent(e.target.value)} 
                 />
                 <div style={styles.buttonstyle}>
-                    <button style={{marginRight: '10px'}}onClick={handleAddPost}>게시글 등록</button>
-                    <button onClick={handleDeletePost}>취소</button>
+                    <button style={{marginRight: '10px', borderRadius: '5px', padding: '5px 10px', cursor: 'pointer',}}onClick={handleAddPost}>게시글 등록</button>
+                    <button style={{borderRadius: '5px', padding: '5px 10px', cursor: 'pointer',}} onClick={handleDeletePost}>취소</button>
                 </div>
             </div>
         </div>

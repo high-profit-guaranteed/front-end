@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
-import LineChart from './Info_page/components/linechart.jsx';
+import LineChart from './Detail_page/components/linechart.jsx';
 
 const styles = {
   container: {

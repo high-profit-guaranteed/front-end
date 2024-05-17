@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Post from './Post';
+import DeletePost from './DeletePost';
 
 const styles = {
   tableStyle: {
@@ -63,11 +63,11 @@ const Board = ({ boardTitle, boards, deletePost }) => {
       <table style={styles.tableStyle}>
         <thead>
           <tr style={styles.tableHeader}>
-            <th style={styles.tableCellNumber}>번호</th>
-            <th style={styles.tableCellTitle}>제목</th>
-            <th style={styles.tableCellAuthor}>작성자</th>
-            <th style={styles.tableCellDate}>작성일</th>
-            <th style={styles.tableCellComments}>댓글수</th>
+            <th style={styles.tableCellNumber}>Number</th>
+            <th style={styles.tableCellTitle}>Title</th>
+            <th style={styles.tableCellAuthor}>Name</th>
+            <th style={styles.tableCellDate}>Date</th>
+            <th style={styles.tableCellComments}>Comments</th>
             <th style={styles.tableCellButton}></th>
           </tr>
         </thead>
@@ -75,12 +75,14 @@ const Board = ({ boardTitle, boards, deletePost }) => {
           {board.posts.map((post, index) => (
             <tr key={index}>
               <td style={styles.tableCellNumber}>{index + 1}</td>
-              <td style={styles.tableCellTitle}><Link to={`/post/${index}`}>{post.title}</Link></td>
+              <td style={styles.tableCellTitle}>
+                <Link to={`/post/${boardTitle}/${index}`}>{post.title}</Link>
+              </td>
               <td style={styles.tableCellAuthor}>{post.author}</td>
               <td style={styles.tableCellDate}>{post.date}</td>
-              <td style={styles.tableCellComments}>{post.comments}</td>
+              <td style={styles.tableCellComments}>{post.comments.length}</td>
               <td style={styles.tableCellButton}>
-                <Post 
+                <DeletePost 
                   boardTitle={boardTitle}
                   postIndex={index}
                   deletePost={deletePost}

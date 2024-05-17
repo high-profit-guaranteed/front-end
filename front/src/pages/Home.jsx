@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import Topbar from '../components/Topbar.jsx';
-import Chart from 'chart.js/auto';
-import ScrollbarStyles from '../components/ScrollbarStyles.css';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useRef, useEffect, useState } from "react";
+import Navbar from "../components/Navbar.jsx";
+import Topbar from "../components/Topbar.jsx";
+import Chart from "chart.js/auto";
+import ScrollbarStyles from "../components/ScrollbarStyles.css";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 // 수정 - 사진 추가
@@ -56,13 +56,13 @@ const styles = {
     fontFamily: "Arial, sans-serif",
   },
   timeButton: {
-    margin: '0 5px',
-    padding: '5px 10px',
-    backgroundColor: '#EFEFEF',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
+    margin: "0 5px",
+    padding: "5px 10px",
+    backgroundColor: "#EFEFEF",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 
   // leftsection - down
@@ -75,71 +75,71 @@ const styles = {
   // 판매 수익
   revenueSection: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    backgroundColor: "#F8F9FA",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
-  // 보유종목 
+  // 보유종목
   holdSection: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
+    backgroundColor: "#F8F9FA",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
   },
   holdSectionItem: {
-    padding: '5px 10px',
-    margin: '5px 0',
-    backgroundColor: 'rgba(242, 246, 239, 1)',
-    borderRadius: '5px',
-    textAlign: 'center',
+    padding: "5px 10px",
+    margin: "5px 0",
+    backgroundColor: "rgba(242, 246, 239, 1)",
+    borderRadius: "5px",
+    textAlign: "center",
   },
   // 보유종목 포트폴리오
   portfolioSection: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
+    backgroundColor: "#F8F9FA",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
   },
 
   // rightsection
   // 대기주문
   pendingOrders: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
-  develop:{
-    color: '#808080',
+  develop: {
+    color: "#808080",
   },
 
   // 관심주문
   favoriteOrders: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '10px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    marginBottom: '10px',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "10px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    marginBottom: "10px",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
   item: {
     display: "flex",
@@ -178,26 +178,26 @@ const styles = {
 
   // 보유종목 뉴스
   ownedStocksNews: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "20px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
 
   // 관심종목 뉴스
   favoriteStocksNews: {
-    backgroundColor: '#F9F9F9',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
-    overflowY: 'auto',
+    backgroundColor: "#F9F9F9",
+    borderRadius: "8px",
+    padding: "20px",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    maxHeight: "200px",
+    overflowY: "auto",
   },
 
   // 뉴스 스타일
@@ -255,8 +255,6 @@ function Home() {
   const handleInterestNewsClick = () => {
     navigate("/News/Interest_news");
   };
-  
-  const [isLoading, setIsLoading] = useState(true);
 
   const chartRefCanvas = useRef(null);
   const revenueChartRefCanvas = useRef(null);
@@ -272,6 +270,7 @@ function Home() {
   };
 
   const getBalance = async (id) => {
+    if (id === "o") return;
     try {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/balance?accountId=" + id
@@ -284,7 +283,7 @@ function Home() {
         if (isNaN(price)) {
           setBalance("error");
         } else {
-          setBalance(price.toLocaleString("ko-KR"));
+          setBalance(price.toLocaleString());
         }
       }
     } catch (error) {
@@ -293,6 +292,7 @@ function Home() {
   };
 
   const getBalanceRecord = async (id) => {
+    if (id === "o") return;
     try {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/balanceRecord?accountId=" + id
@@ -308,6 +308,7 @@ function Home() {
   };
 
   const getStocksEvaluationBalance = async (id) => {
+    if (id === "o") return;
     try {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
@@ -323,20 +324,20 @@ function Home() {
   };
 
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
-  const [balance, setBalance] = useState("0.0");
+  const [balance, setBalance] = useState("계좌 정보가 없습니다.");
   const [stockBalance, setStockBalance] = useState([]);
-  const [amountChange, setAmountChange] = useState(50000); // 숫자로 변동 금액 저장
-  const [percentageChange, setPercentageChange] = useState(10); // 숫자로 변동율 저장
+  const [amountChange, setAmountChange] = useState(0); // 숫자로 변동 금액 저장
+  const [percentageChange, setPercentageChange] = useState(0.0); // 숫자로 변동율 저장
 
   const [balanceRecord, setBalanceRecord] = useState([]);
 
   // UI에서 표시할 문자열 (+, -)
   const displayAmountChange = `${
-    amountChange >= 0 ? "+" : ""
-  }${amountChange.toLocaleString()} USD`;
+    amountChange >= 0 ? "+" : "-"
+  }${amountChange.toFixed(2)} USD`;
   const displayPercentageChange = `${
-    percentageChange >= 0 ? "+" : ""
-  }${percentageChange}%`;
+    percentageChange >= 0 ? "+" : "-"
+  }${percentageChange.toFixed(2)}%`;
 
   // 판매수익 요일 설정
   const [selectedDay, setSelectedDay] = useState("Monday");
@@ -352,14 +353,14 @@ function Home() {
 
   // 보유 종목 예시 데이터
   const [holdOrders, setHoldOrders] = useState([
-    { id: 1, name: 'TSLA' },
-    { id: 2, name: 'AAPL' }
+    { id: 1, name: "TSLA" },
+    { id: 2, name: "AAPL" },
   ]);
 
-   // 관심 종목 예시 데이터
+  // 관심 종목 예시 데이터
   const [favoriteOrders, setFavoriteOrders] = useState([
-    { id: 1, name: 'GOOG', percentage: '20.3%' },
-    { id: 2, name: 'MSFT', percentage: '15.6%' }
+    { id: 1, name: "GOOG", percentage: "20.3%" },
+    { id: 2, name: "MSFT", percentage: "15.6%" },
   ]);
 
   // 관심 종목 추가, 변경
@@ -493,33 +494,7 @@ function Home() {
   }, [showGraph]);
 
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await axiosInstance.get("https://duckling-back.d-v.kro.kr/api/checkSession");
-        if (response.status === 200) {
-          if (response.data === "Success") {
-            setIsLoading(false);
-          } else {
-            navigate("/");
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    checkSession();
-    if (isLoading) {
-      return () => {
-        return <p>Loading...</p>;
-      };
-    }
-
-    // 세션 체크
-  }, [isLoading, navigate]);
-
-  useEffect(() => {
-    if (accountId !== "") {
+    if (accountId !== "" && accountId !== "-1") {
       getBalance(accountId);
       getBalanceRecord(accountId);
       getStocksEvaluationBalance(accountId);
@@ -527,49 +502,49 @@ function Home() {
   }, [accountId]);
 
   useEffect(() => {
+    const nowMonth = new Date().getMonth() + 1;
+    const nowYear = new Date().getFullYear();
+    const nowDate = new Date().getDate();
+    const startDate = 1;
+    const endDate = new Date(nowYear, nowMonth, 0).getDate();
+    const dateList = [];
+    for (let i = startDate; i <= endDate; i++) {
+      dateList.push(`${nowYear}-${nowMonth}-${i}`);
+    }
+
+    balanceRecord.forEach((record) => {
+      console.log(record.recordDate, record.balance);
+    });
+
+    const balanceList = [];
+    for (let i = startDate; i <= endDate; i++) {
+      if (i > nowDate) {
+        balanceList.push(null);
+      }
+      let found = false;
+      for (let j = 0; j < balanceRecord.length; j++) {
+        const recordDate = balanceRecord[j].recordDate.split(":");
+        if (
+          parseInt(recordDate[0]) === nowYear &&
+          parseInt(recordDate[1]) === nowMonth &&
+          parseInt(recordDate[2]) === i
+        ) {
+          balanceList.push(100000 + balanceRecord[j].balance);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        if (balanceList.length === 0) {
+          balanceList.push(100000);
+        } else {
+          balanceList.push(balanceList[balanceList.length - 1]);
+        }
+      }
+    }
+
     if (chartRefCanvas.current) {
       if (chartRef.current) chartRef.current.destroy();
-
-      const nowMonth = new Date().getMonth() + 1;
-      const nowYear = new Date().getFullYear();
-      const nowDate = new Date().getDate();
-      const startDate = 1;
-      const endDate = new Date(nowYear, nowMonth, 0).getDate();
-      const dateList = [];
-      for (let i = startDate; i <= endDate; i++) {
-        dateList.push(`${nowYear}-${nowMonth}-${i}`);
-      }
-
-      balanceRecord.forEach((record) => {
-        console.log(record.recordDate, record.balance);
-      });
-
-      const balanceList = [];
-      for (let i = startDate; i <= endDate; i++) {
-        if (i > nowDate) {
-          balanceList.push(null);
-        }
-        let found = false;
-        for (let j = 0; j < balanceRecord.length; j++) {
-          const recordDate = balanceRecord[j].recordDate.split(":");
-          if (
-            parseInt(recordDate[0]) === nowYear &&
-            parseInt(recordDate[1]) === nowMonth &&
-            parseInt(recordDate[2]) === i
-          ) {
-            balanceList.push(100000 + balanceRecord[j].balance);
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          if (balanceList.length === 0) {
-            balanceList.push(100000);
-          } else {
-            balanceList.push(balanceList[balanceList.length - 1]);
-          }
-        }
-      }
 
       // 자산 현황 그래프 나중에 수정
       const ctx = chartRefCanvas.current.getContext("2d");
@@ -594,6 +569,17 @@ function Home() {
 
       chartRef.current = myChart;
     }
+
+    // balanceList[nowDate - 1]
+
+    if (nowDate === 1) {
+      setAmountChange(0);
+      setPercentageChange(0.0);
+    } else {
+      const change = balanceList[nowDate - 1] - balanceList[nowDate - 2];
+      setAmountChange(change);
+      setPercentageChange((change / balanceList[nowDate - 2]) * 100.0);
+    }
   }, [balanceRecord]);
 
   useEffect(() => {
@@ -602,10 +588,15 @@ function Home() {
 
       let nameList = [];
       let valueList = [];
-      stockBalance.forEach((stock) => {
-        nameList.push(stock.name+"("+stock.ticker+")");
-        valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
-      });
+      if (stockBalance.length === 0) {
+        nameList = ["계좌 정보가 없습니다."];
+        valueList = [-1];
+      } else {
+        stockBalance.forEach((stock) => {
+          nameList.push(stock.name + "(" + stock.ticker + ") " + stock.amount + "주");
+          valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
+        });
+      }
       // 판매내역 비율 그래프 나중에 수정
       const revenueCtx = revenueChartRefCanvas.current.getContext("2d");
       const revenueChart = new Chart(revenueCtx, {
@@ -631,40 +622,75 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <Topbar />
+      <Topbar selectAccount={selectAccount} />
       <div style={styles.container}>
         <div style={styles.leftsection}>
-        <div style={styles.card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <div>
-              <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{balance}</span>
-              <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
-                {displayAmountChange} ({displayPercentageChange})
-              </span>
+          <div style={styles.card}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
+              <div>
+                <h2 style={styles.cardTitle}>총 자산 현황</h2>
+                <span style={{ fontSize: "22px", fontWeight: "bold" }}>
+                  {balance}
+                </span>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    color: amountChange >= 0 ? "green" : "red",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {displayAmountChange} ({displayPercentageChange})
+                </span>
+              </div>
+              <div>
+                <button style={styles.timeButton}>1h</button>
+                <button style={styles.timeButton}>24h</button>
+                <button style={styles.timeButton}>1 Week</button>
+                <button style={styles.timeButton}>1 Month</button>
+                <button style={styles.timeButton}>1 Year</button>
+                <button style={styles.timeButton}>All time</button>
+              </div>
             </div>
-            <div>
-              <button style={styles.timeButton}>1h</button>
-              <button style={styles.timeButton}>24h</button>
-              <button style={styles.timeButton}>1 Week</button>
-              <button style={styles.timeButton}>1 Month</button>
-              <button style={styles.timeButton}>1 Year</button>
-              <button style={styles.timeButton}>All time</button>
-            </div>
+            <canvas ref={chartRefCanvas}></canvas>
           </div>
-          <canvas ref={chartRefCanvas}></canvas>
-        </div>
           <div style={styles.sectionsContainer}>
             <div style={styles.revenueSection}>
-              <div style={{ display: 'flex',  alignItems: 'center', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    marginBottom: "20px",
+                  }}
+                >
                   <h2 style={styles.sectionTitle}>판매 수익</h2>
                   <select
                     value={selectedDay}
                     onChange={handleDayChange}
-                    style={{ padding: '5px 10px', border: '2px solid #ccc', borderRadius: '4px'}}>
+                    style={{
+                      padding: "5px 10px",
+                      border: "2px solid #ccc",
+                      borderRadius: "4px",
+                    }}
+                  >
                     {Object.keys(salesData).map((day) => (
-                      <option key={day} value={day}>{day}</option>
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -682,10 +708,11 @@ function Home() {
                 {/* 배열에 하나 이상의 보유 종목이 있는지 확인 */}
                 {holdOrders.length > 0 ? (
                   holdOrders.map((order, index) => (
-                    <Link to={`/detail/${order.name.toLowerCase()}`}>
-                      <div key={index} style={styles.holdSectionItem}>
-                        {order.name}
-                      </div>
+                    <Link
+                      key={index}
+                      to={`/detail/${order.name.toLowerCase()}`}
+                    >
+                      <div style={styles.holdSectionItem}>{order.name}</div>
                     </Link>
                   ))
                 ) : (

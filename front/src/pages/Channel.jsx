@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Topbar from '../components/Topbar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Board from './Channel_page/Board';
 
 const styles = {
@@ -37,34 +37,47 @@ const styles = {
     justifyContent: 'space-between',
   },
   select: {
+    borderRadius: '5px',
     padding: '5px',
     fontSize: '16px',
     width: '130px',
   },
   button: {
+    border: 'none',
+    borderRadius: '5px',
     padding: '5px 10px',
     fontSize: '16px',
     marginLeft: '10px',
+    cursor: 'pointer',
   },
 };
 
 const Channel = ({ boards, setBoards }) => {
-  const [selectedBoard, setSelectedBoard] = useState(boards[0].title);
   const navigate = useNavigate();
 
+  const { ticker } = useParams();
+  console.log("ticker", ticker);
+
+  // ticker가 boards.title에 없으면 /channel/free로 리다이렉트
+  const boardTitles = boards.map((board) => board.title);
+  if (!boardTitles.includes(ticker)) {
+    navigate('/channel/Free');
+  }
+
   const handleBoardChange = (e) => {
-    setSelectedBoard(e.target.value);
+    // setSelectedBoard(e.target.value);
+    navigate(`/channel/${e.target.value}`);
   };
 
-  const addPost = (boardTitle, newPost) => {
-    const newBoards = boards.map((board) => {
-      if (board.title === boardTitle) {
-        return { ...board, posts: [...board.posts, newPost] };
-      }
-      return board;
-    });
-    setBoards(newBoards);
-  };
+  // const addPost = (boardTitle, newPost) => {
+  //   const newBoards = boards.map((board) => {
+  //     if (board.title === boardTitle) {
+  //       return { ...board, posts: [...board.posts, newPost] };
+  //     }
+  //     return board;
+  //   });
+  //   setBoards(newBoards);
+  // };
 
   const deletePost = (boardTitle, postIndex) => {
     const newBoards = boards.map((board) => {
@@ -78,7 +91,7 @@ const Channel = ({ boards, setBoards }) => {
   };
 
   const navigateToNewPost = () => {
-    navigate('/new-post', { state: { boardTitle: selectedBoard } });
+    navigate(`/post/${ticker}/new`);
   };
 
   return (
@@ -88,17 +101,17 @@ const Channel = ({ boards, setBoards }) => {
       <div style={styles.container}>
         <div style={styles.boardcontainer}>
           <div style={styles.boardselect}>
-            <select style={styles.select} onChange={handleBoardChange} value={selectedBoard}>
-              {boards.map((board) => (
-                <option key={board.title} value={board.title}>
+            <select style={styles.select} onChange={handleBoardChange} value={ticker}>
+              {boards.map((board, id) => (
+                <option key={id} value={board.title}>
                   {board.title}
                 </option>
               ))}
             </select>
-            <button style={styles.button} onClick={navigateToNewPost}>게시글 추가</button>
+            <button style={styles.button} onClick={navigateToNewPost}>게시글 작성하기</button>
           </div>
           <Board
-            boardTitle={selectedBoard}
+            boardTitle={ticker}
             boards={boards}
             deletePost={deletePost}
           />

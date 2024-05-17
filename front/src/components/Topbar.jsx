@@ -4,65 +4,64 @@ import { AiOutlineUser, AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
 import ducklingImage from "../images/logo/Duckling2.png";
 import axios from "axios";
 
-// 스타일 정의
 const styles = {
   topbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "0px 20px",
-    backgroundColor: "#F8F9FA",
-    borderBottom: "1px solid #E1E4E8",
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0px 20px',
+    backgroundColor: '#F8F9FA',
+    borderBottom: '1px solid #E1E4E8',
   },
   iconsContainer: {
-    display: "flex",
-    alignItems: "center",
-    position: "relative",
+    display: 'flex',
+    alignItems: 'center',
+    position: 'relative',
   },
   icon: {
-    fontSize: "26px",
-    cursor: "pointer",
-    marginLeft: "10px",
-    paddingRight: "20px",
+    fontSize: '26px',
+    cursor: 'pointer',
+    marginLeft: '10px',
+    paddingRight: '20px',
   },
   searchIcon: {
-    position: "absolute",
-    left: "1px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    color: "#ccc",
+    position: 'absolute',
+    left: '1px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    color: '#ccc',
   },
   searchInput: {
-    padding: "10px 25px 8px 45px",
-    border: "1px solid #CCC",
-    borderRadius: "20px",
-    outline: "none",
-    width: "180px",
-    marginRight: "20px",
+    padding: '10px 25px 8px 45px',
+    border: '1px solid #CCC',
+    borderRadius: '20px',
+    outline: 'none',
+    width: '180px',
+    marginRight: '20px',
   },
   duckling: {
-    display: "flex",
-    alignItems: "center",
-    cursor: "pointer",
-    textDecoration: "none",
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    textDecoration: 'none',
   },
   ducklingText: {
-    fontSize: "25px",
-    fontWeight: "bold",
-    marginLeft: "-5px",
-    color: "black",
+    fontSize: '25px',
+    fontWeight: 'bold',
+    marginLeft: '-5px',
+    color: 'black',
   },
   ducklingImage: {
-    width: "60px",
-    height: "60px",
-    marginRight: "-15px",
+    width: '60px',
+    height: '60px',
+    marginRight: '-15px',
   },
   select: {
-    marginLeft: "10px",
-    padding: "5px 10px",
-    cursor: "pointer",
-    border: "1px solid #CCC",
-    borderRadius: "5px",
+    marginLeft: '10px',
+    padding: '5px 10px',
+    cursor: 'pointer',
+    border: '1px solid #CCC',
+    borderRadius: '5px',
   },
 };
 
@@ -76,10 +75,11 @@ const axiosInstance = axios.create({
   },
 });
 
-const nullAccount = ["", ""]; // 계좌 정보가 없을 때의 상태
+const nullAccount = ["계좌 불러오는 중...", ""]; // 계좌 정보가 없을 때의 상태
 
 const Topbar = ({ selectAccount }) => {
-  const [accounts, setAccounts] = useState([nullAccount]); // 계좌 목록 상태
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태
+  const [accounts, setAccounts] = useState(['loading', 'loading']); // 계좌 목록 상태
   const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 상태
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
   const navigate = useNavigate();
@@ -118,9 +118,12 @@ const Topbar = ({ selectAccount }) => {
         });
 
         setAccounts(accountList);
+      } else {
+        setAccounts([["계좌 정보 없음", ""]]);
       }
     } catch (error) {
       console.error(error);
+      setAccounts([["계좌 조회 실패", ""]]);
     }
   };
 
@@ -146,8 +149,40 @@ const Topbar = ({ selectAccount }) => {
   };
 
   useEffect(() => {
-    if (accounts.length === 1 && accounts[0][0] === "" && accounts[0][1] === "")
+    const checkSession = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "https://duckling-back.d-v.kro.kr/api/checkSession"
+        );
+        if (response.status === 200 && response.data === "Success") {
+          setIsLoading(false);
+        }
+      } catch (error) {
+        // console.error(error);
+        console.log("Session is not valid");
+        navigate("/");
+      }
+    };
+
+    checkSession();
+    if (isLoading) {
+      return () => {
+        return <p>Loading...</p>;
+      };
+    } else {
+      setAccounts([nullAccount]);
+    }
+
+    // 세션 체크
+  }, [isLoading, navigate]);
+
+  useEffect(() => {
+    if (accounts.length === 1 && accounts[0][0] === "loading" && accounts[0][1] === "loading")
+      return;
+    else if (accounts.length === 1 && accounts[0][0] === nullAccount[0] && accounts[0][1] === nullAccount[1])
       getAccounts();
+    else if (accounts.length === 1 && accounts[0][0] === "계좌 정보 없음" && accounts[0][1] === "")
+      setSelectedAccount("-1");
     else
       setSelectedAccount(accounts[0][1]);
   }, [accounts]);
