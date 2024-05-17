@@ -45,9 +45,6 @@ const Navbar = () => {
     }
   };
 
-  const handleLogout = () => {
-  };
-
   const menuItems = [
     { Icon: AiOutlineHome, text: 'Home', path: '/Home' },
     { Icon: AiOutlineInfoCircle, text: 'Info', path: '/Info' },
