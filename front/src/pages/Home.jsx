@@ -603,7 +603,7 @@ function Home() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <div>
               <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{totalAmount}</span>
+              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{balance}</span>
               <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
                 {displayAmountChange} ({displayPercentageChange})
               </span>

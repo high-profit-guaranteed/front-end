@@ -63,11 +63,11 @@ const Board = ({ boardTitle, boards, deletePost }) => {
       <table style={styles.tableStyle}>
         <thead>
           <tr style={styles.tableHeader}>
-            <th style={styles.tableCellNumber}>번호</th>
-            <th style={styles.tableCellTitle}>제목</th>
-            <th style={styles.tableCellAuthor}>작성자</th>
-            <th style={styles.tableCellDate}>작성일</th>
-            <th style={styles.tableCellComments}>댓글수</th>
+            <th style={styles.tableCellNumber}>Number</th>
+            <th style={styles.tableCellTitle}>Title</th>
+            <th style={styles.tableCellAuthor}>Name</th>
+            <th style={styles.tableCellDate}>Date</th>
+            <th style={styles.tableCellComments}>Comments</th>
             <th style={styles.tableCellButton}></th>
           </tr>
         </thead>

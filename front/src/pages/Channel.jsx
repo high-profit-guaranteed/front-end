@@ -37,11 +37,13 @@ const styles = {
     justifyContent: 'space-between',
   },
   select: {
+    borderRadius: '5px',
     padding: '5px',
     fontSize: '16px',
     width: '130px',
   },
   button: {
+    borderRadius: '5px',
     padding: '5px 10px',
     fontSize: '16px',
     marginLeft: '10px',
@@ -95,7 +97,7 @@ const Channel = ({ boards, setBoards }) => {
                 </option>
               ))}
             </select>
-            <button style={styles.button} onClick={navigateToNewPost}>게시글 추가</button>
+            <button style={styles.button} onClick={navigateToNewPost}>게시글 작성하기</button>
           </div>
           <Board
             boardTitle={selectedBoard}

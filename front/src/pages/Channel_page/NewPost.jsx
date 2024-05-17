@@ -97,8 +97,8 @@ const NewPost = ({ boards, setBoards }) => {
                     onChange={(e) => setContent(e.target.value)} 
                 />
                 <div style={styles.buttonstyle}>
-                    <button style={{marginRight: '10px'}}onClick={handleAddPost}>게시글 등록</button>
-                    <button onClick={handleDeletePost}>취소</button>
+                    <button style={{marginRight: '10px', borderRadius: '5px', padding: '5px 10px'}}onClick={handleAddPost}>게시글 등록</button>
+                    <button style={{borderRadius: '5px', padding: '5px 10px'}} onClick={handleDeletePost}>취소</button>
                 </div>
             </div>
         </div>

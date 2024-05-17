@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const styles = {
   button: {
-    padding: '5px',
+    borderRadius: '5px',
+    padding: '5px 10px',
     margin: '0 5px',
     width: '100px',
   }
