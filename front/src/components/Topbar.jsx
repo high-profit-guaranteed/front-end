@@ -76,10 +76,11 @@ const axiosInstance = axios.create({
   },
 });
 
-const nullAccount = ["", ""]; // 계좌 정보가 없을 때의 상태
+const nullAccount = ["계좌 불러오는 중...", ""]; // 계좌 정보가 없을 때의 상태
 
 const Topbar = ({ selectAccount }) => {
-  const [accounts, setAccounts] = useState([nullAccount]); // 계좌 목록 상태
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태
+  const [accounts, setAccounts] = useState(['loading', 'loading']); // 계좌 목록 상태
   const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 상태
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
   const navigate = useNavigate();
@@ -118,9 +119,12 @@ const Topbar = ({ selectAccount }) => {
         });
 
         setAccounts(accountList);
+      } else {
+        setAccounts([["계좌 정보 없음", ""]]);
       }
     } catch (error) {
       console.error(error);
+      setAccounts([["계좌 조회 실패", ""]]);
     }
   };
 
@@ -146,8 +150,40 @@ const Topbar = ({ selectAccount }) => {
   };
 
   useEffect(() => {
-    if (accounts.length === 1 && accounts[0][0] === "" && accounts[0][1] === "")
+    const checkSession = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "https://duckling-back.d-v.kro.kr/api/checkSession"
+        );
+        if (response.status === 200 && response.data === "Success") {
+          setIsLoading(false);
+        }
+      } catch (error) {
+        // console.error(error);
+        console.log("Session is not valid");
+        navigate("/");
+      }
+    };
+
+    checkSession();
+    if (isLoading) {
+      return () => {
+        return <p>Loading...</p>;
+      };
+    } else {
+      setAccounts([nullAccount]);
+    }
+
+    // 세션 체크
+  }, [isLoading, navigate]);
+
+  useEffect(() => {
+    if (accounts.length === 1 && accounts[0][0] === "loading" && accounts[0][1] === "loading")
+      return;
+    else if (accounts.length === 1 && accounts[0][0] === nullAccount[0] && accounts[0][1] === nullAccount[1])
       getAccounts();
+    else if (accounts.length === 1 && accounts[0][0] === "계좌 정보 없음" && accounts[0][1] === "")
+      setSelectedAccount("-1");
     else
       setSelectedAccount(accounts[0][1]);
   }, [accounts]);

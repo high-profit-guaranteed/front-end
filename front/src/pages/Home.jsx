@@ -242,8 +242,6 @@ function Home() {
     navigate("/News/Interest_news");
   };
 
-  const [isLoading, setIsLoading] = useState(true);
-
   const chartRefCanvas = useRef(null);
   const revenueChartRefCanvas = useRef(null);
 
@@ -258,6 +256,7 @@ function Home() {
   };
 
   const getBalance = async (id) => {
+    if (id === "o") return;
     try {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/balance?accountId=" + id
@@ -270,7 +269,7 @@ function Home() {
         if (isNaN(price)) {
           setBalance("error");
         } else {
-          setBalance(price.toLocaleString("ko-KR"));
+          setBalance(price.toLocaleString());
         }
       }
     } catch (error) {
@@ -279,6 +278,7 @@ function Home() {
   };
 
   const getBalanceRecord = async (id) => {
+    if (id === "o") return;
     try {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/balanceRecord?accountId=" + id
@@ -294,6 +294,7 @@ function Home() {
   };
 
   const getStocksEvaluationBalance = async (id) => {
+    if (id === "o") return;
     try {
       const response = await axiosInstance.get(
         "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
@@ -309,20 +310,20 @@ function Home() {
   };
 
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
-  const [balance, setBalance] = useState("0.0");
+  const [balance, setBalance] = useState("계좌 정보가 없습니다.");
   const [stockBalance, setStockBalance] = useState([]);
-  const [amountChange, setAmountChange] = useState(50000); // 숫자로 변동 금액 저장
-  const [percentageChange, setPercentageChange] = useState(10); // 숫자로 변동율 저장
+  const [amountChange, setAmountChange] = useState(0); // 숫자로 변동 금액 저장
+  const [percentageChange, setPercentageChange] = useState(0.0); // 숫자로 변동율 저장
 
   const [balanceRecord, setBalanceRecord] = useState([]);
 
   // UI에서 표시할 문자열 (+, -)
   const displayAmountChange = `${
-    amountChange >= 0 ? "+" : ""
-  }${amountChange.toLocaleString()} USD`;
+    amountChange >= 0 ? "+" : "-"
+  }${amountChange.toFixed(2)} USD`;
   const displayPercentageChange = `${
-    percentageChange >= 0 ? "+" : ""
-  }${percentageChange}%`;
+    percentageChange >= 0 ? "+" : "-"
+  }${percentageChange.toFixed(2)}%`;
 
   // 판매수익 요일 설정
   const [selectedDay, setSelectedDay] = useState("Monday");
@@ -458,33 +459,7 @@ function Home() {
   }, [showGraph]);
 
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await axiosInstance.get(
-          "https://duckling-back.d-v.kro.kr/api/checkSession"
-        );
-        if (response.status === 200 && response.data === "Success") {
-          setIsLoading(false);
-        }
-      } catch (error) {
-        // console.error(error);
-        console.log("Session is not valid");
-        navigate("/");
-      }
-    };
-
-    checkSession();
-    if (isLoading) {
-      return () => {
-        return <p>Loading...</p>;
-      };
-    }
-
-    // 세션 체크
-  }, [isLoading, navigate]);
-
-  useEffect(() => {
-    if (accountId !== "") {
+    if (accountId !== "" && accountId !== "-1") {
       getBalance(accountId);
       getBalanceRecord(accountId);
       getStocksEvaluationBalance(accountId);
@@ -492,49 +467,49 @@ function Home() {
   }, [accountId]);
 
   useEffect(() => {
+    const nowMonth = new Date().getMonth() + 1;
+    const nowYear = new Date().getFullYear();
+    const nowDate = new Date().getDate();
+    const startDate = 1;
+    const endDate = new Date(nowYear, nowMonth, 0).getDate();
+    const dateList = [];
+    for (let i = startDate; i <= endDate; i++) {
+      dateList.push(`${nowYear}-${nowMonth}-${i}`);
+    }
+
+    balanceRecord.forEach((record) => {
+      console.log(record.recordDate, record.balance);
+    });
+
+    const balanceList = [];
+    for (let i = startDate; i <= endDate; i++) {
+      if (i > nowDate) {
+        balanceList.push(null);
+      }
+      let found = false;
+      for (let j = 0; j < balanceRecord.length; j++) {
+        const recordDate = balanceRecord[j].recordDate.split(":");
+        if (
+          parseInt(recordDate[0]) === nowYear &&
+          parseInt(recordDate[1]) === nowMonth &&
+          parseInt(recordDate[2]) === i
+        ) {
+          balanceList.push(100000 + balanceRecord[j].balance);
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        if (balanceList.length === 0) {
+          balanceList.push(100000);
+        } else {
+          balanceList.push(balanceList[balanceList.length - 1]);
+        }
+      }
+    }
+
     if (chartRefCanvas.current) {
       if (chartRef.current) chartRef.current.destroy();
-
-      const nowMonth = new Date().getMonth() + 1;
-      const nowYear = new Date().getFullYear();
-      const nowDate = new Date().getDate();
-      const startDate = 1;
-      const endDate = new Date(nowYear, nowMonth, 0).getDate();
-      const dateList = [];
-      for (let i = startDate; i <= endDate; i++) {
-        dateList.push(`${nowYear}-${nowMonth}-${i}`);
-      }
-
-      balanceRecord.forEach((record) => {
-        console.log(record.recordDate, record.balance);
-      });
-
-      const balanceList = [];
-      for (let i = startDate; i <= endDate; i++) {
-        if (i > nowDate) {
-          balanceList.push(null);
-        }
-        let found = false;
-        for (let j = 0; j < balanceRecord.length; j++) {
-          const recordDate = balanceRecord[j].recordDate.split(":");
-          if (
-            parseInt(recordDate[0]) === nowYear &&
-            parseInt(recordDate[1]) === nowMonth &&
-            parseInt(recordDate[2]) === i
-          ) {
-            balanceList.push(100000 + balanceRecord[j].balance);
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          if (balanceList.length === 0) {
-            balanceList.push(100000);
-          } else {
-            balanceList.push(balanceList[balanceList.length - 1]);
-          }
-        }
-      }
 
       // 자산 현황 그래프 나중에 수정
       const ctx = chartRefCanvas.current.getContext("2d");
@@ -558,6 +533,17 @@ function Home() {
       });
 
       chartRef.current = myChart;
+    }
+
+    // balanceList[nowDate - 1]
+
+    if (nowDate === 1) {
+      setAmountChange(0);
+      setPercentageChange(0.0);
+    } else {
+      const change = balanceList[nowDate - 1] - balanceList[nowDate - 2];
+      setAmountChange(change);
+      setPercentageChange(change/balanceList[nowDate - 2]*100.0);
     }
   }, [balanceRecord]);
 
