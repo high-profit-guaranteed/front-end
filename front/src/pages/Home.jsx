@@ -6,6 +6,13 @@ import ScrollbarStyles from '../components/ScrollbarStyles.css';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from "axios";
 
+// 수정 - 사진 추가
+import apple1 from '../images/news/apple1.png';
+import tesla1 from '../images/news/tesla1.png';
+import google1 from '../images/news/google1.png';
+import microsoft1 from '../images/news/microsoft1.png';
+
+
 const styles = {
   container: {
     display: "flex",
@@ -206,6 +213,7 @@ const styles = {
     fontSize: "16px",
     fontFamily: "Arial, sans-serif",
     marginBottom: "20px",
+    cursor: "pointer", // 수정
   },
   newsImage: {
     width: "80px",
@@ -218,6 +226,12 @@ const styles = {
   newsText: {
     flex: 1,
     marginRight: "15px",
+  },
+
+  //추후 업데이트 예정입니다
+  develop:{
+    color: '#808080',
+    fontStyle: 'italic',
   },
 };
 
@@ -372,22 +386,38 @@ function Home() {
     return `${sign}${change}%`;
   };
 
-  const [news, setNews] = useState([
-    {
-      id: 1,
-      title: "뉴스 제목 1",
-      content:
-        "기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 1",
-      imageUrl: "news-image-url-1.jpg",
+  // 수정 추가 - 보유종목 뉴스
+  const holdingNews = [
+    { 
+      title: "Shiny Apple? 3 Reasons to Buy and Hold AAPL Stock Forever.",
+      date: "May 16",
+      imageUrl: apple1,
+      newsUrl: "https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/",
     },
-    {
-      id: 2,
-      title: "뉴스 제목 2",
-      content:
-        "기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 기사 내용 2",
-      imageUrl: "news-image-url-2.jpg",
+    { 
+      title: "Should I buy Tesla shares?",
+      date: "May 17",
+      imageUrl: tesla1,
+      newsUrl: "https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares",
+    }
+  ];
+
+  // 수정 추가 - 관심종목 뉴스
+  const interestNews = [
+    { 
+      title: "Google surges after buying back billions of dollars of its own stock",
+      date: "April 25",
+      imageUrl: google1,
+      newsUrl: "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html"
     },
-  ]);
+    { 
+      title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
+      date: "May 17",
+      imageUrl: microsoft1,
+      newsUrl: "https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/"
+    }
+  ];
+
 
   // const fetchNews = async () => {
   //   try {
@@ -398,6 +428,11 @@ function Home() {
   //     console.error("Failed to fetch news:", error);
   //   }
   // };
+
+  // 추가 - 뉴스들 url 이동
+  const handleNewsClick = (url) => {
+    window.open(url, "_blank");
+  };
 
   useEffect(() => {
     // fetchNews();
@@ -603,7 +638,7 @@ function Home() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
             <div>
               <h2 style={styles.cardTitle}>총 자산 현황</h2>
-              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{totalAmount}</span>
+              <span style={{ fontSize: '22px', fontWeight: 'bold' }}>{balance}</span>
               <span style={{ fontSize: '16px', color: amountChange >= 0 ? 'green' : 'red', marginLeft: '10px' }}>
                 {displayAmountChange} ({displayPercentageChange})
               </span>
@@ -673,11 +708,12 @@ function Home() {
         <div style={styles.rightsection}>
           <div style={styles.pendingOrders}>
             <h2>대기 주문</h2>
-            <p style={styles.develop}>추후 개발 예정입니다</p>
+            <p style={styles.develop}>추후 업데이트 예정입니다</p>
           </div>
 
           <div style={styles.favoriteOrders}>
-            <h2>관심 주문</h2>
+            {/* 수정 - 주문에서 종목으로 */}
+            <h2>관심 종목</h2>
             {favoriteOrders.map((item, index) => (
               <div key={index} style={styles.item}>
                 <span>{item.name}</span>
@@ -712,13 +748,14 @@ function Home() {
             >
               보유종목 뉴스
             </h2>
-            {news.map((item) => (
-              <div key={item.id} style={styles.newsCard}>
+            {holdingNews.map((item) => (
+              <div key={item.title} style={styles.newsCard} onClick={() => window.open(item.newsUrl, '_blank')}>
                 <div style={styles.newsText}>
-                  <h3 style={styles.newsTitle}>{item.title}</h3>
-                  <p>{item.content}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.author}</p>
+                  <p>{item.date} - {item.readTime}</p>
                 </div>
-                <div style={styles.newsImage}></div>
+                <div style={{ ...styles.newsImage, backgroundImage: `url(${item.imageUrl})` }}></div>
               </div>
             ))}
           </div>
@@ -730,13 +767,13 @@ function Home() {
             >
               관심종목 뉴스
             </h2>
-            {news.map((item) => (
-              <div key={item.id} style={styles.newsCard}>
+            {interestNews.map((item) => (
+              <div key={item.title} style={styles.newsCard} onClick={() => window.open(item.newsUrl, '_blank')}>
                 <div style={styles.newsText}>
-                  <h3 style={styles.newsTitle}>{item.title}</h3>
-                  <p>{item.content}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.date} - {item.readTime}</p>
                 </div>
-                <div style={styles.newsImage}></div>
+                <div style={{ ...styles.newsImage, backgroundImage: `url(${item.imageUrl})` }}></div>
               </div>
             ))}
           </div>
