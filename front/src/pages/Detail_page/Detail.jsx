@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+// import path from 'path';
 
 const styles = {
   mystockContainer: {
@@ -50,17 +51,20 @@ const styles = {
   },
 };
 
-const Detail = () => {
+const Detail = ({ stockData }) => {
   const ticker = useParams();
-  const companyName = "APPLE";
+  const companyName = "Apple Inc.";
   const navigate = useNavigate();
+  // const stockData = XLSX.readFile(path.join(__dirname, 'nas_code.xlsx'), { type: 'binary' });
+
+  console.log(stockData.Sheets['Sheet1']['D'].v);
 
   const goToCommunityPage = () => {
-    navigate('../../Channel');
+    navigate(`/channel/${ticker}`);
   };
 
   const goToNewsPage = () => {
-    navigate('../../News');
+    navigate('/news');
   };
 
   return (
