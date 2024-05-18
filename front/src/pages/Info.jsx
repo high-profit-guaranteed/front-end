@@ -3,11 +3,12 @@ import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import LineChart from './Detail_page/components/linechart.jsx';
 import { Link } from 'react-router-dom';
+import StockItem from '../components/Tickers.jsx';
 
 const styles = {
   container: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginLeft: '210px',
     marginRight: '1%',
     marginTop: '21px',
@@ -18,6 +19,18 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
     justifyContent: 'space-between',
   },
+  
+  // 수정 - header 추가
+  header: {
+    alignSelf: 'flex-start',
+    marginBottom: '20px',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   leftSection: {
     display: 'flex',
     flexDirection: 'row',
@@ -75,11 +88,9 @@ const styles = {
   // lleftSection - down
   downSection: {
     width: '90%',
-    height: '90%',
     padding: '10px',
     backgroundColor: '#EFEFEF',
     borderRadius: '10px',
-    width: '90%',
     textAlign: 'center',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
     borderStyle: 'double',
@@ -257,7 +268,7 @@ const styles = {
     fontSize: '22px',
     fontWeight: 'bold',
     marginBottom: '15px',
-    textAlign: 'center', // 승원선배님과 의견 충돌
+    textAlign: 'center',
     width: '100%', // 부모 컨테이너의 너비에 맞추기 위해 추가
   }
 };
@@ -358,76 +369,79 @@ function Info() {
       <Navbar />
       <Topbar />
       <div style={styles.container}>
-        <div style={styles.leftSection}>
-          <div style={styles.lleftSection}>
-            <div style={styles.topSection}>
-              {menuItems.map((item) => (
-                <div 
-                  key={item}
-                  style={selectedMenu === item ? {...styles.tab, ...styles.activeTab} : styles.tab}
-                  onClick={() => {
-                    setSelectedMenu(item);
-                    setSelectedStock(null);
-                  }}>
-                  {item}
-                </div>
-              ))}
-            </div>
-            <div style={styles.downSection}>
-              {selectedMenu ? renderStockList(selectedMenu) : "위에서 카테고리를 선택해주세요."}
-            </div>
-          </div>
-          <div style={styles.lrightSection}>
-            <div style={styles.downSection2}>
-              {selectedStock ? (
-              <React.Fragment>
-                <div style={styles.stockBox}>
-                  <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                    <LineChart />
+        <h2 style={styles.header}>실시간 현황</h2> {/* 추가 - 스타일 적용 */}
+        <div style={styles.content}>
+          <div style={styles.leftSection}>
+            <div style={styles.lleftSection}>
+              <div style={styles.topSection}>
+                {menuItems.map((item) => (
+                  <div 
+                    key={item}
+                    style={selectedMenu === item ? {...styles.tab, ...styles.activeTab} : styles.tab}
+                    onClick={() => {
+                      setSelectedMenu(item);
+                      setSelectedStock(null);
+                    }}>
+                    {item}
                   </div>
+                ))}
+              </div>
+              <div style={styles.downSection}>
+                {selectedMenu ? renderStockList(selectedMenu) : "위에서 카테고리를 선택해주세요."}
+              </div>
+            </div>
+            <div style={styles.lrightSection}>
+              <div style={styles.downSection2}>
+                {selectedStock ? (
+                <React.Fragment>
+                  <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
+                  <div style={styles.stockBox}>
+                    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                      <LineChart />
+                    </div>
+                  </div>
+                  <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>
+                  <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
+                  <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
+                  </React.Fragment>
+                ) : "세부정보를 보려면 주식을 선택하세요."}
+              </div>
+            </div>
+          </div>
+          <div style={styles.rightSection}>
+            <div style={styles.rupSection}>
+              {/* 수정 */}
+              <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
+              <div style={styles.opinionBBox}>
+                <div style={styles.opinionBox}>
+                  <span style={styles.opinionText}>Apple</span>
+                  <span style={styles.hold}>Hold</span>
                 </div>
-                <div style={styles.stockDetail}><b>Name:</b> {selectedStock.name}</div>
-                <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>
-                <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
-                <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
-                </React.Fragment>
-              ) : "세부정보를 보려면 주식을 선택하세요."}
-            </div>
-          </div>
-        </div>
-        <div style={styles.rightSection}>
-          <div style={styles.rupSection}>
-            {/* 수정 */}
-            <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
-            <div style={styles.opinionBBox}>
-              <div style={styles.opinionBox}>
-                <span style={styles.opinionText}>Apple</span>
-                <span style={styles.hold}>Hold</span>
-              </div>
-              <div style={styles.opinionBox}>
-                <span style={styles.opinionText}>Amazon</span>
-                <span style={styles.buy}>Buy</span>
-              </div>
-              <div style={styles.opinionBox}>
-                <span style={styles.opinionText}>NVIDIA</span>
-                <span style={styles.sell}>Sell</span>
+                <div style={styles.opinionBox}>
+                  <span style={styles.opinionText}>Amazon</span>
+                  <span style={styles.buy}>Buy</span>
+                </div>
+                <div style={styles.opinionBox}>
+                  <span style={styles.opinionText}>NVIDIA</span>
+                  <span style={styles.sell}>Sell</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div style={styles.rdownSection}>
-            <div style={styles.leftAlignedText}>매수 추천 주식</div>
-            <div style={styles.recommendStocksBox}>
+            <div style={styles.rdownSection}>
+              <div style={styles.leftAlignedText}>매수 추천 주식</div>
+              <div style={styles.recommendStocksBox}>
 
-              {/* 수정 - 링크추가 */}
-              {['Apple', 'Amazon', 'NVIDIA', 'Alphabet', 'Meta'].map((stock, index) => (
-                <Link
-                  key={index}
-                  to={`/detail/${stock.toLowerCase()}`}
-                  style={{ textDecoration: 'none' }} // 링크 스타일 초기화
-                >
-                  <div style={styles.recommendStocks}> {stock} </div>
-                </Link>
-              ))}
+                {/* 수정 - 링크추가 */}
+                {['Apple', 'Amazon', 'NVIDIA', 'Alphabet', 'Meta'].map((stock, index) => (
+                  <Link
+                    key={index}
+                    to={`/detail/${stock.toLowerCase()}`}
+                    style={{ textDecoration: 'none' }} // 링크 스타일 초기화
+                  >
+                    <div style={styles.recommendStocks}> {stock} </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>

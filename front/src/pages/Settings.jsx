@@ -176,33 +176,33 @@ function Settings() {
             {/* 한글 수정 */}
             <p>계좌를 추가하기 전, 아래 한국투자증권 오픈 API를 통해 회원가입 후 계좌를 만드시기 바랍니다.</p>
             <button style={styles.linkButton} onClick={() => window.open('https://securities.koreainvestment.com/main/member/login/login.jsp?returnUrl=%2Fmain%2Fcustomer%2Fsystemdown%2FRestAPIService.jsp&auth=LX', '_blank')}>
-              Go to Korea Investment & Securities
+              한국투자증권 바로가기
             </button>
             <label>
-              Account Number
-              <input type="text" placeholder="Enter Account Number" style={styles.inputField} />
+              계좌 번호
+              <input type="text" placeholder="계좌 번호를 입력해주세요." style={styles.inputField} />
             </label>
             <label>
-              Account Product Code
-              <input type="text" placeholder="Enter Account Product Code" style={styles.inputField} />
+              계좌 상품코드
+              <input type="text" placeholder="계좌 상품코드를 입력해주세요." style={styles.inputField} />
             </label>
             <label>
-              Account Name
-              <input type="text" placeholder="Enter account name" style={styles.inputField} />
+              계좌 이름
+              <input type="text" placeholder="Duckling에 표시할 계좌 이름을 입력해주세요." style={styles.inputField} />
             </label>
             <label>
-              I have a virtual account
+              모의투자계좌 여부
               <input type="checkbox" style={{...styles.inputField, width: 'auto', margin: '10px'}} />
             </label>
             <label>
               API KEY
-              <input type="text" placeholder="Enter API KEY" style={styles.inputField} />
+              <input type="text" placeholder="API KEY를 입력해주세요." style={styles.inputField} />
             </label>
             <label>
               API SECRET
-              <input type="text" placeholder="Enter API SECRET KEY" style={styles.inputField} />
+              <input type="text" placeholder="API SECRET를 입력해주세요." style={styles.inputField} />
             </label>
-            <button style={styles.button} onClick={() => console.log('Add account clicked')}>Add Account</button>
+            <button style={styles.button} onClick={() => console.log('Add account clicked')}>계좌 추가하기</button>
           </div>
         );
   
@@ -212,7 +212,7 @@ function Settings() {
           <div style={styles.profileDetails}>
             <h2>Personal settings</h2>
             <label>
-              Theme
+              테마
               <select style={styles.inputField}>
                 <option>Light</option>
                 <option>Dark</option>

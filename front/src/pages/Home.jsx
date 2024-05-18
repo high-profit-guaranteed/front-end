@@ -391,13 +391,13 @@ function Home() {
   const holdingNews = [
     { 
       title: "Shiny Apple? 3 Reasons to Buy and Hold AAPL Stock Forever.",
-      date: "May 16",
+      date: "2024 May 16",
       imageUrl: apple1,
       newsUrl: "https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/",
     },
     { 
       title: "Should I buy Tesla shares?",
-      date: "May 17",
+      date: "2024 May 17",
       imageUrl: tesla1,
       newsUrl: "https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares",
     }
@@ -407,13 +407,13 @@ function Home() {
   const interestNews = [
     { 
       title: "Google surges after buying back billions of dollars of its own stock",
-      date: "April 25",
+      date: "2024 April 25",
       imageUrl: google1,
       newsUrl: "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html"
     },
     { 
       title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
-      date: "May 17",
+      date: "2024 May 17",
       imageUrl: microsoft1,
       newsUrl: "https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/"
     }
@@ -711,6 +711,8 @@ function Home() {
                     <Link
                       key={index}
                       to={`/detail/${order.name.toLowerCase()}`}
+                      // 수정 - 링크 스타일 초기화
+                      style={{ textDecoration: 'none' }}
                     >
                       <div style={styles.holdSectionItem}>{order.name}</div>
                     </Link>
@@ -780,7 +782,7 @@ function Home() {
                 <div style={styles.newsText}>
                   <h3>{item.title}</h3>
                   <p>{item.author}</p>
-                  <p>{item.date} - {item.readTime}</p>
+                  <p>{item.date}</p>
                 </div>
                 <div style={{ ...styles.newsImage, backgroundImage: `url(${item.imageUrl})` }}></div>
               </div>
@@ -790,15 +792,14 @@ function Home() {
           <div style={styles.favoriteStocksNews}>
             <h2
               style={{ ...styles.sectionHeader, cursor: "pointer" }}
-              onClick={handleInterestNewsClick}
-            >
+              onClick={handleInterestNewsClick}>
               관심종목 뉴스
             </h2>
             {interestNews.map((item) => (
               <div key={item.title} style={styles.newsCard} onClick={() => window.open(item.newsUrl, '_blank')}>
                 <div style={styles.newsText}>
                   <h3>{item.title}</h3>
-                  <p>{item.date} - {item.readTime}</p>
+                  <p>{item.date}</p>
                 </div>
                 <div style={{ ...styles.newsImage, backgroundImage: `url(${item.imageUrl})` }}></div>
               </div>
