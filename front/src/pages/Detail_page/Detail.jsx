@@ -74,6 +74,7 @@ const styles = {
 const Detail = () => {
   const { ticker } = useParams();
   const navigate = useNavigate();
+  const companyName = "Apple Inc.";
   const companyInfo = {
     aapl: {
       name: 'APPLE',
@@ -128,6 +129,13 @@ const Detail = () => {
   };  
 
   const info = companyInfo[ticker.toLowerCase()] || companyInfo.aapl;
+
+  tickerData.map((data) => {
+    if (data["Symbol"].toLowerCase() === ticker) {
+      console.log(data);
+    }
+    return null;
+  });
 
   const goToCommunityPage = () => {
     const company = Object.values(companyInfo).find(company => company.name.toUpperCase() === info.name.toUpperCase());

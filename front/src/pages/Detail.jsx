@@ -73,7 +73,7 @@ const styles = {
   },
 };
 
-function Detail() {
+function Detail({ tickerData }) {
   const { ticker } = useParams();
   console.log("ticker", ticker);
 
@@ -94,7 +94,7 @@ function Detail() {
               <Stock />
             </div>
             <div style={styles.detail}>
-              <StockInfo />
+              <StockInfo tickerData={tickerData} />
             </div>
           </div>
         </div>

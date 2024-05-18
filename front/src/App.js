@@ -17,7 +17,10 @@ import Board from './pages/Channel_page/Board';
 import NewPost from './pages/Channel_page/NewPost';
 import Post from './pages/Channel_page/PostDetail';
 
+import tickerData from './data/tickerData';
+
 const App = () => {
+  // 게시판 데이터 초기값
   const initialBoards = [
     { title: 'Free', posts: [] },
     { title: 'Apple', posts: [] },
@@ -31,6 +34,7 @@ const App = () => {
     { title: 'COST', posts: [] },
     { title: 'ASML', posts: [] },
   ];
+  // 게시판 데이터
   const [boards, setBoards] = useState(initialBoards);
 
   return (
@@ -46,14 +50,13 @@ const App = () => {
         <Route path="/logout" element={<Logout />} />
         
         {/* 종목별 상세 페이지 */}
-        <Route path="/detail/:ticker" element={<Detail />} />
+        <Route path="/detail/:ticker" element={<Detail tickerData={tickerData} />} />
 
         {/* 보유/관심 종목 뉴스 페이지 */}
         <Route path="/News/Holding_news" element={<HoldingNews />} />
         <Route path="/News/Interest_news" element={<InterestNews />} />
 
-        <Route path="/board" element={<Board />} />
-        <Route path="/channel/board" element={<Board />} />
+        {/* 게시판 페이지 */}
         <Route path="/post/:ticker/new" element={<NewPost boards={boards} setBoards={setBoards} />} />
         <Route path="/post/:ticker/:postId" element={<Post boards={boards} setBoards={setBoards} />} />
       </Routes>
