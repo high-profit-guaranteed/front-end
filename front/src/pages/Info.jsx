@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import LineChart from './Detail_page/components/linechart.jsx';
+import { Link } from 'react-router-dom';
 
 const styles = {
   container: {
@@ -38,7 +39,6 @@ const styles = {
     justifyContent: 'space-around',
   },
 
-  
   // leftSection - left
   lleftSection: {
     width: '55%',
@@ -163,32 +163,51 @@ const styles = {
     borderStyle: 'solid',
     borderColor: '#EFEFEF'
   },
+  // 수정 - 스타일 수정
+  opinionBBox: {
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    textAlign: 'center',
+    borderRadius: '8px',
+    width: '100%',
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif',
+    maxHeight: '200px',
+    overflowY: 'auto',
+    boxSizing: 'border-box',
+  },
   opinionBox: {
     fontSize: '16px',
     fontWeight: 'bold',
     color: '#333',
-    padding: '12px',
+    padding: '10px',
     margin: '10px 0',
     backgroundColor: '#f7f7f7',
     borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    borderColor: '#e8e8e8',
+    borderStyle: 'solid',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%', // 조절 가능
-    textAlign: 'center',
+    width: '100%',
+    boxSizing: 'border-box',
   },
   hold: {
-    width: '90%',
+    padding: '5px 10px',
     backgroundColor: '#f0ad4e',
+    borderRadius: '5px',
+    color: '#fff',
   },
   buy: {
-    width: '90%',
+    padding: '5px 10px',
     backgroundColor: '#5cb85c',
+    borderRadius: '5px',
+    color: '#fff',
   },
   sell: {
-    width: '90%',
+    padding: '5px 10px',
     backgroundColor: '#d9534f',
+    borderRadius: '5px',
+    color: '#fff',
   },
   opinionText: {
     margin: '0 10px',
@@ -230,19 +249,27 @@ const styles = {
     borderRadius: '10px',
     borderColor: '#e8e8e8',
     borderStyle: 'solid',
-    textAlign: 'center',
+    textAlign: 'left',
   },
+
+  // 수정 - 텍스트 왼쪽 정렬
+  leftAlignedText: {
+    fontSize: '22px',
+    fontWeight: 'bold',
+    marginBottom: '15px',
+    textAlign: 'center', // 승원선배님과 의견 충돌
+    width: '100%', // 부모 컨테이너의 너비에 맞추기 위해 추가
+  }
 };
 
-
 function Info() {
-  const [selectedMenu, setSelectedMenu] = useState('Trading');
+  const [selectedMenu, setSelectedMenu] = useState('거래량');
   const [selectedStock, setSelectedStock] = useState(null);
 
-  const menuItems = ["Trading", "Popularity", "Soaring", "Decline", "Interest"];
+  const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
 
   const stockData = {
-    Trading: [
+    거래량: [
       { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
       { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
       { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
@@ -254,7 +281,7 @@ function Info() {
       { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
       { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
     ],
-    Popularity: [
+    인기: [
       { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
       { rank: 2, name: "MS", price: "58,056원", change: "-12.2%", symbol: "down" },
       { rank: 3, name: "Alphabet", price: "56,599원", change: "+2.2%", symbol: "up" },
@@ -266,7 +293,7 @@ function Info() {
       { rank: 9, name: "COST", price: "60,109원", change: "+0.5%", symbol: "up" },
       { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
     ],
-    Soaring: [
+    급상승: [
       { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
       { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
       { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
@@ -278,7 +305,7 @@ function Info() {
       { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
       { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
     ],
-    Decline: [
+    급하락: [
       { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
       { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
       { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
@@ -290,7 +317,7 @@ function Info() {
       { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
       { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
     ],
-    Interest: [
+    관심: [
       { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
       { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
       { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
@@ -305,8 +332,8 @@ function Info() {
   };
 
   useEffect(() => {
-    setSelectedMenu('Trading');
-    setSelectedStock(stockData.Trading[0]);
+    setSelectedMenu('거래량');
+    setSelectedStock(stockData.거래량[0]);
   }, []);
 
   function renderStockList(category) {
@@ -347,7 +374,7 @@ function Info() {
               ))}
             </div>
             <div style={styles.downSection}>
-              {selectedMenu ? renderStockList(selectedMenu) : "Please select a category above."}
+              {selectedMenu ? renderStockList(selectedMenu) : "위에서 카테고리를 선택해주세요."}
             </div>
           </div>
           <div style={styles.lrightSection}>
@@ -364,34 +391,45 @@ function Info() {
                 <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
                 <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
                 </React.Fragment>
-              ) : "Select a stock to view details."}
+              ) : "세부정보를 보려면 주식을 선택하세요."}
             </div>
           </div>
         </div>
         <div style={styles.rightSection}>
-        <div style={styles.rupSection}>
-          <div style={{ fontSize: '22px', fontWeight: 'bold', marginBottom: '15px' }}>Your Portfolio Opinion</div>
-            <div style={{ ...styles.opinionBox, ...styles.hold }}>
-              <span style={styles.opinionText}>Apple</span>
-              <span>Hold</span>
-            </div>
-            <div style={{ ...styles.opinionBox, ...styles.buy }}>
-              <span style={styles.opinionText}>Amazon</span>
-              <span>Buy</span>
-            </div>
-            <div style={{ ...styles.opinionBox, ...styles.sell }}>
-              <span style={styles.opinionText}>NVIDIA</span>
-              <span>Sell</span>
+          <div style={styles.rupSection}>
+            {/* 수정 */}
+            <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
+            <div style={styles.opinionBBox}>
+              <div style={styles.opinionBox}>
+                <span style={styles.opinionText}>Apple</span>
+                <span style={styles.hold}>Hold</span>
+              </div>
+              <div style={styles.opinionBox}>
+                <span style={styles.opinionText}>Amazon</span>
+                <span style={styles.buy}>Buy</span>
+              </div>
+              <div style={styles.opinionBox}>
+                <span style={styles.opinionText}>NVIDIA</span>
+                <span style={styles.sell}>Sell</span>
+              </div>
             </div>
           </div>
           <div style={styles.rdownSection}>
-              <div style={{ fontSize: '22px', fontWeight: 'bold', marginBottom: '15px' }}>Recommended Stocks to Buy</div>
-              <div style={styles.recommendStocksBox}>
-                {['Apple', 'Amazon', 'NVIDIA', 'Alphabet', 'Meta'].map((stock, index) => (
-                  <div key={index} style={styles.recommendStocks}> {stock} </div>
-                ))}
-              </div>
+            <div style={styles.leftAlignedText}>매수 추천 주식</div>
+            <div style={styles.recommendStocksBox}>
+
+              {/* 수정 - 링크추가 */}
+              {['Apple', 'Amazon', 'NVIDIA', 'Alphabet', 'Meta'].map((stock, index) => (
+                <Link
+                  key={index}
+                  to={`/detail/${stock.toLowerCase()}`}
+                  style={{ textDecoration: 'none' }} // 링크 스타일 초기화
+                >
+                  <div style={styles.recommendStocks}> {stock} </div>
+                </Link>
+              ))}
             </div>
+          </div>
         </div>
       </div>
     </div>

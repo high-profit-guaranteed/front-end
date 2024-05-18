@@ -19,16 +19,16 @@ import Post from './pages/Channel_page/PostDetail';
 
 const App = () => {
   const initialBoards = [
-    { title: 'Free', posts: [] },
-    { title: 'Apple', posts: [] },
-    { title: 'MS', posts: [] },
-    { title: 'Alphabet', posts: [] },
-    { title: 'Amazon', posts: [] },
+    { title: 'FREE', posts: [] },
+    { title: 'APPLE', posts: [] },
+    { title: 'MICROSOFT', posts: [] },
+    { title: 'ALPHABET', posts: [] },
+    { title: 'AMAZON', posts: [] },
     { title: 'NVIDIA', posts: [] },
-    { title: 'Meta', posts: [] },
-    { title: 'TSLA', posts: [] },
-    { title: 'Broadcom', posts: [] },
-    { title: 'COST', posts: [] },
+    { title: 'META', posts: [] },
+    { title: 'TESLA', posts: [] },
+    { title: 'BROADCOM', posts: [] },
+    { title: 'COSTCO', posts: [] },
     { title: 'ASML', posts: [] },
   ];
   const [boards, setBoards] = useState(initialBoards);

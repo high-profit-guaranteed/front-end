@@ -163,7 +163,7 @@ function Settings() {
             </label>
             <label>
               Description
-              <textarea defaultValue="" style={{ ...styles.inputField, height: '100px' }} placeholder="Put your description here."></textarea>
+              <textarea defaultValue="" style={{ ...styles.inputField, height: '100px' }} placeholder="추후 업데이트 예정입니다"></textarea>
             </label>
           </div>
         );
@@ -172,8 +172,9 @@ function Settings() {
       case 'AddAccount':
         return (
           <div style={styles.profileDetails}>
-            <h2>Add Account</h2>
-            <p>Before adding an account, please sign up and create an account through the Korea Investment & Securities Open API.</p>
+            <h2>AddAccount</h2>
+            {/* 한글 수정 */}
+            <p>계좌를 추가하기 전, 아래 한국투자증권 오픈 API를 통해 회원가입 후 계좌를 만드시기 바랍니다.</p>
             <button style={styles.linkButton} onClick={() => window.open('https://securities.koreainvestment.com/main/member/login/login.jsp?returnUrl=%2Fmain%2Fcustomer%2Fsystemdown%2FRestAPIService.jsp&auth=LX', '_blank')}>
               Go to Korea Investment & Securities
             </button>
@@ -240,7 +241,7 @@ function Settings() {
         );
   
       default:
-        return <div>Select a menu option to see details here.</div>;
+        return <div>옵션을 선택해주세요</div>; // 한글 수정
     }
   };  
 

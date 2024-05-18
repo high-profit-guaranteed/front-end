@@ -23,6 +23,8 @@ const styles = {
     cursor: 'pointer',
     marginLeft: '10px',
     paddingRight: '20px',
+    // 수정 - icon color 추가
+    color: 'black'
   },
   searchIcon: {
     position: 'absolute',
@@ -208,7 +210,10 @@ const Topbar = ({ selectAccount }) => {
           onKeyDown={handleSearchKeyDown}
         />
         <AiOutlineBell style={styles.icon} />
-        <AiOutlineUser style={styles.icon} />
+        {/* 수정 - profile로 가는 link 추가 */}
+        <Link to = '/settings'>
+          <AiOutlineUser style={styles.icon} />
+        </Link>
         <select style={styles.select} onChange={handleSelectChange} value={selectedAccount}>
           {accounts.map((account, index) => (
             <option key={index} value={account[1]}>

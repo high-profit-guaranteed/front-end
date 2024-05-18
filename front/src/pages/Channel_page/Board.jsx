@@ -58,7 +58,7 @@ const Board = ({ boardTitle, boards, deletePost }) => {
     <div>
       <br />
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-        <h2>{board.title} Board</h2>
+        <h2>{board.title} BOARD</h2>
       </div>
       <table style={styles.tableStyle}>
         <thead>
