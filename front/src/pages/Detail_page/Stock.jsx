@@ -38,7 +38,7 @@ const styles = {
     marginLeft: '10px',
   },
   line: {
-    borderTop: '1px solid rgba(242, 246, 239, 1)',
+    borderTop: '1px solid rgba(207, 207, 207)',
     marginTop: '10px',
     marginBottom: '10px',
   },
