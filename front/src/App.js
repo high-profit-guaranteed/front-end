@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-// import * as XLSX from 'xlsx/xlsx.mjs';
-// import * as fs from 'fs';
-
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Home from './pages/Home';
@@ -20,7 +17,8 @@ import Board from './pages/Channel_page/Board';
 import NewPost from './pages/Channel_page/NewPost';
 import Post from './pages/Channel_page/PostDetail';
 
-// XLSX.set_fs(fs);
+import tickerData from './data/tickerData';
+
 const App = () => {
   // 게시판 데이터 초기값
   const initialBoards = [
@@ -39,9 +37,6 @@ const App = () => {
   // 게시판 데이터
   const [boards, setBoards] = useState(initialBoards);
 
-  // const workbook = XLSX.readFile('nas_code.xlsx');
-  // let worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.var sheet_name_list = workbook.SheetNames[0]]);
-
   return (
     <div className="App">
       <Routes>
@@ -55,7 +50,7 @@ const App = () => {
         <Route path="/logout" element={<Logout />} />
         
         {/* 종목별 상세 페이지 */}
-        <Route path="/detail/:ticker" element={<Detail />} />
+        <Route path="/detail/:ticker" element={<Detail tickerData={tickerData} />} />
 
         {/* 보유/관심 종목 뉴스 페이지 */}
         <Route path="/News/Holding_news" element={<HoldingNews />} />
