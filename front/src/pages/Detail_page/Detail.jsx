@@ -41,7 +41,7 @@ const styles = {
     borderRadius: '8px',
     display: 'flex',
     alignItems: 'center',
-    height: '100%',
+    // height: '100%',
   },
   buttonContainer: {
     marginTop: '-15px',
@@ -71,7 +71,7 @@ const styles = {
   },
 };
 
-const Detail = () => {
+const Detail = ({tickerData}) => {
   const { ticker } = useParams();
   const navigate = useNavigate();
   const companyName = "Apple Inc.";
