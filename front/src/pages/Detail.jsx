@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
@@ -41,26 +41,31 @@ const styles = {
     gap: "20px",
   },
   leftsectionDown: {
-    //stock, detail
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: "10px",
+    gap: "20px",
   },
-  chart: {},
+  title: {
+    textAlign: 'center',
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    padding: '0 20px',
+    width: '30%',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  chart: {
+    width: "100%",
+  },
   stock: {
-    flex: 0.48,
-    marginBottom: "40px",
-    "@media (min-width: 768px)": {
-      flex: "0.48", // 화면 크기 768px 이상 - 너비 조절
-    },
+    width: "45%",
+    display: "flex",
+    flexDirection: "column",
   },
   detail: {
-    flex: 0.48,
-    marginBottom: "40px",
-    "@media (min-width: 768px)": {
-      flex: "0.48", // 화면 크기 768px 이상 - 너비 조절
-    },
+    width: "45%",
+    display: "flex",
+    flexDirection: "column",
   },
   order: {
     marginTop: "20px",
@@ -69,7 +74,7 @@ const styles = {
 };
 
 function Detail() {
-  const ticker = useParams();
+  const { ticker } = useParams();
   console.log("ticker", ticker);
 
   return (
@@ -78,6 +83,9 @@ function Detail() {
       <Topbar />
       <div style={styles.container}>
         <div style={styles.leftsection}>
+          <div style={styles.title}>
+            <h2>종목 상세</h2>
+          </div>
           <div style={styles.chart}>
             <Chart />
           </div>

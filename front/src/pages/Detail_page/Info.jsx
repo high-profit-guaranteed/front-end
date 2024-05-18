@@ -1,7 +1,16 @@
 import React from 'react';
-import Apple from '../../images/ent/Apple.png';
+import { useParams, useNavigate } from 'react-router-dom';
+import Apple from '../../images/ent/apple.png';
+import Microsoft from '../../images/ent/microsoft.png';
+import Alphabet from '../../images/ent/alphabet.png';
+import Amazon from '../../images/ent/amazon.png';
+import Nvidia from '../../images/ent/nvidia.png';
+import Meta from '../../images/ent/meta.png';
+import Tesla from '../../images/ent/tesla.png';
+import Broadcom from '../../images/ent/broadcom.png';
+import Costco from '../../images/ent/costco.png';
+import Asml from '../../images/ent/asml.png';
 import LineChart from './components/linechart.jsx';
-import './components/chartstyle.css';
 
 const styles = {
   chartContainer: {
@@ -61,15 +70,61 @@ const styles = {
   },
 };
 
+const companyInfo = {
+  aapl: {
+    name: 'Apple',
+    image: Apple,
+  },
+  msft: {
+    name: 'Microsoft',
+    image: Microsoft,
+  },
+  goog: {
+    name: 'Alphabet',
+    image: Alphabet,
+  },
+  amzn: {
+    name: 'Amazon',
+    image: Amazon,
+  },
+  nvda: {
+    name: 'Nvidia',
+    image: Nvidia,
+  },
+  meta: {
+    name: 'Meta',
+    image: Meta,
+  },
+  tsla: {
+    name: 'Tesla',
+    image: Tesla,
+  },
+  avgo: {
+    name: 'Broadcom',
+    image: Broadcom,
+  },
+  cost: {
+    name: 'Costco',
+    image: Costco,
+  },
+  asml: {
+    name: 'Asml',
+    image: Asml,
+  },
+};
+
 const Chart = () => {
   const percentValue = +2800;
+  const { ticker } = useParams();
+  const navigate = useNavigate();
+  const { name, image } = companyInfo[ticker.toLowerCase()] || companyInfo.aapl;
 
   return (
     <div style={styles.chartContainer}>
       <div style={styles.topContainer}>
         <div style={styles.titleContainer}>
-          <img src={Apple} alt="Apple" style={styles.image}/>
-          <h2 style={styles.title}>Apple</h2>
+          <img src={image} alt={name} style={{ marginTop: '5px', marginRight: '10px', width: '50px', height: '50px'}} />
+          <h2>{name}</h2>
         </div>
         <div style={styles.contentContainer}>
           <h2 style={styles.won}>22,000 USD</h2>
