@@ -3,7 +3,10 @@ import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import LineChart from './Detail_page/components/linechart.jsx';
 import { Link } from 'react-router-dom';
-import StockItem from '../components/Tickers.jsx';
+import SComponent from '../components/SComponent';
+import StockData from '../components/StockData';
+import StockCategories from '../components/StockCateg';
+
 
 const styles = {
   container: {
@@ -94,13 +97,13 @@ const styles = {
     textAlign: 'center',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
     borderStyle: 'double',
-    borderColor: '#8bc78e'
+    borderColor: '#8bc78e',
   },
   stockItem: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: '15px 10px',
+    padding: '0px 10px',
     borderBottom: '2px solid #eee',
     fontSize: '16px',
     fontWeight: '700',
@@ -128,24 +131,25 @@ const styles = {
   },
   // lrightSection - top
   downSection2: {
-    width: '95%',
-    height: '100%',
+    width: '90%',
+    height: '80%',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#FFF',
     borderRadius: '15px',
     borderStyle: 'double',
-    borderColor: '#8bc78e'
+    borderColor: '#8bc78e', 
+    marginBottom: '5%'
   },
   stockBox: {
     padding: '10px',
     margin: '10px 0',
     width: '90%',
     height: '100%',
-    textAlign: 'center',
+    textAlign: 'flex-start',
     borderRadius: '15px',
     backgroundColor: '#e8e8e8',
     boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
@@ -278,98 +282,30 @@ function Info() {
   const [selectedStock, setSelectedStock] = useState(null);
 
   const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
-
-  const stockData = {
-    거래량: [
-      { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
-      { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
-      { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
-      { rank: 4, name: "Amazon", price: "84,329원", change: "+1.4%", symbol: "up" },
-      { rank: 5, name: "NVIDIA", price: "11,056원", change: "+4.5%", symbol: "up" },
-      { rank: 6, name: "Meta", price: "248,878원", change: "+2.3%", symbol: "up" },
-      { rank: 7, name: "TSLA", price: "60,133원", change: "+6.6%", symbol: "up" },
-      { rank: 8, name: "Broadcom", price: "1,265,547원", change: "+1.1%", symbol: "up" },
-      { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
-      { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
-    ],
-    인기: [
-      { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
-      { rank: 2, name: "MS", price: "58,056원", change: "-12.2%", symbol: "down" },
-      { rank: 3, name: "Alphabet", price: "56,599원", change: "+2.2%", symbol: "up" },
-      { rank: 4, name: "Amazon", price: "60,329원", change: "+1.4%", symbol: "up" },
-      { rank: 5, name: "NVIDIA", price: "11,056원", change: "+4.5%", symbol: "up" },
-      { rank: 6, name: "Meta", price: "248,878원", change: "+2.3%", symbol: "up" },
-      { rank: 7, name: "TSLA", price: "60,133원", change: "+6.6%", symbol: "up" },
-      { rank: 8, name: "Broadcom", price: "1,265,133원", change: "+1.1%", symbol: "up" },
-      { rank: 9, name: "COST", price: "60,109원", change: "+0.5%", symbol: "up" },
-      { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
-    ],
-    급상승: [
-      { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
-      { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
-      { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
-      { rank: 4, name: "Amazon", price: "84,329원", change: "+1.4%", symbol: "up" },
-      { rank: 5, name: "NVIDIA", price: "248,056원", change: "+4.5%", symbol: "up" },
-      { rank: 6, name: "Meta", price: "265,878원", change: "+2.3%", symbol: "up" },
-      { rank: 7, name: "TSLA", price: "60,133원", change: "+6.6%", symbol: "up" },
-      { rank: 8, name: "Broadcom", price: "1,265,547원", change: "+1.1%", symbol: "up" },
-      { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
-      { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
-    ],
-    급하락: [
-      { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
-      { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
-      { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
-      { rank: 4, name: "Amazon", price: "84,329원", change: "+1.4%", symbol: "up" },
-      { rank: 5, name: "NVIDIA", price: "11,056원", change: "+4.5%", symbol: "up" },
-      { rank: 6, name: "Meta", price: "248,878원", change: "+2.3%", symbol: "up" },
-      { rank: 7, name: "TSLA", price: "60,133원", change: "+6.6%", symbol: "up" },
-      { rank: 8, name: "Broadcom", price: "1,265,547원", change: "+1.1%", symbol: "up" },
-      { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
-      { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
-    ],
-    관심: [
-      { rank: 1, name: "Apple", price: "61,024원", change: "+3.0%", symbol: "up" },
-      { rank: 2, name: "MS", price: "58,599원", change: "-12.2%", symbol: "down" },
-      { rank: 3, name: "Alphabet", price: "56,407원", change: "+2.2%", symbol: "up" },
-      { rank: 4, name: "Amazon", price: "84,329원", change: "+1.4%", symbol: "up" },
-      { rank: 5, name: "NVIDIA", price: "11,056원", change: "+4.5%", symbol: "up" },
-      { rank: 6, name: "Meta", price: "248,878원", change: "+2.3%", symbol: "up" },
-      { rank: 7, name: "TSLA", price: "60,133원", change: "+6.6%", symbol: "up" },
-      { rank: 8, name: "Broadcom", price: "1,265,547원", change: "+1.1%", symbol: "up" },
-      { rank: 9, name: "COST", price: "82,109원", change: "+0.5%", symbol: "up" },
-      { rank: 10, name: "ASML", price: "128,006원", change: "+0.7%", symbol: "up" }
-    ]
-  };
-
+  
   useEffect(() => {
-    setSelectedMenu('거래량');
-    setSelectedStock(stockData.거래량[0]);
-  }, []);
+    const firstTicker = StockCategories[selectedMenu][0];
+    setSelectedStock(StockData[firstTicker]);
+  }, [selectedMenu]);
 
   function renderStockList(category) {
-    const list = stockData[category]?.map(stock => (
-      <div key={stock.rank} 
-           style={styles.stockItem}
-           onClick={() => setSelectedStock(stock)}>
-        <div>{stock.rank}</div>
-        <div>{stock.name}</div>
-        <div>{stock.price}</div>
-        <div>{stock.change}</div>
-        <div style={stock.symbol === "up" ? styles.symbolUp : styles.symbolDown}>
-          {stock.symbol === "up" ? "↑" : "↓"}
+    const list = StockCategories[category]?.map(ticker => {
+      const stock = StockData[ticker];
+      return (
+        <div key={ticker} style={styles.stockItem} onClick={() => setSelectedStock(stock)}>
+          <SComponent stock={stock} />
         </div>
-      </div>
-    ));
+      );
+    });
     return <div>{list}</div>;
-  };
+  }
 
   return (
     <div>
       <Navbar />
       <Topbar />
       <div style={styles.container}>
-        <h2 style={styles.header}>실시간 현황</h2> {/* 추가 - 스타일 적용 */}
+        <h2 style={styles.header}>실시간 현황</h2>
         <div style={styles.content}>
           <div style={styles.leftSection}>
             <div style={styles.lleftSection}>
@@ -378,10 +314,7 @@ function Info() {
                   <div 
                     key={item}
                     style={selectedMenu === item ? {...styles.tab, ...styles.activeTab} : styles.tab}
-                    onClick={() => {
-                      setSelectedMenu(item);
-                      setSelectedStock(null);
-                    }}>
+                    onClick={() => setSelectedMenu(item)}>
                     {item}
                   </div>
                 ))}
@@ -393,16 +326,16 @@ function Info() {
             <div style={styles.lrightSection}>
               <div style={styles.downSection2}>
                 {selectedStock ? (
-                <React.Fragment>
-                  <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
-                  <div style={styles.stockBox}>
-                    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                      <LineChart />
+                  <React.Fragment>
+                    <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
+                    <div style={styles.stockBox}>
+                      <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                        <LineChart />
+                      </div>
                     </div>
-                  </div>
-                  <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>
-                  <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
-                  <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
+                    <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>
+                    <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
+                    <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
                   </React.Fragment>
                 ) : "세부정보를 보려면 주식을 선택하세요."}
               </div>
@@ -410,35 +343,24 @@ function Info() {
           </div>
           <div style={styles.rightSection}>
             <div style={styles.rupSection}>
-              {/* 수정 */}
               <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
               <div style={styles.opinionBBox}>
-                <div style={styles.opinionBox}>
-                  <span style={styles.opinionText}>Apple</span>
-                  <span style={styles.hold}>Hold</span>
-                </div>
-                <div style={styles.opinionBox}>
-                  <span style={styles.opinionText}>Amazon</span>
-                  <span style={styles.buy}>Buy</span>
-                </div>
-                <div style={styles.opinionBox}>
-                  <span style={styles.opinionText}>NVIDIA</span>
-                  <span style={styles.sell}>Sell</span>
-                </div>
+                {Object.entries(StockData).slice(0, 3).map(([ticker, stock], index) => (
+                  <div key={index} style={styles.opinionBox}>
+                    <span style={styles.opinionText}>{stock.name}</span>
+                    <span style={styles[stock.change.startsWith('+') ? 'buy' : 'sell']}>
+                      {stock.change.startsWith('+') ? 'Buy' : 'Sell'}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
             <div style={styles.rdownSection}>
               <div style={styles.leftAlignedText}>매수 추천 주식</div>
               <div style={styles.recommendStocksBox}>
-
-                {/* 수정 - 링크추가 */}
-                {['Apple', 'Amazon', 'NVIDIA', 'Alphabet', 'Meta'].map((stock, index) => (
-                  <Link
-                    key={index}
-                    to={`/detail/${stock.toLowerCase()}`}
-                    style={{ textDecoration: 'none' }} // 링크 스타일 초기화
-                  >
-                    <div style={styles.recommendStocks}> {stock} </div>
+                {Object.keys(StockData).slice(0, 5).map((ticker, index) => (
+                  <Link key={index} to={`/detail/${StockData[ticker].name.toLowerCase()}`} style={{ textDecoration: 'none' }}>
+                    <div style={styles.recommendStocks}>{StockData[ticker].name}</div>
                   </Link>
                 ))}
               </div>
