@@ -712,7 +712,7 @@ function Home() {
                       key={index}
                       to={`/detail/${order.name.toLowerCase()}`}
                     >
-                      <div style={styles.holdSectionItem}>{order.name}</div>
+                      <div style={styles.holdSectionItem}>wkddbstjd</div>
                     </Link>
                   ))
                 ) : (
