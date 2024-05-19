@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { HeartProvider } from './pages/Detail_page/Heart';
 
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -45,6 +46,7 @@ const App = () => {
   }, [accountId]);
 
   return (
+    <HeartProvider>
     <div className="App">
       <Routes>
         {/* 좌측 메뉴바 페이지 */}
@@ -68,6 +70,7 @@ const App = () => {
         <Route path="/post/:ticker/:postId" element={<Post boards={boards} setBoards={setBoards} accountId={accountId} setAccountId={setAccountId} />} />
       </Routes>
     </div>
+    </HeartProvider>
   );
 }
 
