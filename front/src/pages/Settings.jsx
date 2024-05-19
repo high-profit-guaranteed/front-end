@@ -150,7 +150,7 @@ const axiosInstance = axios.create({
   },
 });
 
-function Settings() {
+function Settings({ accountId, setAccountId }) {
   const [activeMenu, setActiveMenu] = useState('Profile');
 
   const [accountNumber, setAccountNumber] = useState('');
@@ -338,8 +338,8 @@ function Settings() {
 
   return (
     <div>
-      <Navbar />
-      <Topbar />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
+      <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
         <div style={styles.leftSection}>
           {Object.keys(iconMapping).map(menuItem => (

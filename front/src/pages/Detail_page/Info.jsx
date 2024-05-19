@@ -113,9 +113,9 @@ const companyInfo = {
   },
 };
 
-const Chart = () => {
+const Chart = ({ ticker }) => {
   const percentValue = +2800;
-  const { ticker } = useParams();
+  // const { ticker } = useParams();
   const { name, image } = companyInfo[ticker.toLowerCase()] || companyInfo.aapl;
   const [term, setTerm] = useState("day");
 

@@ -337,7 +337,7 @@ function SideNewsCard2({ newsItem }) {
   );
 }
 
-function News() {
+function News({ accountId, setAccountId }) {
 
   const [hotNews, setHotNews] = useState([]);
   const [myNews, setMyNews] = useState([]);
@@ -413,7 +413,7 @@ function News() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
       <Topbar />
       <div style={styles.container}>
         <div style={styles.contentContainer}>

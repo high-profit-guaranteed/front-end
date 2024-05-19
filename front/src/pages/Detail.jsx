@@ -73,21 +73,21 @@ const styles = {
   },
 };
 
-function Detail({ tickerData }) {
+function Detail({ tickerData, accountId, setAccountId }) {
   const { ticker } = useParams();
   console.log("ticker", ticker);
 
   return (
     <div>
-      <Navbar />
-      <Topbar />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
+      <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
         <div style={styles.leftsection}>
           <div style={styles.title}>
             <h2>종목 상세</h2>
           </div>
           <div style={styles.chart}>
-            <Chart />
+            <Chart ticker={ticker}/>
           </div>
           <div style={styles.leftsectionDown}>
             <div style={styles.stock}>
@@ -100,7 +100,7 @@ function Detail({ tickerData }) {
         </div>
         <div style={styles.rightsection}>
           <div style={styles.order}>
-            <Order orderData={orderData} ticker={ticker} currentPrice={101.8} />
+            <Order orderData={orderData} ticker={ticker} currentPrice={101.8} accountId={accountId} />
           </div>
         </div>
       </div>

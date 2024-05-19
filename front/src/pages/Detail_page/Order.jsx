@@ -88,7 +88,7 @@ const axiosInstance = axios.create({
   },
 });
 
-const Order = ({ orderData, ticker, currentPrice }) => {
+const Order = ({ orderData, ticker, currentPrice, accountId }) => {
   const [selectedPrice, setSelectedPrice] = useState(null);
 
   useEffect(() => {
@@ -99,38 +99,18 @@ const Order = ({ orderData, ticker, currentPrice }) => {
     setSelectedPrice(price);
   };
 
-  const buyStock = () => {
-    const quantity = prompt('매수할 수량을 입력하세요:');
+  const tradeStock = (method) => {
+    const quantity = prompt(`${ method === 'buy' ? '매수' : method === 'sell' ? '매도' : 'Error' }할 수량을 입력하세요:`);
     if (quantity !== null && !isNaN(quantity) && quantity !== '') {
       axiosInstance
-      .post("https://duckling-back.kro.kr/api/trade?accountId=${accountId}", {
+      .post(`https://duckling-back.kro.kr/api/trade?accountId=${accountId}`, {
         stockCode: ticker,
         orderAmount: quantity,
         orderPrice: selectedPrice,
-        method: "buy"
+        method: method
       }).then((response) => {
         if (response.status === 200) alert("주문 완료");
-        else throw new Error("주문 실패 (surver error)");
-      }).catch((error) => {
-        console.log("error: ", error);
-      });
-    } else {
-      console.log('올바르지 않은 입력입니다.');
-    }
-  };
-  
-  const sellStock = () => {
-    const quantity = prompt('매도할 수량을 입력하세요:');
-    if (quantity !== null && !isNaN(quantity) && quantity !== '') {
-      axiosInstance
-      .post("https://duckling-back.kro.kr/api/trade?accountId=${accountId}", {
-        stockCode: ticker,
-        orderAmount: quantity,
-        orderPrice: selectedPrice,
-        method: "sell"
-      }).then((response) => {
-        if (response.status === 200) alert("주문 완료");
-        else throw new Error("주문 실패 (surver error)");
+        else throw new Error("주문 실패 (server error)");
       }).catch((error) => {
         console.log("error: ", error);
       });
@@ -171,8 +151,8 @@ const Order = ({ orderData, ticker, currentPrice }) => {
         ))}
       </div>
       <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={buyStock}>매수</button>
-        <button style={styles.button} onClick={sellStock}>매도</button>
+        <button style={styles.button} onClick={() => {tradeStock('buy')}}>매수</button>
+        <button style={styles.button} onClick={() => {tradeStock('sell')}}>매도</button>
       </div>
     </div>
   );

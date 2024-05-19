@@ -6,62 +6,62 @@ import axios from "axios";
 
 const styles = {
   topbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0px 20px',
-    backgroundColor: '#F8F9FA',
-    borderBottom: '1px solid #E1E4E8',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "0px 20px",
+    backgroundColor: "#F8F9FA",
+    borderBottom: "1px solid #E1E4E8",
   },
   iconsContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    position: 'relative',
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
   },
   icon: {
-    fontSize: '26px',
-    cursor: 'pointer',
-    marginLeft: '10px',
-    paddingRight: '20px',
+    fontSize: "26px",
+    cursor: "pointer",
+    marginLeft: "10px",
+    paddingRight: "20px",
   },
   searchIcon: {
-    position: 'absolute',
-    left: '1px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    color: '#ccc',
+    position: "absolute",
+    left: "1px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    color: "#ccc",
   },
   searchInput: {
-    padding: '10px 25px 8px 45px',
-    border: '1px solid #CCC',
-    borderRadius: '20px',
-    outline: 'none',
-    width: '180px',
-    marginRight: '20px',
+    padding: "10px 25px 8px 45px",
+    border: "1px solid #CCC",
+    borderRadius: "20px",
+    outline: "none",
+    width: "180px",
+    marginRight: "20px",
   },
   duckling: {
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    textDecoration: 'none',
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    textDecoration: "none",
   },
   ducklingText: {
-    fontSize: '25px',
-    fontWeight: 'bold',
-    marginLeft: '-5px',
-    color: 'black',
+    fontSize: "25px",
+    fontWeight: "bold",
+    marginLeft: "-5px",
+    color: "black",
   },
   ducklingImage: {
-    width: '60px',
-    height: '60px',
-    marginRight: '-15px',
+    width: "60px",
+    height: "60px",
+    marginRight: "-15px",
   },
   select: {
-    marginLeft: '10px',
-    padding: '5px 10px',
-    cursor: 'pointer',
-    border: '1px solid #CCC',
-    borderRadius: '5px',
+    marginLeft: "10px",
+    padding: "5px 10px",
+    cursor: "pointer",
+    border: "1px solid #CCC",
+    borderRadius: "5px",
   },
 };
 
@@ -77,33 +77,35 @@ const axiosInstance = axios.create({
 
 const nullAccount = ["계좌 불러오는 중...", ""]; // 계좌 정보가 없을 때의 상태
 
-const Topbar = ({ selectAccount }) => {
+const Topbar = ({ accountId, setAccountId }) => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태
-  const [accounts, setAccounts] = useState(['loading', 'loading']); // 계좌 목록 상태
-  const [selectedAccount, setSelectedAccount] = useState(''); // 선택된 계좌 상태
-  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
+  const [accounts, setAccounts] = useState([["loading", "loading"]]); // 계좌 목록 상태
+  const [selectedAccount, setSelectedAccount] = useState(accountId); // 선택된 계좌 상태
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
 
   // Search 창에 검색할 내용들
   const searchKeywordMap = {
-    "apple": "aapl",
-    "microsoft": "msft",
-    "google": "goog",
-    "amazon": "amzn",
-    "nvidia": "nvda",
-    "meta": "meta",
-    "tesla": "tsla",
-    "broadcom": "avgo",
-    "costco": "cost",
-    "asml": "asml"
+    apple: "aapl",
+    microsoft: "msft",
+    google: "goog",
+    amazon: "amzn",
+    nvidia: "nvda",
+    meta: "meta",
+    tesla: "tsla",
+    broadcom: "avgo",
+    costco: "cost",
+    asml: "asml",
   };
 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = (e) => {
     // console.log(event.target.value);
 
     // 계좌 변경
-    setSelectedAccount(event.target.value);
-    if (selectAccount) selectAccount(event.target.value);
+    setSelectedAccount(e.target.value);
+    console.log(e.target.value);
   };
 
   const getAccounts = async () => {
@@ -121,6 +123,7 @@ const Topbar = ({ selectAccount }) => {
       } else {
         setAccounts([["계좌 정보 없음", ""]]);
       }
+      setLoading(false);
     } catch (error) {
       console.error(error);
       setAccounts([["계좌 조회 실패", ""]]);
@@ -143,7 +146,7 @@ const Topbar = ({ selectAccount }) => {
   };
 
   const handleSearchKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       executeSearch();
     }
   };
@@ -164,8 +167,8 @@ const Topbar = ({ selectAccount }) => {
       }
     };
 
-    checkSession();
     if (isLoading) {
+      checkSession();
       return () => {
         return <p>Loading...</p>;
       };
@@ -177,19 +180,62 @@ const Topbar = ({ selectAccount }) => {
   }, [isLoading, navigate]);
 
   useEffect(() => {
-    if (accounts.length === 1 && accounts[0][0] === "loading" && accounts[0][1] === "loading")
+    console.log("accounts", accounts, accountId, loading);
+    // 로딩중일때는 계좌 정보를 불러오지 않음
+    if (
+      accounts.length === 1 &&
+      accounts[0][0] === "loading" &&
+      accounts[0][1] === "loading"
+    )
       return;
-    else if (accounts.length === 1 && accounts[0][0] === nullAccount[0] && accounts[0][1] === nullAccount[1])
+    // 로딩이 끝났을 때
+    else if (
+      accounts.length === 1 &&
+      accounts[0][0] === nullAccount[0] &&
+      accounts[0][1] === nullAccount[1]
+    )
       getAccounts();
-    else if (accounts.length === 1 && accounts[0][0] === "계좌 정보 없음" && accounts[0][1] === "")
+    // 계좌 정보가 없을 때
+    else if (
+      accounts.length === 1 &&
+      (accounts[0][0] === "계좌 정보 없음" ||
+        accounts[0][0] === "계좌 조회 실패") &&
+      accounts[0][1] === ""
+    ) {
       setSelectedAccount("-1");
-    else
-      setSelectedAccount(accounts[0][1]);
-  }, [accounts]);
+    }
+    // 계좌 정보가 있을 때
+    else if (!loading && !isSelected) {
+      if (accountId === "" || accountId === "-1") {
+        setSelectedAccount(accounts[0][1]);
+      } else {
+        let found = false;
+        for (let account of accounts) {
+          console.log("account:", account[1], accountId);
+          console.log(typeof account[1], typeof accountId);
+          if (account[1] === parseInt(accountId)) {
+            console.log("이전 accountId found");
+            setSelectedAccount(account[1]);
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          console.log("이전 accountId not found:", accountId);
+          setSelectedAccount(accounts[0][1]);
+        }
+      }
+      setIsSelected(true);
+    }
+  }, [accounts, accountId, loading, isSelected]);
 
   useEffect(() => {
-    if (selectedAccount !== "" && selectAccount) selectAccount(selectedAccount);
-  }, [selectedAccount, selectAccount]);
+    // 선택된 계좌가 있을 때만 accountId 변경
+    if (setAccountId) {
+      setAccountId(selectedAccount);
+      console.log("selectedAccount: ", selectedAccount);
+    }
+  }, [selectedAccount, setAccountId]);
 
   return (
     <div style={styles.topbar}>
@@ -209,7 +255,27 @@ const Topbar = ({ selectAccount }) => {
         />
         <AiOutlineBell style={styles.icon} />
         <AiOutlineUser style={styles.icon} />
-        <select style={styles.select} onChange={handleSelectChange} value={selectedAccount}>
+        <select
+          style={styles.select}
+          onChange={handleSelectChange}
+          // defaultValue={() => {
+          //   if (!(
+          //     (accounts.length === 1 &&
+          //       accounts[0][0] === "loading" &&
+          //       accounts[0][1] === "loading") ||
+          //     (accounts.length === 1 &&
+          //       accounts[0][0] === nullAccount[0] &&
+          //       accounts[0][1] === nullAccount[1]) ||
+          //     (accounts.length === 1 &&
+          //       (accounts[0][0] === "계좌 정보 없음" ||
+          //         accounts[0][0] === "계좌 조회 실패") &&
+          //       accounts[0][1] === "")
+          //   )) {
+          //     return accountId;
+          //   }
+          // }}
+          value={accountId}
+        >
           {accounts.map((account, index) => (
             <option key={index} value={account[1]}>
               {account[0]}
