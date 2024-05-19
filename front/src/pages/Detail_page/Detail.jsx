@@ -58,7 +58,7 @@ const styles = {
     borderRadius: '8px',
     display: 'flex',
     alignItems: 'center',
-    height: '100%',
+    // height: '100%',
   },
   buttonContainer: {
     marginTop: '-15px',
@@ -104,10 +104,11 @@ const HeartButton = ({ style, item }) => {
   );
 };
 
-const Detail = () => {
+const Detail = ({tickerData}) => {
   const { ticker } = useParams();
   const navigate = useNavigate();
   const { likedItems, toggleLike } = useContext(HeartContext);
+  const companyName = "Apple Inc.";
   const companyInfo = {
     aapl: {
       name: 'APPLE',
@@ -162,6 +163,13 @@ const Detail = () => {
   };
 
   const info = companyInfo[ticker.toLowerCase()] || companyInfo.aapl;
+
+  tickerData.map((data) => {
+    if (data["Symbol"].toLowerCase() === ticker) {
+      console.log(data);
+    }
+    return null;
+  });
 
   const goToCommunityPage = () => {
     const company = Object.values(companyInfo).find(

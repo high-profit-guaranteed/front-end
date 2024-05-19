@@ -319,7 +319,9 @@ function LoginPage() {
         password: signInInputPW,
       })
       .then((response) => {
-        if (response.status === 200) navigate("/Home");
+        if (response.status === 200) {
+          navigate("/home");
+        }
         else throw new Error("로그인 실패 (200 아님)");
       })
       .catch((error) => {
