@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext  } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import Chart from "chart.js/auto";
@@ -11,6 +11,9 @@ import apple1 from '../images/news/apple1.png';
 import tesla1 from '../images/news/tesla1.png';
 import google1 from '../images/news/google1.png';
 import microsoft1 from '../images/news/microsoft1.png';
+
+// 수정 - 관심종목 받아오기
+import { HeartContext } from './Detail_page/Heart.jsx';
 
 
 const styles = {
@@ -357,11 +360,11 @@ function Home() {
     { id: 2, name: "AAPL" },
   ]);
 
-  // 관심 종목 예시 데이터
-  const [favoriteOrders, setFavoriteOrders] = useState([
-    { id: 1, name: "GOOG", percentage: "20.3%" },
-    { id: 2, name: "MSFT", percentage: "15.6%" },
-  ]);
+  // 관심 종목 데이터값 받아오기
+  const { likedItems, toggleHeart } = useContext(HeartContext);
+  const initialFavoriteOrders = likedItems.map((item, index) => ({ id: index + 1, name: item, percentage: "10%" }));
+  const [favoriteOrders, setFavoriteOrders] = useState(initialFavoriteOrders);
+
 
   // 관심 종목 추가, 변경
   const handleAddItem = () => {
