@@ -100,7 +100,7 @@ function Detail({ tickerData }) {
         </div>
         <div style={styles.rightsection}>
           <div style={styles.order}>
-            <Order orderData={orderData} currentPrice={101.8} />
+            <Order orderData={orderData} ticker={ticker} currentPrice={101.8} />
           </div>
         </div>
       </div>
