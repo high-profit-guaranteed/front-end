@@ -291,7 +291,7 @@ const axiosInstance = axios.create({
   },
 });
 
-function Info() {
+function Info({ accountId, setAccountId }) {
   const [selectedMenu, setSelectedMenu] = useState('거래량');
   const [selectedStock, setSelectedStock] = useState(null);
   const [stockBalance, setStockBalance] = useState([]);
@@ -376,7 +376,7 @@ function Info() {
                   <div 
                     key={item}
                     style={selectedMenu === item ? {...styles.tab, ...styles.activeTab} : styles.tab}
-                    onClick={() => setSelectedMenu(item);}>
+                    onClick={() => setSelectedMenu(item)}>
                     {item}
                   </div>
                 ))}
@@ -392,7 +392,7 @@ function Info() {
                     <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
                     <div style={styles.stockBox}>
                       <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                        <LineChart  term={"day"} />
+                        <LineChart ticker={selectedTicker} term={"day"} />
                       </div>
                     </div>
                     <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>
