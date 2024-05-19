@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   AiOutlineHome, AiOutlineInfoCircle, AiOutlineBook,
   AiOutlinePlayCircle, AiOutlineUser, AiOutlineSetting, AiOutlineLogout
 } from 'react-icons/ai';
 
-const Navbar = () => {
+const Navbar = ({ accountId, setAccountId }) => {
   const location = useLocation();
 
   const styles = {
@@ -53,6 +53,10 @@ const Navbar = () => {
     { Icon: AiOutlineSetting, text: 'Settings', path: '/settings' },
     { Icon: AiOutlineLogout, text: 'Logout', path: '/logout' }
   ];
+
+  useEffect(() => {
+    console.log('navbar changed', accountId);
+  }, [accountId]);
 
   return (
     <div style={styles.navbar}>

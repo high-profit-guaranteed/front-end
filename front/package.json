@@ -162,6 +162,7 @@
     ]
   },
   "devDependencies": {
+    "@types/xlsx": "^0.0.36",
     "cross-env": "^7.0.3"
   }
 }

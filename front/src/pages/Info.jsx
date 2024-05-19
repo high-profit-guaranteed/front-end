@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import Topbar from '../components/Topbar.jsx';
-import LineChart from './Detail_page/components/linechart.jsx';
+import React, { useState, useEffect } from "react";
+import Navbar from "../components/Navbar.jsx";
+import Topbar from "../components/Topbar.jsx";
+import LineChart from "./Detail_page/components/linechart.jsx";
 import { Link } from 'react-router-dom';
 import SComponent from '../components/SComponent';
+import SComponent2 from '../components/SComponent2';
 import StockData from '../components/StockData';
 import StockCategories from '../components/StockCateg';
 import axios from "axios";
-
-import SComponent2 from '../components/SComponent2';
-
 
 const styles = {
   container: {
@@ -38,58 +36,58 @@ const styles = {
   },
 
   leftSection: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '64%',
-    alignItems: 'center',
-    marginRight: '20px',
-    padding: '10px',
-    backgroundColor: '#F3F3F3',
-    borderRadius: '8px',
+    display: "flex",
+    flexDirection: "row",
+    width: "64%",
+    alignItems: "center",
+    marginRight: "20px",
+    padding: "10px",
+    backgroundColor: "#F3F3F3",
+    borderRadius: "8px",
   },
   rightSection: {
-    width: '30%', 
-    padding: '10px',
-    backgroundColor: '#FFFFFF',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
+    width: "30%",
+    padding: "10px",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
   },
 
   // leftSection - left
   lleftSection: {
-    width: '55%',
-    height: '100%',
-    padding: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    borderRight: '2px solid #E0E0E0',
-    borderRadius: '15px',
-    backgroundColor: '#fff',
+    width: "55%",
+    height: "100%",
+    padding: "10px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    borderRight: "2px solid #E0E0E0",
+    borderRadius: "15px",
+    backgroundColor: "#fff",
   },
   // lleftSection - top
   // 거래량, 인기, 급상승, 급하락, 관심
   topSection: {
-    display: 'flex',
-    marginBottom: '20px',
-    borderBottom: '1px solid #CCC',
-    padding: '10px 0',
+    display: "flex",
+    marginBottom: "20px",
+    borderBottom: "1px solid #CCC",
+    padding: "10px 0",
   },
   tab: {
-    flex: '0 0 auto',
-    marginRight: '15px',
-    cursor: 'pointer',
-    padding: '10px',
-    fontWeight: 'bold',
-    color: '#666',
+    flex: "0 0 auto",
+    marginRight: "15px",
+    cursor: "pointer",
+    padding: "10px",
+    fontWeight: "bold",
+    color: "#666",
   },
   activeTab: {
-    borderBottom: '3px solid #8bc78e',
-    color: 'black',
+    borderBottom: "3px solid #8bc78e",
+    color: "black",
   },
   // lleftSection - down
   downSection: {
@@ -113,24 +111,24 @@ const styles = {
     cursor: 'pointer',
   },
   symbolUp: {
-    color: 'red'
+    color: "red",
   },
   symbolDown: {
-    color: 'blue'
+    color: "blue",
   },
-  
+
   // leftSection - right
   lrightSection: {
-    width: '50%',
-    height: '100%',
-    padding: '10px',
-    display: 'flex',
-    marginLeft: '1%',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    borderRadius: '15px',
-    backgroundColor: '#F3F3F3',
+    width: "50%",
+    height: "100%",
+    padding: "10px",
+    display: "flex",
+    marginLeft: "1%",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    borderRadius: "15px",
+    backgroundColor: "#F3F3F3",
   },
   // lrightSection - top
   downSection2: {
@@ -158,28 +156,28 @@ const styles = {
     boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
   },
   stockDetail: {
-    fontSize: '18px',
-    padding: '10px',
-    marginBottom: '5px',
-    textAlign: 'left',
-    width: '90%',
+    fontSize: "18px",
+    padding: "10px",
+    marginBottom: "5px",
+    textAlign: "left",
+    width: "90%",
   },
 
   // rightSection
   // rightSection - top
   // 보유종목에 대한 의견
   rupSection: {
-    padding: '10px',
-    marginBottom: '3%',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '50%',
-    borderStyle: 'solid',
-    borderColor: '#EFEFEF'
+    padding: "10px",
+    marginBottom: "3%",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "50%",
+    borderStyle: "solid",
+    borderColor: "#EFEFEF",
   },
   // 수정 - 스타일 수정
   opinionBBox: {
@@ -236,23 +234,23 @@ const styles = {
     color: '#fff',
   },
   opinionText: {
-    margin: '0 10px',
+    margin: "0 10px",
   },
 
   // rightSection - down
   // 매수 추천 종목
   rdownSection: {
-    padding: '10px',
-    marginBottom: '3%',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '50%',
-    borderStyle: 'solid',
-    borderColor: '#EFEFEF'
+    padding: "10px",
+    marginBottom: "3%",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "50%",
+    borderStyle: "solid",
+    borderColor: "#EFEFEF",
   },
   recommendStocksBox: {
     textAlign: 'center',
@@ -297,6 +295,7 @@ function Info() {
   const [selectedMenu, setSelectedMenu] = useState('거래량');
   const [selectedStock, setSelectedStock] = useState(null);
   const [stockBalance, setStockBalance] = useState([]);
+  const [selectedTicker, setSelectedTicker] = useState('');
   // const [stocks, setStocks] = useState({});
 
   const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
@@ -345,6 +344,7 @@ function Info() {
   // 보유종목에 대한 의견 ai
   useEffect(() => {
     const firstTicker = StockCategories[selectedMenu][0];
+    setSelectedTicker(firstTicker);
     setSelectedStock(StockData[firstTicker]);
     myStock('1'); // 임의로 1을 넣음 실제로는 사용하는 계좌 id를 받아올 것
     // aiOpinion(stockBalance);
@@ -354,7 +354,7 @@ function Info() {
     const list = StockCategories[category]?.map(ticker => {
       const stock = StockData[ticker];
       return (
-        <div key={ticker} style={styles.stockItem} onClick={() => setSelectedStock(stock)}>
+        <div key={ticker} style={styles.stockItem} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
           <SComponent stock={stock} />
         </div>
       );
@@ -364,8 +364,8 @@ function Info() {
 
   return (
     <div>
-      <Navbar />
-      <Topbar />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
+      <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
         <h2 style={styles.header}>실시간 현황</h2>
         <div style={styles.content}>
@@ -376,7 +376,7 @@ function Info() {
                   <div 
                     key={item}
                     style={selectedMenu === item ? {...styles.tab, ...styles.activeTab} : styles.tab}
-                    onClick={() => setSelectedMenu(item)}>
+                    onClick={() => setSelectedMenu(item);}>
                     {item}
                   </div>
                 ))}
@@ -392,7 +392,7 @@ function Info() {
                     <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
                     <div style={styles.stockBox}>
                       <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                        <LineChart />
+                        <LineChart  term={"day"} />
                       </div>
                     </div>
                     <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>

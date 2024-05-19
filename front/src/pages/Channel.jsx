@@ -52,7 +52,7 @@ const styles = {
   },
 };
 
-const Channel = ({ boards, setBoards }) => {
+const Channel = ({ boards, setBoards, accountId, setAccountId }) => {
   const navigate = useNavigate();
 
   const { ticker } = useParams();
@@ -96,8 +96,8 @@ const Channel = ({ boards, setBoards }) => {
 
   return (
     <>
-      <Navbar />
-      <Topbar />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
+      <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
         <div style={styles.boardcontainer}>
           <div style={styles.boardselect}>

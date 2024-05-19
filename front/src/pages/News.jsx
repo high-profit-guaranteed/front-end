@@ -366,7 +366,7 @@ function SideNewsCard2({ newsItem }) {
   );
 }
 
-function News() {
+function News({ accountId, setAccountId  }) {
   const navigate = useNavigate();
 
   const handleHoldingNewsClick = () => {
@@ -379,8 +379,8 @@ function News() {
 
   return (
     <div>
-      <Navbar />
-      <Topbar />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
+      <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
         <div style={styles.contentContainer}>
           <div style={styles.mainCardsContainer}>

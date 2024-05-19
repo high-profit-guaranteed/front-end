@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext  } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import Chart from "chart.js/auto";
@@ -7,16 +7,18 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 // 수정 - 사진 추가
-import apple1 from '../images/news/apple1.png';
-import tesla1 from '../images/news/tesla1.png';
-import google1 from '../images/news/google1.png';
-import microsoft1 from '../images/news/microsoft1.png';
+import apple1 from "../images/news/apple1.png";
+import tesla1 from "../images/news/tesla1.png";
+import google1 from "../images/news/google1.png";
+import microsoft1 from "../images/news/microsoft1.png";
 
 // 수정 - 추가
 import SComponent from '../components/SComponent';
 import StockData from '../components/StockData';
 import SComponent2 from '../components/SComponent2';
 
+// 수정 - 관심종목 받아오기
+import { HeartContext } from './Detail_page/Heart.jsx';
 
 const styles = {
   container: {
@@ -209,9 +211,9 @@ const styles = {
   },
 
   //추후 업데이트 예정입니다
-  develop:{
-    color: '#808080',
-    fontStyle: 'italic',
+  develop: {
+    color: "#808080",
+    fontStyle: "italic",
   },
 };
 
@@ -225,7 +227,7 @@ const axiosInstance = axios.create({
   },
 });
 
-function Home() {
+function Home({ accountId, setAccountId }) {
   const navigate = useNavigate();
 
   const handleHoldingNewsClick = () => {
@@ -242,11 +244,6 @@ function Home() {
   const revenueChartRef = useRef(null);
 
   const [showGraph, setShowGraph] = useState(false);
-  const [accountId, setAccountId] = useState(""); // 계좌 id
-
-  const selectAccount = (id) => {
-    setAccountId(id);
-  };
 
   const getBalance = async (id) => {
     if (id === "o") return;
@@ -255,7 +252,6 @@ function Home() {
         "https://duckling-back.d-v.kro.kr/api/balance?accountId=" + id
       );
       if (response.status === 200) {
-        console.log(response.data.balance);
         let price = Number(
           response.data.balance.toString().replaceAll(",", "")
         );
@@ -277,7 +273,6 @@ function Home() {
         "https://duckling-back.d-v.kro.kr/api/balanceRecord?accountId=" + id
       );
       if (response.status === 200) {
-        console.log(response.data);
         setBalanceRecord(response.data);
         setShowGraph(true);
       }
@@ -294,7 +289,6 @@ function Home() {
           id
       );
       if (response.status === 200) {
-        console.log(response.data);
         setStockBalance(response.data);
       }
     } catch (error) {
@@ -330,37 +324,36 @@ function Home() {
     Sunday: { revenue: "90,000", change: -110 },
   };
 
-
   // 보유 종목 ticker
   const [holdStocks, setHoldStocks] = useState([])
 
-  // 백엔드에서 보유 종목 정보를 가져오는 함수
-  const fetchHoldStocks = async () => {
-    try {
-      const response = await axios.get('https://duckling-back.d-v.kro.kr/api/user/holdstocks', {
-        // 요청에 대한 구성 옵션을 설정하는 객체
-        withCredentials: true,    // 쿠키와 같은 인증 관련 데이터를 포함할지 여부 지정
-        headers: {                // 요청과 함께 보낼 HTTP 헤더를 설정
-          'Content-Type': 'application/json',   // 요청 본문이 json 형식
-          'Access-Control-Allow-Origin': '*',   // cors 정책에 따라 다른 도메인에서 실행되는 웹 페이지에서 api 엔드포인트를 사용할 수 있는지를 지정
-        },                                      // * -> 모든 도메인에서의 요청을 허용
-      });
+//   // 백엔드에서 보유 종목 정보를 가져오는 함수
+//   const fetchHoldStocks = async () => {
+//     try {
+//       const response = await axios.get('https://duckling-back.d-v.kro.kr/api/user/holdstocks', {
+//         // 요청에 대한 구성 옵션을 설정하는 객체
+//         withCredentials: true,    // 쿠키와 같은 인증 관련 데이터를 포함할지 여부 지정
+//         headers: {                // 요청과 함께 보낼 HTTP 헤더를 설정
+//           'Content-Type': 'application/json',   // 요청 본문이 json 형식
+//           'Access-Control-Allow-Origin': '*',   // cors 정책에 따라 다른 도메인에서 실행되는 웹 페이지에서 api 엔드포인트를 사용할 수 있는지를 지정
+//         },                                      // * -> 모든 도메인에서의 요청을 허용
+//       });
   
-      if (response.status === 200) {
-        console.log("보유 종목 데이터:", response.data);
-        // 백엔드에서 받은 데이터를 상태에 저장
-        setHoldStocks(response.data.holdStocks.map(stock => stock.ticker));
-      } else {
-        console.error();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+//       if (response.status === 200) {
+//         console.log("보유 종목 데이터:", response.data);
+//         // 백엔드에서 받은 데이터를 상태에 저장
+//         setHoldStocks(response.data.holdStocks.map(stock => stock.ticker));
+//       } else {
+//         console.error();
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
   
-  useEffect(() => {
-    fetchHoldStocks();
-  }, []);
+//   useEffect(() => {
+//     fetchHoldStocks();
+//   }, []);
   
 
 
@@ -385,18 +378,20 @@ function Home() {
 
   // 수정 추가 - 보유종목 뉴스
   const holdingNews = [
-    { 
+    {
       title: "Shiny Apple? 3 Reasons to Buy and Hold AAPL Stock Forever.",
       date: "2024 May 16",
       imageUrl: apple1,
-      newsUrl: "https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/",
+      newsUrl:
+        "https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/",
     },
-    { 
+    {
       title: "Should I buy Tesla shares?",
       date: "2024 May 17",
       imageUrl: tesla1,
-      newsUrl: "https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares",
-    }
+      newsUrl:
+        "https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares",
+    },
   ];
 
   // 수정 추가 - 관심종목 뉴스
@@ -405,14 +400,16 @@ function Home() {
       title: "Google surges after buying back billions of dollars of its own stock",
       date: "2024 April 25",
       imageUrl: google1,
-      newsUrl: "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html"
+      newsUrl:
+        "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html",
     },
     { 
       title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
       date: "2024 May 17",
       imageUrl: microsoft1,
-      newsUrl: "https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/"
-    }
+      newsUrl:
+        "https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/",
+    },
   ];
 
   // const fetchNews = async () => {
@@ -484,7 +481,7 @@ function Home() {
   }, [showGraph]);
 
   useEffect(() => {
-    if (accountId !== "" && accountId !== "-1") {
+    if (accountId !== "" && accountId !== "-1" && accountId !== "o") {
       getBalance(accountId);
       getBalanceRecord(accountId);
       getStocksEvaluationBalance(accountId);
@@ -501,10 +498,6 @@ function Home() {
     for (let i = startDate; i <= endDate; i++) {
       dateList.push(`${nowYear}-${nowMonth}-${i}`);
     }
-
-    balanceRecord.forEach((record) => {
-      console.log(record.recordDate, record.balance);
-    });
 
     const balanceList = [];
     for (let i = startDate; i <= endDate; i++) {
@@ -583,7 +576,9 @@ function Home() {
         valueList = [-1];
       } else {
         stockBalance.forEach((stock) => {
-          nameList.push(stock.name + "(" + stock.ticker + ") " + stock.amount + "주");
+          nameList.push(
+            stock.name + "(" + stock.ticker + ") " + stock.amount + "주"
+          );
           valueList.push(parseInt(stock.amount) * parseFloat(stock.price));
         });
       }
@@ -614,8 +609,8 @@ function Home() {
 
   return (
     <div>
-      <Navbar />
-      <Topbar selectAccount={selectAccount} />
+      <Navbar accountId={accountId} setAccountId={setAccountId} />
+      <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
         <div style={styles.leftsection}>
           <div style={styles.card}>
@@ -746,13 +741,22 @@ function Home() {
               보유종목 뉴스
             </h2>
             {holdingNews.map((item) => (
-              <div key={item.title} style={styles.newsCard} onClick={() => window.open(item.newsUrl, '_blank')}>
+              <div
+                key={item.title}
+                style={styles.newsCard}
+                onClick={() => window.open(item.newsUrl, "_blank")}
+              >
                 <div style={styles.newsText}>
                   <h3>{item.title}</h3>
                   <p>{item.author}</p>
                   <p>{item.date}</p>
                 </div>
-                <div style={{ ...styles.newsImage, backgroundImage: `url(${item.imageUrl})` }}></div>
+                <div
+                  style={{
+                    ...styles.newsImage,
+                    backgroundImage: `url(${item.imageUrl})`,
+                  }}
+                ></div>
               </div>
             ))}
           </div>
@@ -764,12 +768,21 @@ function Home() {
               관심종목 뉴스
             </h2>
             {interestNews.map((item) => (
-              <div key={item.title} style={styles.newsCard} onClick={() => window.open(item.newsUrl, '_blank')}>
+              <div
+                key={item.title}
+                style={styles.newsCard}
+                onClick={() => window.open(item.newsUrl, "_blank")}
+              >
                 <div style={styles.newsText}>
                   <h3>{item.title}</h3>
                   <p>{item.date}</p>
                 </div>
-                <div style={{ ...styles.newsImage, backgroundImage: `url(${item.imageUrl})` }}></div>
+                <div
+                  style={{
+                    ...styles.newsImage,
+                    backgroundImage: `url(${item.imageUrl})`,
+                  }}
+                ></div>
               </div>
             ))}
           </div>
