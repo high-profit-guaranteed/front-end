@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import SComponent from '../components/SComponent';
 import StockData from '../components/StockData';
 import StockCategories from '../components/StockCateg';
+import axios from "axios";
+
+import SComponent2 from '../components/SComponent2';
 
 
 const styles = {
@@ -186,7 +189,7 @@ const styles = {
     width: '100%',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
-    maxHeight: '200px',
+    maxHeight: '80%',
     overflowY: 'auto',
     boxSizing: 'border-box',
   },
@@ -194,8 +197,8 @@ const styles = {
     fontSize: '16px',
     fontWeight: 'bold',
     color: '#333',
-    padding: '10px',
-    margin: '10px 0',
+    padding: '5px',
+    margin: '6px 0',
     backgroundColor: '#f7f7f7',
     borderRadius: '10px',
     borderColor: '#e8e8e8',
@@ -205,6 +208,14 @@ const styles = {
     alignItems: 'center',
     width: '100%',
     boxSizing: 'border-box',
+    flex: '1',
+    marginRight: '5%'
+  },
+  stockContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '0px 0',
   },
   hold: {
     padding: '5px 10px',
@@ -244,14 +255,11 @@ const styles = {
     borderColor: '#EFEFEF'
   },
   recommendStocksBox: {
-    backgroundColor: 'rgba(242, 246, 239, 1)',
     textAlign: 'center',
     borderRadius: '8px',
     width: '90%',
-    padding: '20px',
+    padding: '5px',
     fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    maxHeight: '200px',
     overflowY: 'auto',
   },
   recommendStocks: {
@@ -259,12 +267,10 @@ const styles = {
     fontWeight: 'bold',
     color: '#333',
     padding: '10px',
-    margin: '10px',
-    backgroundColor: '#f7f7f7',
+    margin: '5px',
     borderRadius: '10px',
-    borderColor: '#e8e8e8',
-    borderStyle: 'solid',
     textAlign: 'left',
+    width: '90%',
   },
 
   // 수정 - 텍스트 왼쪽 정렬
@@ -277,15 +283,71 @@ const styles = {
   }
 };
 
+const axiosInstance = axios.create({
+  baseURL: "https://duckling-back.d-v.kro.kr",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
+
 function Info() {
   const [selectedMenu, setSelectedMenu] = useState('거래량');
   const [selectedStock, setSelectedStock] = useState(null);
+  const [stockBalance, setStockBalance] = useState([]);
+  // const [stocks, setStocks] = useState({});
 
   const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
   
+  const aiOpinion = async (ticker) => {
+    try {
+      const response = await axiosInstance.get(
+        "https://duckling-back.d-v.kro.kr/api/balance?accountId=" // ai 서버에서 받기 엔드포인트 수정할 것
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      }else{
+        console.log('error');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return null;
+  };
+
+  const myStock = async (id) => {
+    if (id === "o") return;
+    try {
+      const response = await axiosInstance.get(
+        "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
+          id
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        setStockBalance(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+    // 매수 추천 주식 ticker
+  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MS', 'AMZN']);
+    
+  useEffect(() => {
+    setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
+  }, []);
+
+
+  // 보유종목에 대한 의견 ai
   useEffect(() => {
     const firstTicker = StockCategories[selectedMenu][0];
     setSelectedStock(StockData[firstTicker]);
+    myStock('1'); // 임의로 1을 넣음 실제로는 사용하는 계좌 id를 받아올 것
+    // aiOpinion(stockBalance);
   }, [selectedMenu]);
 
   function renderStockList(category) {
@@ -345,11 +407,16 @@ function Info() {
             <div style={styles.rupSection}>
               <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
               <div style={styles.opinionBBox}>
-                {Object.entries(StockData).slice(0, 3).map(([ticker, stock], index) => (
-                  <div key={index} style={styles.opinionBox}>
-                    <span style={styles.opinionText}>{stock.name}</span>
-                    <span style={styles[stock.change.startsWith('+') ? 'buy' : 'sell']}>
-                      {stock.change.startsWith('+') ? 'Buy' : 'Sell'}
+                {stockBalance.map((stock) => ( // 보유 종목 계좌에서 주식 리스트를 map으로 넘김
+                  <div style={styles.stockContainer}>
+                    <div style={styles.opinionBox}>
+                      <span style={styles.opinionText}>{stock.name}</span>
+                    </div>
+                    {/*백에서 ai 의사를 받아와 span 태그에 string으로 추가하는 코드*/}
+                    <span>
+                      {async () => {
+                        return await aiOpinion(stock.ticker);
+                      }}
                     </span>
                   </div>
                 ))}
@@ -358,11 +425,17 @@ function Info() {
             <div style={styles.rdownSection}>
               <div style={styles.leftAlignedText}>매수 추천 주식</div>
               <div style={styles.recommendStocksBox}>
-                {Object.keys(StockData).slice(0, 5).map((ticker, index) => (
-                  <Link key={index} to={`/detail/${StockData[ticker].name.toLowerCase()}`} style={{ textDecoration: 'none' }}>
-                    <div style={styles.recommendStocks}>{StockData[ticker].name}</div>
-                  </Link>
-                ))}
+                {recommendStocks.map((ticker, index) => {
+                  const stock = StockData[ticker];
+                  if (!stock) return null;
+                  return (
+                    <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <div style={styles.recommendStocks}>
+                        <SComponent2 stock={stock} />
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>

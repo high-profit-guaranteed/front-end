@@ -1,12 +1,9 @@
 import React from 'react';
 
-const SComponent = ({ stock }) => {
+const SComponent2 = ({ stock }) => {
   if (!stock) return null;
 
   const { name, logo, price, change, symbol } = stock;
-  const symbolIcon = symbol === 'up' ? '↑' : '↓';
-  const symbolColor = symbol === 'up' ? 'red' : 'blue';
-
 
   const containerStyle = {
     display: 'flex',                // 가로로 요소를 정렬하기 위해 flex 사용
@@ -27,7 +24,7 @@ const SComponent = ({ stock }) => {
   const logoStyle = {
     width: '40px',
     height: '40px',
-    marginRight: '15px'  // 로고와 이름 사이의 간격 조정
+    marginRight: '15px',  // 로고와 이름 사이의 간격 조정
   };
 
   // 텍스트 스타일
@@ -36,23 +33,13 @@ const SComponent = ({ stock }) => {
     fontWeight: "bold",
   };
 
-  // symbol 스타일
-  const symbolStyle = {
-    ...textStyle, // 기본 텍스트 스타일을 상속
-    color: symbolColor, // 색상을 동적으로 설정
-    fontSize: '18px',
-    fontWeight: 'bold'
-  };
-
   return (
     <div style={containerStyle}>
       <img src={logo} style={logoStyle} alt={`${name} logo`} />
-      <p style={textStyle}>{name}</p>
       <p style={textStyle}>{price}</p>
       <p style={textStyle}>{change}</p>
-      <p style={symbolStyle}>{symbolIcon}</p>
     </div>
   );
 };
 
-export default SComponent;
+export default SComponent2;

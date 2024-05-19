@@ -1,5 +1,5 @@
 import React from 'react';
-import Apple from '../../images/ent/Apple.png';
+import Apple from '../../images/ent/apple.png';
 import LineChart from './components/linechart.jsx';
 import './components/chartstyle.css';
 
