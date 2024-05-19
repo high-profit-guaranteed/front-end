@@ -12,6 +12,11 @@ import tesla1 from "../images/news/tesla1.png";
 import google1 from "../images/news/google1.png";
 import microsoft1 from "../images/news/microsoft1.png";
 
+// 수정 - 추가
+import SComponent from '../components/SComponent';
+import StockData from '../components/StockData';
+import SComponent2 from '../components/SComponent2';
+
 // 수정 - 관심종목 받아오기
 import { HeartContext } from './Detail_page/Heart.jsx';
 
@@ -140,42 +145,17 @@ const styles = {
     fontFamily: "Arial, sans-serif",
     textAlign: "center",
     marginBottom: "10px",
-    maxHeight: "200px",
+    maxHeight: "230px",
     overflowY: "auto",
   },
   item: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginBottom: "10px",
     padding: "10px",
     backgroundColor: "rgba(242, 246, 239, 1)",
     borderRadius: "8px",
-  },
-  percentage: {
-    fontWeight: "bold",
-    marginLeft: "10px",
-  },
-  upArrow: {
-    color: "red",
-    marginRight: "5px",
-  },
-  downArrow: {
-    color: "blue",
-    marginRight: "5px",
-  },
-  addButton: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "40px",
-    height: "40px",
-    borderRadius: "50%",
-    backgroundColor: "#E0E0E0",
-    color: "#000",
-    fontSize: "24px",
-    cursor: "pointer",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   },
 
   // 보유종목 뉴스
@@ -253,7 +233,6 @@ function Home({ accountId, setAccountId }) {
   const handleHoldingNewsClick = () => {
     navigate("/News/Holding_news");
   };
-
   const handleInterestNewsClick = () => {
     navigate("/News/Interest_news");
   };
@@ -345,37 +324,53 @@ function Home({ accountId, setAccountId }) {
     Sunday: { revenue: "90,000", change: -110 },
   };
 
-  // 보유 종목 예시 데이터
-  const [holdOrders, setHoldOrders] = useState([
-    { id: 1, name: "TSLA" },
-    { id: 2, name: "AAPL" },
-  ]);
+  // 보유 종목 ticker
+  const [holdStocks, setHoldStocks] = useState([])
 
-  // 관심 종목 데이터값 받아오기
-  const { likedItems, toggleHeart } = useContext(HeartContext);
-  const initialFavoriteOrders = likedItems.map((item, index) => ({ id: index + 1, name: item, percentage: "10%" }));
-  const [favoriteOrders, setFavoriteOrders] = useState(initialFavoriteOrders);
+//   // 백엔드에서 보유 종목 정보를 가져오는 함수
+//   const fetchHoldStocks = async () => {
+//     try {
+//       const response = await axios.get('https://duckling-back.d-v.kro.kr/api/user/holdstocks', {
+//         // 요청에 대한 구성 옵션을 설정하는 객체
+//         withCredentials: true,    // 쿠키와 같은 인증 관련 데이터를 포함할지 여부 지정
+//         headers: {                // 요청과 함께 보낼 HTTP 헤더를 설정
+//           'Content-Type': 'application/json',   // 요청 본문이 json 형식
+//           'Access-Control-Allow-Origin': '*',   // cors 정책에 따라 다른 도메인에서 실행되는 웹 페이지에서 api 엔드포인트를 사용할 수 있는지를 지정
+//         },                                      // * -> 모든 도메인에서의 요청을 허용
+//       });
+  
+//       if (response.status === 200) {
+//         console.log("보유 종목 데이터:", response.data);
+//         // 백엔드에서 받은 데이터를 상태에 저장
+//         setHoldStocks(response.data.holdStocks.map(stock => stock.ticker));
+//       } else {
+//         console.error();
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+  
+//   useEffect(() => {
+//     fetchHoldStocks();
+//   }, []);
+  
 
 
-  // 관심 종목 추가, 변경
-  const handleAddItem = () => {
-    // 새로운 아이템 생성
-    const newItem = {
-      id: favoriteOrders.length + 1, // 간단한 ID 할당
-      name: "새 종목", // 기본 이름, 실제로는 입력받을 수 있도록 해야 함
-      percentage: "0.0%", // 기본 백분율
-    };
-    setFavoriteOrders([...favoriteOrders, newItem]);
-  };
+  // 관심 종목 ticker
+  const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MS', 'AMZN']);
 
-  const handleRemoveItem = (id) => {
-    setFavoriteOrders(favoriteOrders.filter((item) => item.id !== id));
-  };
+  useEffect(() => {
+    setFavoriteStocks(favoriteStocks.filter(ticker => StockData[ticker]));
+  }, []);
 
+  
+  // 판매 수익
   const handleDayChange = (event) => {
     setSelectedDay(event.target.value);
   };
 
+  // 총 자산 현황에서의 변화값
   const formatChange = (change) => {
     const sign = change >= 0 ? "+" : "";
     return `${sign}${change}%`;
@@ -385,14 +380,14 @@ function Home({ accountId, setAccountId }) {
   const holdingNews = [
     {
       title: "Shiny Apple? 3 Reasons to Buy and Hold AAPL Stock Forever.",
-      date: "May 16",
+      date: "2024 May 16",
       imageUrl: apple1,
       newsUrl:
         "https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/",
     },
     {
       title: "Should I buy Tesla shares?",
-      date: "May 17",
+      date: "2024 May 17",
       imageUrl: tesla1,
       newsUrl:
         "https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares",
@@ -401,18 +396,16 @@ function Home({ accountId, setAccountId }) {
 
   // 수정 추가 - 관심종목 뉴스
   const interestNews = [
-    {
-      title:
-        "Google surges after buying back billions of dollars of its own stock",
-      date: "April 25",
+    { 
+      title: "Google surges after buying back billions of dollars of its own stock",
+      date: "2024 April 25",
       imageUrl: google1,
       newsUrl:
         "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html",
     },
-    {
-      title:
-        "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
-      date: "May 17",
+    { 
+      title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
+      date: "2024 May 17",
       imageUrl: microsoft1,
       newsUrl:
         "https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/",
@@ -428,11 +421,6 @@ function Home({ accountId, setAccountId }) {
   //     console.error("Failed to fetch news:", error);
   //   }
   // };
-
-  // 추가 - 뉴스들 url 이동
-  const handleNewsClick = (url) => {
-    window.open(url, "_blank");
-  };
 
   useEffect(() => {
     // fetchNews();
@@ -614,6 +602,9 @@ function Home({ accountId, setAccountId }) {
 
       revenueChartRef.current = revenueChart;
     }
+
+
+
   }, [stockBalance]);
 
   return (
@@ -701,21 +692,15 @@ function Home({ accountId, setAccountId }) {
             </div>
             <div style={styles.holdSection}>
               <h2 style={styles.sectionTitle}>보유 종목</h2>
-              <div style={styles.sectionContent}>
-                {/* 배열에 하나 이상의 보유 종목이 있는지 확인 */}
-                {holdOrders.length > 0 ? (
-                  holdOrders.map((order, index) => (
-                    <Link
-                      key={index}
-                      to={`/detail/${order.name.toLowerCase()}`}
-                    >
-                      <div style={styles.holdSectionItem}>{order.name}</div>
-                    </Link>
-                  ))
-                ) : (
-                  <p>보유 종목이 없습니다.</p>
-                )}
-              </div>
+              {holdStocks.map((ticker, index) => {
+                const stock = StockData[ticker];
+                if (!stock) return null;
+                return (
+                  <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <SComponent2 stock={stock} />
+                  </Link>
+                );
+              })}
             </div>
             <div style={styles.portfolioSection}>
               <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>
@@ -736,33 +721,16 @@ function Home({ accountId, setAccountId }) {
           </div>
 
           <div style={styles.favoriteOrders}>
-            {/* 수정 - 주문에서 종목으로 */}
             <h2>관심 종목</h2>
-            {favoriteOrders.map((item, index) => (
-              <div key={index} style={styles.item}>
-                <span>{item.name}</span>
-                <span
-                  style={
-                    item.percentage.startsWith("-")
-                      ? { color: "blue" }
-                      : { color: "red" }
-                  }
-                >
-                  {item.percentage.startsWith("-") ? (
-                    <span style={styles.downArrow}>↓</span>
-                  ) : (
-                    <span style={styles.upArrow}>↑</span>
-                  )}
-                  {item.percentage}
-                </span>
-                <button onClick={() => handleRemoveItem(item.id)}>
-                  delete
-                </button>
-              </div>
-            ))}
-            <div style={styles.addButton} onClick={handleAddItem}>
-              +
-            </div>
+            {favoriteStocks.map((ticker, index) => {
+              const stock = StockData[ticker];
+              if (!stock) return null;
+              return (
+                <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <SComponent stock={stock} />
+                </Link>
+              );
+            })}
           </div>
 
           <div style={styles.ownedStocksNews}>
@@ -781,9 +749,7 @@ function Home({ accountId, setAccountId }) {
                 <div style={styles.newsText}>
                   <h3>{item.title}</h3>
                   <p>{item.author}</p>
-                  <p>
-                    {item.date} - {item.readTime}
-                  </p>
+                  <p>{item.date}</p>
                 </div>
                 <div
                   style={{
@@ -798,8 +764,7 @@ function Home({ accountId, setAccountId }) {
           <div style={styles.favoriteStocksNews}>
             <h2
               style={{ ...styles.sectionHeader, cursor: "pointer" }}
-              onClick={handleInterestNewsClick}
-            >
+              onClick={handleInterestNewsClick}>
               관심종목 뉴스
             </h2>
             {interestNews.map((item) => (
@@ -810,9 +775,7 @@ function Home({ accountId, setAccountId }) {
               >
                 <div style={styles.newsText}>
                   <h3>{item.title}</h3>
-                  <p>
-                    {item.date} - {item.readTime}
-                  </p>
+                  <p>{item.date}</p>
                 </div>
                 <div
                   style={{

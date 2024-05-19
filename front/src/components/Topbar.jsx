@@ -19,10 +19,12 @@ const styles = {
     position: "relative",
   },
   icon: {
-    fontSize: "26px",
-    cursor: "pointer",
-    marginLeft: "10px",
-    paddingRight: "20px",
+    fontSize: '26px',
+    cursor: 'pointer',
+    marginLeft: '10px',
+    paddingRight: '20px',
+    // 수정 - icon color 추가
+    color: 'black'
   },
   searchIcon: {
     position: "absolute",
@@ -63,6 +65,20 @@ const styles = {
     border: "1px solid #CCC",
     borderRadius: "5px",
   },
+
+  // 추가 - 추후 업데이트 예정입니다
+  develop:{
+    color: 'red',
+    fontStyle: 'italic',
+    position: 'absolute',
+    backgroundColor: '#fff',
+    boxShadow: '0px 8px 16px rgba(0,0,0,0.1)',
+    padding: '10px',
+    borderRadius: '10px',
+    top: '40px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
 };
 
 const axiosInstance = axios.create({
@@ -83,6 +99,8 @@ const Topbar = ({ accountId, setAccountId }) => {
   const [selectedAccount, setSelectedAccount] = useState(accountId); // 선택된 계좌 상태
   const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
   const navigate = useNavigate();
+  // 추가: 개발 메시지 상태
+  const [showDevelopMessage, setShowDevelopMessage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSelected, setIsSelected] = useState(false);
 
@@ -150,6 +168,12 @@ const Topbar = ({ accountId, setAccountId }) => {
       executeSearch();
     }
   };
+
+  // 수정 - 추가
+  const handleBellClick = () => {
+    setShowDevelopMessage(!showDevelopMessage); // 클릭할 때마다 메시지 상태
+  };
+
 
   useEffect(() => {
     const checkSession = async () => {
@@ -253,8 +277,13 @@ const Topbar = ({ accountId, setAccountId }) => {
           onChange={handleSearchChange}
           onKeyDown={handleSearchKeyDown}
         />
-        <AiOutlineBell style={styles.icon} />
-        <AiOutlineUser style={styles.icon} />
+        <AiOutlineBell style={styles.icon} onClick={handleBellClick} />
+        {showDevelopMessage && <p style={styles.develop}>추후 업데이트 예정입니다</p>}
+
+        {/* 수정 - profile로 가는 link 추가 */}
+        <Link to = '/settings'>
+          <AiOutlineUser style={styles.icon} />
+        </Link>
         <select
           style={styles.select}
           onChange={handleSelectChange}

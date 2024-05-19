@@ -259,7 +259,7 @@ function Interest_news() {
           </div>
         </div>
         <div style={styles.rightSection}>
-          <h3>More {activeTab} News</h3>
+          <h3>더 많은 {activeTab} 뉴스</h3>
           {morenewsNews.map((item, index) => (
             <div key={index} style={styles.newsItem}>
               {/* 수정 */}

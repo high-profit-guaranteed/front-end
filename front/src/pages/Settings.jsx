@@ -255,7 +255,7 @@ function Settings({ accountId, setAccountId }) {
             </label>
             <label>
               Description
-              <textarea defaultValue="" style={{ ...styles.inputField, height: '100px' }} placeholder="Put your description here."></textarea>
+              <textarea defaultValue="" style={{ ...styles.inputField, height: '100px' }} placeholder="추후 업데이트 예정입니다"></textarea>
             </label>
           </div>
         );
@@ -264,36 +264,37 @@ function Settings({ accountId, setAccountId }) {
       case 'AddAccount':
         return (
           <div style={styles.profileDetails}>
-            <h2>Add Account</h2>
-            <p>Before adding an account, please sign up and create an account through the Korea Investment & Securities Open API.</p>
+            <h2>AddAccount</h2>
+            {/* 한글 수정 */}
+            <p>계좌를 추가하기 전, 아래 한국투자증권 오픈 API를 통해 회원가입 후 계좌를 만드시기 바랍니다.</p>
             <button style={styles.linkButton} onClick={() => window.open('https://securities.koreainvestment.com/main/member/login/login.jsp?returnUrl=%2Fmain%2Fcustomer%2Fsystemdown%2FRestAPIService.jsp&auth=LX', '_blank')}>
-              Go to Korea Investment & Securities
+              한국투자증권 바로가기
             </button>
             <label>
-              Account Number
-              <input type="text" placeholder="Enter Account Number" style={styles.inputField} onChange={handleChangeAccountNumber} />
+              계좌 번호
+              <input type="text" placeholder="계좌 번호를 입력해주세요." style={styles.inputField} onChange={handleChangeAccountNumber} />
             </label>
             <label>
-              Account Product Code
-              <input type="text" placeholder="Enter Account Product Code" style={styles.inputField} onChange={handleChangeAccountProductCode} />
+              계좌 상품코드
+              <input type="text" placeholder="계좌 상품코드를 입력해주세요." style={styles.inputField} onChange={handleChangeAccountProductCode} />
             </label>
             <label>
-              Account Name
-              <input type="text" placeholder="Enter account name" style={styles.inputField} onChange={handleChangeAccountName} />
+              계좌 이름
+              <input type="text" placeholder="Duckling에 표시할 계좌 이름을 입력해주세요." style={styles.inputField} onChange={handleChangeAccountName} />
             </label>
             <label>
-              I have a virtual account
+              모의투자계좌 여부
               <input type="checkbox" style={{...styles.inputField, width: 'auto', margin: '10px'}} onChange={handleChangeVirtualAccount} />
             </label>
             <label>
               API KEY
-              <input type="text" placeholder="Enter API KEY" style={styles.inputField} onChange={handleChangeApiKey} />
+              <input type="text" placeholder="API KEY를 입력해주세요." style={styles.inputField} onChange={handleChangeApiKey} />
             </label>
             <label>
               API SECRET
-              <input type="text" placeholder="Enter API SECRET KEY" style={styles.inputField} onChange={handleChangeApiSecret} />
+              <input type="text" placeholder="API SECRET를 입력해주세요." style={styles.inputField} onChange={handleChangeApiSecret} />
             </label>
-            <button style={styles.button} onClick={handleAddAccount}>Add Account</button>
+            <button style={styles.button} onClick={handleAddAccount}>계좌 추가하기</button>
           </div>
         );
   
@@ -303,7 +304,7 @@ function Settings({ accountId, setAccountId }) {
           <div style={styles.profileDetails}>
             <h2>Personal settings</h2>
             <label>
-              Theme
+              테마
               <select style={styles.inputField}>
                 <option>Light</option>
                 <option>Dark</option>
@@ -332,7 +333,7 @@ function Settings({ accountId, setAccountId }) {
         );
   
       default:
-        return <div>Select a menu option to see details here.</div>;
+        return <div>옵션을 선택해주세요</div>; // 한글 수정
     }
   };  
 

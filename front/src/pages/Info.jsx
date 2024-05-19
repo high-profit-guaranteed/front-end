@@ -2,21 +2,39 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import LineChart from "./Detail_page/components/linechart.jsx";
+import { Link } from 'react-router-dom';
+import SComponent from '../components/SComponent';
+import SComponent2 from '../components/SComponent2';
+import StockData from '../components/StockData';
+import StockCategories from '../components/StockCateg';
+import axios from "axios";
 
 const styles = {
   container: {
-    display: "flex",
-    flexDirection: "row",
-    marginLeft: "210px",
-    marginRight: "1%",
-    marginTop: "21px",
-    marginBottom: "20px",
-    padding: "20px",
-    backgroundColor: "#F3F3F3",
-    borderRadius: "10px",
-    fontFamily: "Arial, sans-serif",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: '210px',
+    marginRight: '1%',
+    marginTop: '21px',
+    marginBottom: '20px',
+    padding: '20px',
+    backgroundColor: '#F3F3F3',
+    borderRadius: '10px',
+    fontFamily: 'Arial, sans-serif',
+    justifyContent: 'space-between',
   },
+  
+  // 수정 - header 추가
+  header: {
+    alignSelf: 'flex-start',
+    marginBottom: '20px',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   leftSection: {
     display: "flex",
     flexDirection: "row",
@@ -73,26 +91,24 @@ const styles = {
   },
   // lleftSection - down
   downSection: {
-    width: "90%",
-    height: "90%",
-    padding: "10px",
-    backgroundColor: "#EFEFEF",
-    borderRadius: "10px",
-    width: "90%",
-    textAlign: "center",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-    borderStyle: "double",
-    borderColor: "#8bc78e",
+    width: '90%',
+    padding: '10px',
+    backgroundColor: '#EFEFEF',
+    borderRadius: '10px',
+    textAlign: 'center',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    borderStyle: 'double',
+    borderColor: '#8bc78e',
   },
   stockItem: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: "15px 10px",
-    borderBottom: "2px solid #eee",
-    fontSize: "16px",
-    fontWeight: "700",
-    cursor: "pointer",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: '0px 10px',
+    borderBottom: '2px solid #eee',
+    fontSize: '16px',
+    fontWeight: '700',
+    cursor: 'pointer',
   },
   symbolUp: {
     color: "red",
@@ -116,27 +132,28 @@ const styles = {
   },
   // lrightSection - top
   downSection2: {
-    width: "95%",
-    height: "100%",
-    padding: "10px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFF",
-    borderRadius: "15px",
-    borderStyle: "double",
-    borderColor: "#8bc78e",
+    width: '90%',
+    height: '80%',
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    borderRadius: '15px',
+    borderStyle: 'double',
+    borderColor: '#8bc78e', 
+    marginBottom: '5%'
   },
   stockBox: {
-    padding: "10px",
-    margin: "10px 0",
-    width: "90%",
-    height: "100%",
-    textAlign: "center",
-    borderRadius: "15px",
-    backgroundColor: "#e8e8e8",
-    boxShadow: "0 2px 5px rgba(0,0,0,0.15)",
+    padding: '10px',
+    margin: '10px 0',
+    width: '90%',
+    height: '100%',
+    textAlign: 'flex-start',
+    borderRadius: '15px',
+    backgroundColor: '#e8e8e8',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
   },
   stockDetail: {
     fontSize: "18px",
@@ -162,32 +179,59 @@ const styles = {
     borderStyle: "solid",
     borderColor: "#EFEFEF",
   },
+  // 수정 - 스타일 수정
+  opinionBBox: {
+    backgroundColor: 'rgba(242, 246, 239, 1)',
+    textAlign: 'center',
+    borderRadius: '8px',
+    width: '100%',
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif',
+    maxHeight: '80%',
+    overflowY: 'auto',
+    boxSizing: 'border-box',
+  },
   opinionBox: {
-    fontSize: "16px",
-    fontWeight: "bold",
-    color: "#333",
-    padding: "12px",
-    margin: "10px 0",
-    backgroundColor: "#f7f7f7",
-    borderRadius: "10px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%", // 조절 가능
-    textAlign: "center",
+    fontSize: '16px',
+    fontWeight: 'bold',
+    color: '#333',
+    padding: '5px',
+    margin: '6px 0',
+    backgroundColor: '#f7f7f7',
+    borderRadius: '10px',
+    borderColor: '#e8e8e8',
+    borderStyle: 'solid',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    boxSizing: 'border-box',
+    flex: '1',
+    marginRight: '5%'
+  },
+  stockContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '0px 0',
   },
   hold: {
-    width: "90%",
-    backgroundColor: "#f0ad4e",
+    padding: '5px 10px',
+    backgroundColor: '#f0ad4e',
+    borderRadius: '5px',
+    color: '#fff',
   },
   buy: {
-    width: "90%",
-    backgroundColor: "#5cb85c",
+    padding: '5px 10px',
+    backgroundColor: '#5cb85c',
+    borderRadius: '5px',
+    color: '#fff',
   },
   sell: {
-    width: "90%",
-    backgroundColor: "#d9534f",
+    padding: '5px 10px',
+    backgroundColor: '#d9534f',
+    borderRadius: '5px',
+    color: '#fff',
   },
   opinionText: {
     margin: "0 10px",
@@ -209,472 +253,112 @@ const styles = {
     borderColor: "#EFEFEF",
   },
   recommendStocksBox: {
-    backgroundColor: "rgba(242, 246, 239, 1)",
-    textAlign: "center",
-    borderRadius: "8px",
-    width: "90%",
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
-    textAlign: "center",
-    maxHeight: "200px",
-    overflowY: "auto",
+    textAlign: 'center',
+    borderRadius: '8px',
+    width: '90%',
+    padding: '5px',
+    fontFamily: 'Arial, sans-serif',
+    overflowY: 'auto',
   },
   recommendStocks: {
-    fontSize: "16px",
-    fontWeight: "bold",
-    color: "#333",
-    padding: "10px",
-    margin: "10px",
-    backgroundColor: "#f7f7f7",
-    borderRadius: "10px",
-    borderColor: "#e8e8e8",
-    borderStyle: "solid",
-    textAlign: "center",
+    fontSize: '16px',
+    fontWeight: 'bold',
+    color: '#333',
+    padding: '10px',
+    margin: '5px',
+    borderRadius: '10px',
+    textAlign: 'left',
+    width: '90%',
   },
+
+  // 수정 - 텍스트 왼쪽 정렬
+  leftAlignedText: {
+    fontSize: '22px',
+    fontWeight: 'bold',
+    marginBottom: '15px',
+    textAlign: 'center',
+    width: '100%', // 부모 컨테이너의 너비에 맞추기 위해 추가
+  }
 };
 
-function Info({ accountId, setAccountId }) {
-  const [selectedMenu, setSelectedMenu] = useState("Trading");
+const axiosInstance = axios.create({
+  baseURL: "https://duckling-back.d-v.kro.kr",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
+
+function Info() {
+  const [selectedMenu, setSelectedMenu] = useState('거래량');
   const [selectedStock, setSelectedStock] = useState(null);
+  const [stockBalance, setStockBalance] = useState([]);
+  const [selectedTicker, setSelectedTicker] = useState('');
+  // const [stocks, setStocks] = useState({});
 
-  const menuItems = ["Trading", "Popularity", "Soaring", "Decline", "Interest"];
-
-  const stockData = {
-    Trading: [
-      {
-        rank: 1,
-        name: "Apple",
-        price: "61,024원",
-        change: "+3.0%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 2,
-        name: "MS",
-        price: "58,599원",
-        change: "-12.2%",
-        symbol: "down",
-        ticker: "MSFT",
-      },
-      {
-        rank: 3,
-        name: "Alphabet",
-        price: "56,407원",
-        change: "+2.2%",
-        symbol: "up",
-        ticker: "GOOG",
-      },
-      {
-        rank: 4,
-        name: "Amazon",
-        price: "84,329원",
-        change: "+1.4%",
-        symbol: "up",
-        ticker: "AMZN",
-      },
-      {
-        rank: 5,
-        name: "NVIDIA",
-        price: "11,056원",
-        change: "+4.5%",
-        symbol: "up",
-        ticker: "NVDA",
-      },
-      {
-        rank: 6,
-        name: "Meta",
-        price: "248,878원",
-        change: "+2.3%",
-        symbol: "up",
-        ticker: "META",
-      },
-      {
-        rank: 7,
-        name: "TSLA",
-        price: "60,133원",
-        change: "+6.6%",
-        symbol: "up",
-        ticker: "TSLA",
-      },
-      {
-        rank: 8,
-        name: "Broadcom",
-        price: "1,265,547원",
-        change: "+1.1%",
-        symbol: "up",
-        ticker: "AVGO",
-      },
-      {
-        rank: 9,
-        name: "COST",
-        price: "82,109원",
-        change: "+0.5%",
-        symbol: "up",
-        ticker: "COST",
-      },
-      {
-        rank: 10,
-        name: "ASML",
-        price: "128,006원",
-        change: "+0.7%",
-        symbol: "up",
-        ticker: "ASML",
-      },
-    ],
-    Popularity: [
-      {
-        rank: 1,
-        name: "Apple",
-        price: "61,024원",
-        change: "+3.0%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 2,
-        name: "MS",
-        price: "58,056원",
-        change: "-12.2%",
-        symbol: "down",
-        ticker: "AAPL",
-      },
-      {
-        rank: 3,
-        name: "Alphabet",
-        price: "56,599원",
-        change: "+2.2%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 4,
-        name: "Amazon",
-        price: "60,329원",
-        change: "+1.4%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 5,
-        name: "NVIDIA",
-        price: "11,056원",
-        change: "+4.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 6,
-        name: "Meta",
-        price: "248,878원",
-        change: "+2.3%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 7,
-        name: "TSLA",
-        price: "60,133원",
-        change: "+6.6%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 8,
-        name: "Broadcom",
-        price: "1,265,133원",
-        change: "+1.1%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 9,
-        name: "COST",
-        price: "60,109원",
-        change: "+0.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 10,
-        name: "ASML",
-        price: "128,006원",
-        change: "+0.7%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-    ],
-    Soaring: [
-      {
-        rank: 1,
-        name: "Apple",
-        price: "61,024원",
-        change: "+3.0%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 2,
-        name: "MS",
-        price: "58,599원",
-        change: "-12.2%",
-        symbol: "down",
-        ticker: "AAPL",
-      },
-      {
-        rank: 3,
-        name: "Alphabet",
-        price: "56,407원",
-        change: "+2.2%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 4,
-        name: "Amazon",
-        price: "84,329원",
-        change: "+1.4%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 5,
-        name: "NVIDIA",
-        price: "248,056원",
-        change: "+4.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 6,
-        name: "Meta",
-        price: "265,878원",
-        change: "+2.3%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 7,
-        name: "TSLA",
-        price: "60,133원",
-        change: "+6.6%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 8,
-        name: "Broadcom",
-        price: "1,265,547원",
-        change: "+1.1%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 9,
-        name: "COST",
-        price: "82,109원",
-        change: "+0.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 10,
-        name: "ASML",
-        price: "128,006원",
-        change: "+0.7%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-    ],
-    Decline: [
-      {
-        rank: 1,
-        name: "Apple",
-        price: "61,024원",
-        change: "+3.0%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 2,
-        name: "MS",
-        price: "58,599원",
-        change: "-12.2%",
-        symbol: "down",
-        ticker: "AAPL",
-      },
-      {
-        rank: 3,
-        name: "Alphabet",
-        price: "56,407원",
-        change: "+2.2%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 4,
-        name: "Amazon",
-        price: "84,329원",
-        change: "+1.4%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 5,
-        name: "NVIDIA",
-        price: "11,056원",
-        change: "+4.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 6,
-        name: "Meta",
-        price: "248,878원",
-        change: "+2.3%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 7,
-        name: "TSLA",
-        price: "60,133원",
-        change: "+6.6%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 8,
-        name: "Broadcom",
-        price: "1,265,547원",
-        change: "+1.1%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 9,
-        name: "COST",
-        price: "82,109원",
-        change: "+0.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 10,
-        name: "ASML",
-        price: "128,006원",
-        change: "+0.7%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-    ],
-    Interest: [
-      {
-        rank: 1,
-        name: "Apple",
-        price: "61,024원",
-        change: "+3.0%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 2,
-        name: "MS",
-        price: "58,599원",
-        change: "-12.2%",
-        symbol: "down",
-        ticker: "AAPL",
-      },
-      {
-        rank: 3,
-        name: "Alphabet",
-        price: "56,407원",
-        change: "+2.2%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 4,
-        name: "Amazon",
-        price: "84,329원",
-        change: "+1.4%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 5,
-        name: "NVIDIA",
-        price: "11,056원",
-        change: "+4.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 6,
-        name: "Meta",
-        price: "248,878원",
-        change: "+2.3%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 7,
-        name: "TSLA",
-        price: "60,133원",
-        change: "+6.6%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 8,
-        name: "Broadcom",
-        price: "1,265,547원",
-        change: "+1.1%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 9,
-        name: "COST",
-        price: "82,109원",
-        change: "+0.5%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-      {
-        rank: 10,
-        name: "ASML",
-        price: "128,006원",
-        change: "+0.7%",
-        symbol: "up",
-        ticker: "AAPL",
-      },
-    ],
+  const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
+  
+  const aiOpinion = async (ticker) => {
+    try {
+      const response = await axiosInstance.get(
+        "https://duckling-back.d-v.kro.kr/api/balance?accountId=" // ai 서버에서 받기 엔드포인트 수정할 것
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      }else{
+        console.log('error');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return null;
   };
 
+  const myStock = async (id) => {
+    if (id === "o") return;
+    try {
+      const response = await axiosInstance.get(
+        "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
+          id
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        setStockBalance(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+    // 매수 추천 주식 ticker
+  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MS', 'AMZN']);
+    
   useEffect(() => {
-    setSelectedMenu("Trading");
-    setSelectedStock(stockData.Trading[0]);
-  }, [stockData.Trading]);
+    setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
+  }, []);
+
+
+  // 보유종목에 대한 의견 ai
+  useEffect(() => {
+    const firstTicker = StockCategories[selectedMenu][0];
+    setSelectedTicker(firstTicker);
+    setSelectedStock(StockData[firstTicker]);
+    myStock('1'); // 임의로 1을 넣음 실제로는 사용하는 계좌 id를 받아올 것
+    // aiOpinion(stockBalance);
+  }, [selectedMenu]);
 
   function renderStockList(category) {
-    const list = stockData[category]?.map((stock) => (
-      <div
-        key={stock.rank}
-        style={styles.stockItem}
-        onClick={() => setSelectedStock(stock)}
-      >
-        <div>{stock.rank}</div>
-        <div>{stock.name}</div>
-        <div>{stock.price}</div>
-        <div>{stock.change}</div>
-        <div
-          style={stock.symbol === "up" ? styles.symbolUp : styles.symbolDown}
-        >
-          {stock.symbol === "up" ? "↑" : "↓"}
+    const list = StockCategories[category]?.map(ticker => {
+      const stock = StockData[ticker];
+      return (
+        <div key={ticker} style={styles.stockItem} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
+          <SComponent stock={stock} />
         </div>
-      </div>
-    ));
+      );
+    });
     return <div>{list}</div>;
   }
 
@@ -683,109 +367,76 @@ function Info({ accountId, setAccountId }) {
       <Navbar accountId={accountId} setAccountId={setAccountId} />
       <Topbar accountId={accountId} setAccountId={setAccountId} />
       <div style={styles.container}>
-        <div style={styles.leftSection}>
-          <div style={styles.lleftSection}>
-            <div style={styles.topSection}>
-              {menuItems.map((item) => (
-                <div
-                  key={item}
-                  style={
-                    selectedMenu === item
-                      ? { ...styles.tab, ...styles.activeTab }
-                      : styles.tab
-                  }
-                  onClick={() => {
-                    setSelectedMenu(item);
-                    setSelectedStock(null);
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
+        <h2 style={styles.header}>실시간 현황</h2>
+        <div style={styles.content}>
+          <div style={styles.leftSection}>
+            <div style={styles.lleftSection}>
+              <div style={styles.topSection}>
+                {menuItems.map((item) => (
+                  <div 
+                    key={item}
+                    style={selectedMenu === item ? {...styles.tab, ...styles.activeTab} : styles.tab}
+                    onClick={() => setSelectedMenu(item);}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <div style={styles.downSection}>
+                {selectedMenu ? renderStockList(selectedMenu) : "위에서 카테고리를 선택해주세요."}
+              </div>
             </div>
-            <div style={styles.downSection}>
-              {selectedMenu
-                ? renderStockList(selectedMenu)
-                : "Please select a category above."}
-            </div>
-          </div>
-          <div style={styles.lrightSection}>
-            <div style={styles.downSection2}>
-              {selectedStock ? (
-                <React.Fragment>
-                  <div style={styles.stockBox}>
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <LineChart ticker={selectedStock.ticker} term={"day"} />
+            <div style={styles.lrightSection}>
+              <div style={styles.downSection2}>
+                {selectedStock ? (
+                  <React.Fragment>
+                    <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
+                    <div style={styles.stockBox}>
+                      <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                        <LineChart  term={"day"} />
+                      </div>
                     </div>
-                  </div>
-                  <div style={styles.stockDetail}>
-                    <b>Name:</b> {selectedStock.name}
-                  </div>
-                  <div style={styles.stockDetail}>
-                    <b>Price:</b> {selectedStock.price}
-                  </div>
-                  <div style={styles.stockDetail}>
-                    <b>Change:</b> {selectedStock.change}
-                  </div>
-                  <div style={styles.stockDetail}>
-                    <b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}
-                  </div>
-                </React.Fragment>
-              ) : (
-                "Select a stock to view details."
-              )}
+                    <div style={styles.stockDetail}><b>Price:</b> {selectedStock.price}</div>
+                    <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
+                    <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
+                  </React.Fragment>
+                ) : "세부정보를 보려면 주식을 선택하세요."}
+              </div>
             </div>
           </div>
-        </div>
-        <div style={styles.rightSection}>
-          <div style={styles.rupSection}>
-            <div
-              style={{
-                fontSize: "22px",
-                fontWeight: "bold",
-                marginBottom: "15px",
-              }}
-            >
-              Your Portfolio Opinion
-            </div>
-            <div style={{ ...styles.opinionBox, ...styles.hold }}>
-              <span style={styles.opinionText}>Apple</span>
-              <span>Hold</span>
-            </div>
-            <div style={{ ...styles.opinionBox, ...styles.buy }}>
-              <span style={styles.opinionText}>Amazon</span>
-              <span>Buy</span>
-            </div>
-            <div style={{ ...styles.opinionBox, ...styles.sell }}>
-              <span style={styles.opinionText}>NVIDIA</span>
-              <span>Sell</span>
-            </div>
-          </div>
-          <div style={styles.rdownSection}>
-            <div
-              style={{
-                fontSize: "22px",
-                fontWeight: "bold",
-                marginBottom: "15px",
-              }}
-            >
-              Recommended Stocks to Buy
-            </div>
-            <div style={styles.recommendStocksBox}>
-              {["Apple", "Amazon", "NVIDIA", "Alphabet", "Meta"].map(
-                (stock, index) => (
-                  <div key={index} style={styles.recommendStocks}>
-                    {" "}
-                    {stock}{" "}
+          <div style={styles.rightSection}>
+            <div style={styles.rupSection}>
+              <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
+              <div style={styles.opinionBBox}>
+                {stockBalance.map((stock) => ( // 보유 종목 계좌에서 주식 리스트를 map으로 넘김
+                  <div style={styles.stockContainer}>
+                    <div style={styles.opinionBox}>
+                      <span style={styles.opinionText}>{stock.name}</span>
+                    </div>
+                    {/*백에서 ai 의사를 받아와 span 태그에 string으로 추가하는 코드*/}
+                    <span>
+                      {async () => {
+                        return await aiOpinion(stock.ticker);
+                      }}
+                    </span>
                   </div>
-                )
-              )}
+                ))}
+              </div>
+            </div>
+            <div style={styles.rdownSection}>
+              <div style={styles.leftAlignedText}>매수 추천 주식</div>
+              <div style={styles.recommendStocksBox}>
+                {recommendStocks.map((ticker, index) => {
+                  const stock = StockData[ticker];
+                  if (!stock) return null;
+                  return (
+                    <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <div style={styles.recommendStocks}>
+                        <SComponent2 stock={stock} />
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

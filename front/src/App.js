@@ -23,16 +23,16 @@ import tickerData from './data/tickerData';
 const App = () => {
   // 게시판 데이터 초기값
   const initialBoards = [
-    { title: 'Free', posts: [] },
-    { title: 'Apple', posts: [] },
-    { title: 'MS', posts: [] },
-    { title: 'Alphabet', posts: [] },
-    { title: 'Amazon', posts: [] },
+    { title: 'FREE', posts: [] },
+    { title: 'APPLE', posts: [] },
+    { title: 'MICROSOFT', posts: [] },
+    { title: 'ALPHABET', posts: [] },
+    { title: 'AMAZON', posts: [] },
     { title: 'NVIDIA', posts: [] },
-    { title: 'Meta', posts: [] },
-    { title: 'TSLA', posts: [] },
-    { title: 'Broadcom', posts: [] },
-    { title: 'COST', posts: [] },
+    { title: 'META', posts: [] },
+    { title: 'TESLA', posts: [] },
+    { title: 'BROADCOM', posts: [] },
+    { title: 'COSTCO', posts: [] },
     { title: 'ASML', posts: [] },
   ];
   // 게시판 데이터
