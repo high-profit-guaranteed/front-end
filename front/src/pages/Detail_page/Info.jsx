@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Apple from "../../images/ent/apple.png";
 import Microsoft from "../../images/ent/microsoft.png";
 import Alphabet from "../../images/ent/alphabet.png";
@@ -116,7 +116,6 @@ const companyInfo = {
 const Chart = () => {
   const percentValue = +2800;
   const { ticker } = useParams();
-  const navigate = useNavigate();
   const { name, image } = companyInfo[ticker.toLowerCase()] || companyInfo.aapl;
   const [term, setTerm] = useState("day");
 

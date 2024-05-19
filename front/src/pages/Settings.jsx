@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar.jsx';
 import Topbar from '../components/Topbar.jsx';
 import { AiOutlineUser, AiOutlinePlus, AiOutlineSetting, 
   AiOutlineQuestionCircle, AiOutlineGlobal, AiOutlineRight } from 'react-icons/ai';
+import axios from 'axios';
 
 const styles = {
   container: {
@@ -139,8 +140,99 @@ const iconMapping = {
   OpenSource: <AiOutlineGlobal />
 };
 
+const axiosInstance = axios.create({
+  baseURL: "https://duckling-back.d-v.kro.kr",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
+
 function Settings() {
   const [activeMenu, setActiveMenu] = useState('Profile');
+
+  const [accountNumber, setAccountNumber] = useState('');
+  const [accountProductCode, setAccountProductCode] = useState('');
+  const [accountName, setAccountName] = useState('');
+  const [virtualAccount, setVirtualAccount] = useState(false);
+  const [apiKey, setApiKey] = useState('');
+  const [apiSecret, setApiSecret] = useState('');
+
+  const handleChangeAccountNumber = (e) => {
+    setAccountNumber(e.target.value);
+  };
+
+  const handleChangeAccountProductCode = (e) => {
+    setAccountProductCode(e.target.value);
+  };
+
+  const handleChangeAccountName = (e) => {
+    setAccountName(e.target.value);
+  };
+
+  const handleChangeVirtualAccount = (e) => {
+    setVirtualAccount(e.target.checked);
+  };
+
+  const handleChangeApiKey = (e) => {
+    setApiKey(e.target.value);
+  };
+
+  const handleChangeApiSecret = (e) => {
+    setApiSecret(e.target.value);
+  };
+
+  const handleAddAccount = (e) => {
+    e.preventDefault();
+
+    console.log('Add account clicked');
+    console.log('accountNumber: ', accountNumber);
+    console.log('accountProductCode: ', accountProductCode);
+    console.log('accountName: ', accountName);
+    console.log('virtualAccount: ', virtualAccount);
+    console.log('apiKey: ', apiKey);
+    console.log('apiSecret: ', apiSecret);
+
+    if (
+      accountNumber === "" ||
+      accountProductCode === "" ||
+      accountName === "" ||
+      apiKey === "" ||
+      apiSecret === ""
+    ) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
+    axiosInstance
+      .post("https://duckling-back.d-v.kro.kr/api/accounts", {
+        accountNumber: accountNumber,
+        accountProdCode: accountProductCode,
+        accountName: accountName,
+        isVirtual: virtualAccount,
+        APP_KEY: apiKey,
+        APP_SECRET: apiSecret,
+      })
+      .then((response) => {
+        if (response.status !== 200) {
+          alert("계좌 추가에 실패했습니다.");
+          return;
+        }
+        alert("계좌가 성공적으로 추가되었습니다.");
+        setAccountName("");
+        setAccountNumber("");
+        setAccountProductCode("");
+        setVirtualAccount(false);
+        setApiKey("");
+        setApiSecret("");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("계좌 추가에 실패했습니다.");
+      });
+  };
 
   const renderRightSection = () => {
     switch (activeMenu) {
@@ -179,29 +271,29 @@ function Settings() {
             </button>
             <label>
               Account Number
-              <input type="text" placeholder="Enter Account Number" style={styles.inputField} />
+              <input type="text" placeholder="Enter Account Number" style={styles.inputField} onChange={handleChangeAccountNumber} />
             </label>
             <label>
               Account Product Code
-              <input type="text" placeholder="Enter Account Product Code" style={styles.inputField} />
+              <input type="text" placeholder="Enter Account Product Code" style={styles.inputField} onChange={handleChangeAccountProductCode} />
             </label>
             <label>
               Account Name
-              <input type="text" placeholder="Enter account name" style={styles.inputField} />
+              <input type="text" placeholder="Enter account name" style={styles.inputField} onChange={handleChangeAccountName} />
             </label>
             <label>
               I have a virtual account
-              <input type="checkbox" style={{...styles.inputField, width: 'auto', margin: '10px'}} />
+              <input type="checkbox" style={{...styles.inputField, width: 'auto', margin: '10px'}} onChange={handleChangeVirtualAccount} />
             </label>
             <label>
               API KEY
-              <input type="text" placeholder="Enter API KEY" style={styles.inputField} />
+              <input type="text" placeholder="Enter API KEY" style={styles.inputField} onChange={handleChangeApiKey} />
             </label>
             <label>
               API SECRET
-              <input type="text" placeholder="Enter API SECRET KEY" style={styles.inputField} />
+              <input type="text" placeholder="Enter API SECRET KEY" style={styles.inputField} onChange={handleChangeApiSecret} />
             </label>
-            <button style={styles.button} onClick={() => console.log('Add account clicked')}>Add Account</button>
+            <button style={styles.button} onClick={handleAddAccount}>Add Account</button>
           </div>
         );
   
