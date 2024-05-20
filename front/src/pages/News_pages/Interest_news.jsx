@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar.jsx';
 import Topbar from '../../components/Topbar.jsx';
-import google1 from '../../images/news/google1.png';
-import google2 from '../../images/news/google2.png';
-import google3 from '../../images/news/google3.png';
-import google4 from '../../images/news/google4.png';
-import google5 from '../../images/news/google5.png';
-import google6 from '../../images/news/google6.png';
-import google7 from '../../images/news/google7.png';
-import google8 from '../../images/news/google8.png';
-import microsoft1 from '../../images/news/microsoft1.png';
-import microsoft2 from '../../images/news/microsoft2.png';
-import microsoft3 from '../../images/news/microsoft3.png';
-import microsoft4 from '../../images/news/microsoft4.png';
-import microsoft5 from '../../images/news/microsoft5.png';
-import microsoft6 from '../../images/news/microsoft6.png';
-import microsoft7 from '../../images/news/microsoft7.png';
-import microsoft8 from '../../images/news/microsoft8.png';
+import apple1 from '../../images/news/apple1.png';
+import apple2 from '../../images/news/apple2.png';
+import apple3 from '../../images/news/apple3.png';
+import apple4 from '../../images/news/apple4.png';
+import apple5 from '../../images/news/apple5.png';
+import apple6 from '../../images/news/apple6.png';
+import apple7 from '../../images/news/apple7.png';
+import apple8 from '../../images/news/apple8.png';
+import tesla1 from '../../images/news/tesla1.png';
+import tesla2 from '../../images/news/tesla2.png';
+import tesla3 from '../../images/news/tesla3.png';
+import tesla4 from '../../images/news/tesla4.png';
+import tesla5 from '../../images/news/tesla5.png';
+import tesla6 from '../../images/news/tesla6.png';
+import tesla7 from '../../images/news/tesla7.png';
+import tesla8 from '../../images/news/tesla8.png';
+import amazon1 from '../../images/news/amazon1.png';
+import amazon2 from '../../images/news/amazon2.png';
+import amazon3 from '../../images/news/amazon3.png';
+import amazon4 from '../../images/news/amazon4.png';
+import amazon5 from '../../images/news/amazon5.png';
+import amazon6 from '../../images/news/amazon6.png';
+import amazon7 from '../../images/news/amazon7.png';
+import amazon8 from '../../images/news/amazon8.png';
+
 // 수정 - 사진 추가
 
 
@@ -146,35 +155,49 @@ const styles = {
   },  
 };
 
-const tabs = ['Google', 'Microsoft'];
+const tabs = ['Apple', 'Tesla', 'Amazon'];
 
 const newsData = {
-  'Google': {
+  'Apple': {
     news: [
-      { title: "Google surges after buying back billions of dollars of its own stock", date: "April 25", readTime: "4 Mins read", imageUrl: google1, newsUrl:"https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html" },
-      { title: "Google CEO Sundar Pichai makes first-ever LinkedIn post: Shares Google I/O preparations", date:"May 14", readTime: "3 Mins read", imageUrl: google2, newsUrl:"https://timesofindia.indiatimes.com/technology/tech-news/google-ceo-sundar-pichai-makes-first-ever-linkedin-post-shares-google-i/o-preparations/articleshow/110115166.cms" },
-      { title: "Alphabet Stock Forecast: Is GOOGL a Good Buy in 2024?", date: "April 30", readTime: "8 Mins read", imageUrl: google3, newsUrl:"https://www.techopedia.com/investing/alphabet-stock-forecast" },
-      { title: "Google stock slips on Apple-ChatGPT rumors; OpenAI to reveal updates", date: "May 13", readTime: "6 Mins read", imageUrl: google4, newsUrl:"https://www.investing.com/news/stock-market-news/google-stock-slips-on-applechatgpt-rumors-openai-to-reveal-updates-3436551" }
+      { title: "Shiny Apple? 3 Reasons to Buy and Hold AAPL Stock Forever.", date: "May 16", readTime: "5 Mins read", imageUrl: apple1, newsUrl:"https://www.tradingview.com/news/investorplace:5f775ce51094b:0-shiny-apple-3-reasons-to-buy-and-hold-aapl-stock-forever/", author: "John Doe" },
+      { title: "Apple Shares Are Back to Winning Ways as AI Optimism Builds", date:"May 16", readTime: "3 Mins read", imageUrl: apple2, newsUrl:"https://finance.yahoo.com/news/apple-shares-back-winning-ways-122134268.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAALcwVlRbuaS0VdmeCRpOVcUDndK1NBN34yD6Q7ycVu5Hv3MsKYiKF-tHVJXiIjhKwwrAs64-nauLUdp75B7EvuO6pMK4NdL6hkxA5OIRV2wPJDIn7eKlNy_DR3YyhVOnCevO3ruxJtYkYqYN0IitE0L4bNM9uHBEtK_RBtQFJ15k", author: "Jane Smith" },
+      { title: "Apple Stock Rises. It May Be Bringing OpenAI to the iPhone.", date: "May 13", readTime: "8 Mins read", imageUrl: apple3, newsUrl:"https://www.barrons.com/articles/apple-stock-price-openai-580dfcb0", author: "Tom Brown" },
+      { title: "Apple Addiction: 3 Fund Managers Doubling Down on AAPL Stock", date: "May 16", readTime: "6 Mins read", imageUrl: apple4, newsUrl:"https://investorplace.com/2024/05/apple-addiction-3-fund-managers-doubling-down-on-aapl-stock/", author: "Lisa White" }
     ],
     morenews: [
-      { title: "3 Reasons to Buy Alphabet Stock Like There's No Tomorrow", date: "May 16", readTime: "4 Mins read", imageUrl: google5, newsUrl: "https://www.fool.com/investing/2024/05/16/3-reasons-buy-alphabet-stock-ai/"},
-      { title: "Google stock surges on soaring profits and first-ever cash dividend", date: "April 25", readTime: "5 Mins read", imageUrl: google6, newsUrl: "https://qz.com/alphabet-google-stock-earnings-gemini-1851436696"},
-      { title: "Alphabet surges past $2tn valuation as search giant announces first dividend", date: "April 27", readTime: "5 Mins read", imageUrl: google7, newsUrl: "https://www.ft.com/content/23b4b384-5971-4f91-a9c9-8a779d10b6bc"},
-      { title: "Alphabet hails ‘once-in-a-generation’ AI opportunity as revenue rises", date: "April 25", readTime: "5 Mins read", imageUrl: google8, newsUrl: "https://www.theguardian.com/technology/2024/apr/25/google-revenue-quarter-one"},
+      { title: "If You'd Invested $10,000 in Apple Stock 5 Years Ago, Here's How Much You'd Have Today", date: "May 14", readTime: "4 Mins read", imageUrl: apple5, newsUrl: "https://www.fool.com/investing/2024/05/14/if-youd-invested-10000-in-apple-stock-5-years-ago/"},
+      { title: "Wall Street predicts Apple stock price for next 12 months", date: "May 15", readTime: "5 Mins read", imageUrl: apple6, newsUrl: "https://finbold.com/wall-street-predicts-apple-stock-price-for-next-12-months/"},
+      { title: "Why Is Everyone Talking About Apple Stock?", date: "May 15", readTime: "5 Mins read", imageUrl: apple7, newsUrl: "https://finance.yahoo.com/news/why-everyone-talking-apple-stock-091500174.html"},
+      { title: "Ahead of Earnings, is Apple Stock a Buy or Sell?", date: "April 25", readTime: "5 Mins read", imageUrl: apple8, newsUrl: "https://www.morningstar.co.uk/uk/news/248663/ahead-of-earnings-is-apple-stock-a-buy-or-sell.aspx"},
     ]
   },
-  'Microsoft': {
+  'Tesla': {
     news: [
-      { title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?", date: "May 17", readTime: "4 Mins read", imageUrl: microsoft1, newsUrl:"https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/" },
-      { title: "Microsoft Stock: ‘Don't Overlook This Tailwind,’ Says Piper Sandler", date: "May 17", readTime: "3 Mins read", imageUrl: microsoft2, newsUrl:"https://www.tipranks.com/news/microsoft-stock-dont-overlook-this-tailwind-says-piper-sandler" },
-      { title: "Microsoft, Meta Platforms, Applied Materials, and Other Tech Stocks in Focus Today", date: "May 17", readTime: "8 Mins read", imageUrl: microsoft3, newsUrl:"https://www.barrons.com/articles/microsoft-meta-applied-materials-tech-stocks-today-1aad8957" },
-      { title: "Bill Gates Sells Microsoft, Berkshire Hathaway Shares In Q1: Are These Still Top Positions?", date: "May 17", readTime: "6 Mins read", imageUrl: microsoft4, newsUrl:"https://finance.yahoo.com/news/bill-gates-sells-microsoft-berkshire-192048032.html" }
+      { title: "Should I buy Tesla shares?", date: "May 17", readTime: "4 Mins read", imageUrl: tesla1, newsUrl:"https://www.thetimes.co.uk/money-mentor/investing/should-i-buy-tesla-shares", author: "David Green" },
+      { title: "Tesla Stock: Hold or Fold? Unpacking the Robotaxi Roadmap and EV Outlook.", date: "May 16", readTime: "3 Mins read", imageUrl: tesla2, newsUrl:"https://investorplace.com/2024/05/tesla-stock-hold-or-fold-unpacking-the-robotaxi-roadmap-and-ev-outlook/", author: "Megan Brown" },
+      { title: "Magnificent Seven Stocks: Nvidia, Tesla Rally; Google, Meta Slide", date: "May 16", readTime: "8 Mins read", imageUrl: tesla3, newsUrl:"https://www.investors.com/research/magnificent-seven-stocks-to-buy-and-and-watch/", author: "Samuel Clark" },
+      { title: "Tesla Stock in Focus after EV Maker Launches Model Y Financing Initiative", date: "May 13", readTime: "6 Mins read", imageUrl: tesla4, newsUrl:"https://www.investopedia.com/tesla-stock-in-focus-after-ev-maker-launches-model-y-financing-initiative-8647318", author: "Emily Harris" }
     ],
     morenews: [
-      { title: "Microsoft Corp. stock underperforms Thursday when compared to competitors", date: "May 16", readTime: "4 Mins read", imageUrl: microsoft5, newsUrl: "https://www.marketwatch.com/data-news/microsoft-corp-stock-underperforms-thursday-when-compared-to-competitors-7ebf5d8e-e9c72a1f7f78"},
-      { title: "5 Things to Know Before the Stock Market Opens", date: "May 16", readTime: "4 Mins read", imageUrl: microsoft6, newsUrl: "https://www.investopedia.com/5-things-to-know-before-the-stock-market-opens-may-16-2024-8649372"},
-      { title: "Microsoft Unveils AMD-Powered AI Chips To Rival Nvidia: Report", date: "May 17", readTime: "5 Mins read", imageUrl: microsoft7, newsUrl: "https://finance.yahoo.com/news/microsoft-unveils-amd-powered-ai-120531968.html"},
-      { title: "Why Microsoft Stock Is the Pick of the Magnificent Seven Litter", date: "May 14", readTime: "4 Mins read", imageUrl: microsoft8, newsUrl: "https://investorplace.com/2024/05/why-microsoft-stock-is-the-pick-of-the-magnificent-seven-litter/"},
+      { title: "Tesla Rehires Some Supercharger Workers Weeks After Musk’s Cuts", date: "May 14", readTime: "4 Mins read", imageUrl: tesla5, newsUrl: "https://www.bloomberg.com/news/articles/2024-05-13/tesla-rehires-some-supercharger-workers-weeks-after-musk-s-culling"},
+      { title: "Tesla Stock Shrugs Off Legal Problems. Why They Are No Surprise.", date: "May 17", readTime: "4 Mins read", imageUrl: tesla6, newsUrl: "https://www.barrons.com/articles/tesla-musk-stock-price-77cafc10"},
+      { title: "This Lidar Stock Is Surging While Tesla Looks To Build Self-Driving Data Center In China", date: "May 17", readTime: "5 Mins read", imageUrl: tesla7, newsUrl: "https://www.investors.com/news/lidar-stock-tesla-autonomous-driving/"},
+      { title: "Tesla's stock surges on optimism for Musk's affordable car line-up", date: "April 24", readTime: "4 Mins read", imageUrl: tesla8, newsUrl: "https://www.euronews.com/business/2024/04/24/teslas-stock-surges-on-optimism-for-musks-affordable-car-line-up"},
+    ]
+  },
+  'Amazon': {
+    news: [
+      { title: "Is Amazon Stock A Buy Amid Leadership Shakeup At Cloud Business?", date: "May 20", readTime: "4 Mins read", imageUrl: amazon1, newsUrl:"https://www.investors.com/news/technology/is-amazon-stock-buy-now-amzn/" },
+      { title: "This Is Massive News for Amazon Stock Investors", date: "May 19", readTime: "3 Mins read", imageUrl: amazon2, newsUrl:"https://www.fool.com/investing/2024/05/19/this-is-massive-news-for-amazon-stock-investors/" },
+      { title: "Amazon.com Inc. stock underperforms Monday when compared to competitors", date: "May 20", readTime: "6 Mins read", imageUrl: amazon3, newsUrl:"https://www.marketwatch.com/data-news/amazon-com-inc-stock-underperforms-monday-when-compared-to-competitors-70dd9237-ed1888a40500" },
+      { title: "Forget Amazon: This Stock Has Made Far More Millionaires", date: "May 18", readTime: "6 Mins read", imageUrl: amazon4, newsUrl:"https://finance.yahoo.com/news/forget-amazon-stock-made-far-084500400.html" }
+    ],
+    morenews: [
+      { title: "Amazon Stock: Nearing $2 Trillion Club From AWS Growth & Ads Catalyst", date: "May 17", readTime: "4 Mins read", imageUrl: amazon5, newsUrl: "https://www.forbes.com/sites/bethkindig/2024/05/17/amazon-stock-nearing-2-trillion-club-from-aws-growth--ads-catalyst/?sh=5a3029ee74c4"},
+      { title: "Amazon Stock Falls After a Key CEO Steps Down", date: "May 14", readTime: "4 Mins read", imageUrl: amazon6, newsUrl: "https://www.barrons.com/articles/amazon-stock-aws-ceo-selipsky-b1dd9f95"},
+      { title: "Amazon Stock's Uptrend Is Set To Continue — But Watch This Indicator", date: "May 17", readTime: "5 Mins read", imageUrl: amazon7, newsUrl: "https://finance.yahoo.com/news/microsoft-unveils-amd-powered-ai-120531968.html"},
+      { title: "Amazon Is Magnificent, but Is This E-Commerce Stock a No-Brainer Buy on the Dip?", date: "May 20", readTime: "4 Mins read", imageUrl: amazon8, newsUrl: "https://finance.yahoo.com/news/amazon-magnificent-e-commerce-stock-094500711.html"},
     ]
   }
 };
@@ -192,9 +215,9 @@ function getFourNewsItems(newsArray) {
 
 function Interest_news() {
     // 수정
-    const [activeTab, setActiveTab] = useState('Google'); // 초기 탭 설정
-    const [activeNews, setActiveNews] = useState(newsData['Google'].news); // 초기 뉴스 설정
-    const [morenewsNews, setmorenewsNews] = useState(newsData['Google'].morenews); // 초기 새로운 카테고리 뉴스 설정
+    const [activeTab, setActiveTab] = useState('Apple'); // 초기 탭 설정
+    const [activeNews, setActiveNews] = useState(newsData['Apple'].news); // 초기 뉴스 설정
+    const [morenewsNews, setmorenewsNews] = useState(newsData['Apple'].morenews); // 초기 새로운 카테고리 뉴스 설정
 
 
     // 컴포넌트가 마운트되었을 때 보유 종목 목록을 로드

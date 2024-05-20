@@ -2,7 +2,7 @@
 // 순서는 나중에 변경
 
 const StockCategories = {
-  거래량: ['AAPL', 'MSFT', 'GOOG', 'AMZN', 'NVDA', 'META', 'TSLA', 'AVGO', 'COST', 'ASML'],
+  거래량: ['AAPL', 'TSLA', 'GOOG', 'MSFT', 'NVDA', 'META', 'AMZN', 'AVGO', 'COST', 'ASML'],
   인기: ['MSFT', 'AAPL', 'NVDA', 'GOOG', 'AMZN', 'TSLA', 'META', 'COST', 'ASML', 'AVGO'],
   급상승: ['NVDA', 'MSFT', 'GOOG', 'AVGO', 'AAPL', 'META', 'ASML', 'AMZN', 'COST', 'TSLA'],
   급하락: ['GOOG', 'MSFT', 'AAPL', 'META', 'NVDA', 'AMZN', 'TSLA', 'COST', 'AVGO', 'ASML'],

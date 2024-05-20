@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
   },
 });
 
-const SComponent = ({ ticker, accountId }) => {
+const SComponent = ({ ticker, accountId, onPriceUpdate }) => {
   const [stock, setStock] = useState({
     stockCode: "",
     lastPrice: "",
@@ -44,9 +44,12 @@ const SComponent = ({ ticker, accountId }) => {
       };
       console.log("stockPrice", stockPrice);
       setStock(stockPrice);
+
+      // 주식 정보 업데이트 시 onPriceUpdate 콜백 호출
+      onPriceUpdate(ticker, stockPrice.lastPrice, stockPrice.diffrence, stockPrice.sign);
     };
     getStockPrice();
-  }, [accountId, ticker]);
+  }, [accountId, ticker, onPriceUpdate]);
 
   // const { name, logo, price, change, symbol } = stock;
   // 1 || 2 -> up, 4 || 5 -> down, 3 -> same, '↑' : '↓'

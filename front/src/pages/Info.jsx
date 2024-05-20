@@ -28,14 +28,13 @@ const styles = {
     justifyContent: 'space-between',
   },
   
-  // 수정 - header 추가
   header: {
     alignSelf: 'flex-start',
     marginBottom: '20px',
   },
   content: {
     display: 'flex',
-    flexDirection: 'row-reverse',   // leftSecion과 rightSection 위치 수정
+    flexDirection: 'row-reverse',
     justifyContent: 'space-between',
   },
 
@@ -59,7 +58,6 @@ const styles = {
     justifyContent: "space-around",
   },
 
-  // leftSection - left
   lleftSection: {
     width: "55%",
     height: "100%",
@@ -72,8 +70,6 @@ const styles = {
     borderRadius: "15px",
     backgroundColor: "#fff",
   },
-  // lleftSection - top
-  // 거래량, 인기, 급상승, 급하락, 관심
   topSection: {
     display: "flex",
     marginBottom: "20px",
@@ -92,7 +88,6 @@ const styles = {
     borderBottom: "3px solid #8bc78e",
     color: "black",
   },
-  // lleftSection - down
   downSection: {
     width: '90%',
     padding: '10px',
@@ -120,7 +115,6 @@ const styles = {
     color: "blue",
   },
 
-  // leftSection - right
   lrightSection: {
     width: "50%",
     height: "100%",
@@ -133,10 +127,9 @@ const styles = {
     borderRadius: "15px",
     backgroundColor: "#F3F3F3",
   },
-  // lrightSection - top
   downSection2: {
     width: '90%',
-    height: '80%',
+    height: '82%',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -166,9 +159,6 @@ const styles = {
     width: "90%",
   },
 
-  // rightSection
-  // rightSection - top
-  // 보유종목에 대한 의견
   rupSection: {
     padding: "10px",
     marginBottom: "3%",
@@ -182,7 +172,6 @@ const styles = {
     borderStyle: "solid",
     borderColor: "#EFEFEF",
   },
-  // 수정 - 스타일 수정
   opinionBBox: {
     backgroundColor: 'rgba(242, 246, 239, 1)',
     textAlign: 'center',
@@ -240,8 +229,6 @@ const styles = {
     margin: "0 10px",
   },
 
-  // rightSection - down
-  // 매수 추천 종목
   rdownSection: {
     padding: "10px",
     marginBottom: "3%",
@@ -260,6 +247,7 @@ const styles = {
     borderRadius: '8px',
     width: '90%',
     padding: '5px',
+    backgroundColor: 'rgba(242, 246, 239, 1)',
     fontFamily: 'Arial, sans-serif',
     overflowY: 'auto',
   },
@@ -274,7 +262,6 @@ const styles = {
     width: '90%',
   },
 
-  // 수정 - 텍스트 왼쪽 정렬
   leftAlignedText: {
     fontSize: '22px',
     fontWeight: 'bold',
@@ -293,7 +280,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json;charset=utf-8",
-    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Origin": window.location.origin,
     "Access-Control-Allow-Credentials": "true",
   },
 });
@@ -319,33 +306,14 @@ function Info({ accountId, setAccountId }) {
   const [selectedStock, setSelectedStock] = useState(null);
   const [stockBalance, setStockBalance] = useState([]);
   const [selectedTicker, setSelectedTicker] = useState('');
-  // const [stocks, setStocks] = useState({});
 
   const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
-  
-  // const aiOpinion = async (ticker) => {
-  //   try {
-  //     const response = await axiosInstance.get(
-  //       "https://duckling-back.d-v.kro.kr/api/balance?accountId=" // ai 서버에서 받기 엔드포인트 수정할 것
-  //     );
-  //     if (response.status === 200) {
-  //       console.log(response.data);
-  //       return response.data;
-  //     }else{
-  //       console.log('error');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   return null;
-  // };
 
   const myStock = async (id) => {
     if (id === "o") return;
     try {
       const response = await axiosInstance.get(
-        "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
-          id
+        "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" + id
       );
       if (response.status === 200) {
         console.log(response.data);
@@ -356,27 +324,43 @@ function Info({ accountId, setAccountId }) {
     }
   };
 
-    // 매수 추천 주식 ticker
-  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MS', 'AMZN'].filter(ticker => StockData[ticker]));
+  const [recommendStocks, setRecommendStocks] = useState(['MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
     
-  // useEffect(() => {
-  //   setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
-  // }, [recommendStocks]);
+  useEffect(() => {
+    setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
+  }, [recommendStocks]);
 
+  const handlePriceUpdate = (ticker, lastPrice, diffrenceRate, sign) => {
+    if (selectedStock && ticker === selectedTicker) {
+      setSelectedStock({
+        ...selectedStock,
+        price: lastPrice,
+        change: diffrenceRate,
+        symbol: sign === "1" || sign === "2" ? "up" : "down",
+      });
+    }
+  };
 
-  // 보유종목에 대한 의견 ai
   useEffect(() => {
     const firstTicker = StockCategories[selectedMenu][0];
     setSelectedTicker(firstTicker);
-    setSelectedStock(StockData[firstTicker]);
-    myStock('1'); // 임의로 1을 넣음 실제로는 사용하는 계좌 id를 받아올 것
-    // aiOpinion(stockBalance);
+    if (StockData[firstTicker]) {
+      setSelectedStock(StockData[firstTicker]);
+    } else {
+      setSelectedStock(null);
+    }
   }, [selectedMenu]);
 
   function renderStockList(category) {
     const list = StockCategories[category]?.map(ticker => {
       const stock = StockData[ticker];
       return (
+//         <div key={ticker} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
+//           <SComponent
+//             ticker={ticker}
+//             accountId={accountId}
+//             onPriceUpdate={handlePriceUpdate}
+//           />
         <div style={{ display: 'flex' }}>
           <div key={ticker} style={{...styles.stockItem, width: '90%'}} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
             <SComponent ticker={ticker} accountId={accountId} />
@@ -436,16 +420,13 @@ function Info({ accountId, setAccountId }) {
             <div style={styles.rupSection}>
               <div style={styles.leftAlignedText}>보유종목에 대한 의견</div>
               <div style={styles.opinionBBox}>
-                {stockBalance.map((stock) => ( // 보유 종목 계좌에서 주식 리스트를 map으로 넘김
-                  <div style={styles.stockContainer}>
+                {Object.entries(StockData).slice(0, 3).map(([ticker, stock], index) => (
+                  <div key={index} style={styles.stockContainer}>
                     <div style={styles.opinionBox}>
                       <span style={styles.opinionText}>{stock.name}</span>
                     </div>
-                    {/*백에서 ai 의사를 받아와 span 태그에 string으로 추가하는 코드*/}
-                    <span>
-                      {/* {async () => {
-                        return await aiOpinion(stock.ticker);
-                      }} */}
+                    <span style={styles[index === 0 || index === 2 ? 'buy' : 'sell']}>
+                      {index === 0 || index === 2 ? 'Buy' : 'Sell'}
                     </span>
                   </div>
                 ))}
@@ -453,18 +434,17 @@ function Info({ accountId, setAccountId }) {
             </div>
             <div style={styles.rdownSection}>
               <div style={styles.leftAlignedText}>매수 추천 주식</div>
-              <div style={styles.recommendStocksBox}>
-                {recommendStocks.map((ticker, index) => {
-                  const stock = StockData[ticker];
-                  if (!stock) return null;
-                  return (
-                    <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      <div style={styles.recommendStocks}>
-                        <SComponent2 stock={stock} />
-                      </div>
-                    </Link>
-                  );
-                })}
+              <div style={styles.opinionBBox}>
+                {Object.entries(StockData).slice(3, 6).map(([ticker, stock], index) => (
+                  <div key={index} style={styles.stockContainer}>
+                    <div style={styles.opinionBox}>
+                      <span style={styles.opinionText}>{stock.name}</span>
+                    </div>
+                    <span style={styles[index === 0 || index === 2 ? 'buy' : 'buy']}>
+                      {index === 0 || index === 2 ? 'buy' : 'buy'}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
