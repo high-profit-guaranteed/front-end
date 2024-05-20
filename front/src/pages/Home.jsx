@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext  } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import Chart from "chart.js/auto";
@@ -6,19 +6,19 @@ import ScrollbarStyles from "../components/ScrollbarStyles.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-// 수정 - 사진 추가
+// 수정 - 사진 추가 (뉴스)
 import apple1 from "../images/news/apple1.png";
 import tesla1 from "../images/news/tesla1.png";
 import google1 from "../images/news/google1.png";
 import microsoft1 from "../images/news/microsoft1.png";
 
 // 수정 - 추가
-import SComponent from '../components/SComponent';
-import StockData from '../components/StockData';
-import SComponent2 from '../components/SComponent2';
+import SComponent from "../components/SComponent";
+import StockData from "../components/StockData";
+import SComponent2 from "../components/SComponent2";
 
 // 수정 - 관심종목 받아오기
-import { HeartContext } from './Detail_page/Heart.jsx';
+import { HeartContext } from "./Detail_page/Heart.jsx";
 
 // 관심종목 사진 추가
 import Apple from "../images/ent/apple.png";
@@ -178,7 +178,7 @@ const styles = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     fontFamily: "Arial, sans-serif",
     textAlign: "center",
-    maxHeight: "200px",
+    maxHeight: "217px",
     overflowY: "auto",
   },
 
@@ -190,36 +190,47 @@ const styles = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     fontFamily: "Arial, sans-serif",
     textAlign: "center",
-    maxHeight: "200px",
+    maxHeight: "217px",
     overflowY: "auto",
   },
 
   // 뉴스 스타일
-  newsCard: {
+  newsItem: {
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "15px",
-    backgroundColor: "rgba(242, 246, 239, 1)",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    borderRadius: "10px",
-    margin: "10px 0",
-    fontSize: "16px",
-    fontFamily: "Arial, sans-serif",
-    marginBottom: "20px",
-    cursor: "pointer", // 수정
+    marginBottom: "40px",
+    width: "99%",
+    height: "70%",
+    border: "1px solid #DDD",
+    overflow: "hidden",
+    cursor: "pointer",
   },
-  newsImage: {
-    width: "80px",
-    height: "80px",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    borderRadius: "10px",
-    backgroundColor: "#f0f0f0",
+  newsItemImage: {
+    // width 수정
+    width: "100%",
+    height: "100%",
   },
-  newsText: {
-    flex: 1,
-    marginRight: "15px",
+  newsItemContent: {
+    padding: "20px",
+    width: "100%",
+    height: "70%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  newsItemTitle: {
+    fontSize: "20px",
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: "10px",
+  },
+  newsItemMeta: {
+    fontSize: "13px",
+    color: "#666",
+  },
+  newsItemAuthor: {
+    fontSize: "13px",
+    color: "#888",
+    marginBottom: "7px",
   },
 
   //추후 업데이트 예정입니다
@@ -278,36 +289,6 @@ function Home({ accountId, setAccountId }) {
     }
   };
 
-  const getBalanceRecord = async (id) => {
-    if (id === "o") return;
-    try {
-      const response = await axiosInstance.get(
-        "https://duckling-back.d-v.kro.kr/api/balanceRecord?accountId=" + id
-      );
-      if (response.status === 200) {
-        setBalanceRecord(response.data);
-        setShowGraph(true);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getStocksEvaluationBalance = async (id) => {
-    if (id === "o") return;
-    try {
-      const response = await axiosInstance.get(
-        "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
-          id
-      );
-      if (response.status === 200) {
-        setStockBalance(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   // 예시 금액과 변동율 (양수 또는 음수로 테스트 가능)
   const [balance, setBalance] = useState("계좌 정보가 없습니다.");
   const [stockBalance, setStockBalance] = useState([]);
@@ -336,76 +317,43 @@ function Home({ accountId, setAccountId }) {
     Sunday: { revenue: "90,000", change: -110 },
   };
 
-  // 보유 종목 ticker
-  const [holdStocks, setHoldStocks] = useState([])
+  // 수정 - 추가
+  // 보유 종목 API 호출하기
+  // const getHoldStocks = async (id) => {
+  //   if (!id || id === "o") return;
+  //   try {
+  //     const response = await axiosInstance.get(
+  //       `https://duckling-back.d-v.kro.kr/api/holdStocks?accountId=${id}`
+  //     );
+  //     if (response.status === 200) {
+  //       setHoldStocks(response.data);
+  //     } else {
+  //       console.error("Error fetching hold stocks:", response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching hold stocks:", error);
+  //   }
+  // };
 
-//   // 백엔드에서 보유 종목 정보를 가져오는 함수
-//   const fetchHoldStocks = async () => {
-//     try {
-//       const response = await axios.get('https://duckling-back.d-v.kro.kr/api/user/holdstocks', {
-//         // 요청에 대한 구성 옵션을 설정하는 객체
-//         withCredentials: true,    // 쿠키와 같은 인증 관련 데이터를 포함할지 여부 지정
-//         headers: {                // 요청과 함께 보낼 HTTP 헤더를 설정
-//           'Content-Type': 'application/json',   // 요청 본문이 json 형식
-//           'Access-Control-Allow-Origin': '*',   // cors 정책에 따라 다른 도메인에서 실행되는 웹 페이지에서 api 엔드포인트를 사용할 수 있는지를 지정
-//         },                                      // * -> 모든 도메인에서의 요청을 허용
-//       });
-  
-//       if (response.status === 200) {
-//         console.log("보유 종목 데이터:", response.data);
-//         // 백엔드에서 받은 데이터를 상태에 저장
-//         setHoldStocks(response.data.holdStocks.map(stock => stock.ticker));
-//       } else {
-//         console.error();
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-  
-//   useEffect(() => {
-//     fetchHoldStocks();
-//   }, []);
-  
-  // 관심 종목
-  const { likedItems, toggleHeart } = useContext(HeartContext);
-  const initialFavoriteOrders = likedItems.map((item, index) => ({ id: index + 1, name: item, percentage: "10%" }));
-  const [favoriteOrders, setFavoriteOrders] = useState(initialFavoriteOrders);
+  // 보유 종목 상태 관리
+  const [holdStocks, setHoldStocks] = useState([]);
 
-  const searchKeywordMap = {
-    apple: "aapl",
-    microsoft: "msft",
-    google: "goog",
-    amazon: "amzn",
-    nvidia: "nvda",
-    meta: "meta",
-    tesla: "tsla",
-    broadcom: "avgo",
-    costco: "cost",
-    asml: "asml",
-  };
+  // 보유 종목 usdEffect로 데이터 불러오기
+  // useEffect(() => {
+  //   if (accountId !== "" && accountId !== "-1" && accountId !== "o") {
+  //     getHoldStocks(accountId);
+  //   }
+  // }, [accountId]);
 
-  const imageMap = {
-    aapl: Apple,
-    msft: Microsoft,
-    goog: Alphabet,
-    amzn: Amazon,
-    nvda: Nvidia,
-    meta: Meta,
-    tsla: Tesla,
-    avgo: Broadcom,
-    cost: Costco,
-    asml: Asml,
-  };
+  // const { likedItems, toggleHeart } = useContext(HeartContext);
+  // const initialFavoriteOrders = likedItems.map((item, index) => ({ id: index + 1, name: item, percentage: "10%" }));
+  // const [favoriteOrders, setFavoriteOrders] = useState(initialFavoriteOrders);
 
   // 관심 종목 ticker
-  //const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
+  const [favoriteStocks, setFavoriteStocks] = useState(
+    ["AAPL", "META", "AMZN", "TSLA"].filter((ticker) => StockData[ticker])
+  );
 
-  // useEffect(() => {
-  //   setFavoriteStocks(favoriteStocks.filter(ticker => StockData[ticker]));
-  // }, [favoriteStocks]);
-
-  
   // 판매 수익
   const handleDayChange = (event) => {
     setSelectedDay(event.target.value);
@@ -437,15 +385,17 @@ function Home({ accountId, setAccountId }) {
 
   // 수정 추가 - 관심종목 뉴스
   const interestNews = [
-    { 
-      title: "Google surges after buying back billions of dollars of its own stock",
+    {
+      title:
+        "Google surges after buying back billions of dollars of its own stock",
       date: "2024 April 25",
       imageUrl: google1,
       newsUrl:
         "https://edition.cnn.com/2024/04/25/tech/google-tech-earnings-dividend/index.html",
     },
-    { 
-      title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
+    {
+      title:
+        "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?",
       date: "2024 May 17",
       imageUrl: microsoft1,
       newsUrl:
@@ -463,65 +413,113 @@ function Home({ accountId, setAccountId }) {
   //   }
   // };
 
+  // useEffect(() => {
+  //   // fetchNews();
+
+  //   if (showGraph) {
+  //     if (chartRefCanvas.current && revenueChartRefCanvas.current) {
+  //       if (chartRef.current) chartRef.current.destroy();
+  //       if (revenueChartRef.current) revenueChartRef.current.destroy();
+  //       // 자산 현황 그래프 나중에 수정
+  //       const ctx = chartRefCanvas.current.getContext("2d");
+  //       const myChart = new Chart(ctx, {
+  //         type: "line",
+  //         data: {
+  //           labels: [
+  //             "January",
+  //             "February",
+  //             "March",
+  //             "April",
+  //             "May",
+  //             "June",
+  //             "July",
+  //           ],
+  //           datasets: [
+  //             {
+  //               label: "총 판매 주식",
+  //               data: [65, 59, 80, 81, 56, 55, 40],
+  //               fill: false,
+  //               borderColor: "rgba(100, 120, 50)",
+  //               tension: 0.1,
+  //             },
+  //           ],
+  //         },
+  //         options: {},
+  //       });
+
+  //       // 판매내역 비율 그래프 나중에 수정
+  //       const revenueCtx = revenueChartRefCanvas.current.getContext("2d");
+  //       const revenueChart = new Chart(revenueCtx, {
+  //         type: "doughnut",
+  //         data: {
+  //           labels: ["USD", "KRW", "APPLE", "TSLA"],
+  //           datasets: [
+  //             {
+  //               label: "판매내역 비율",
+  //               data: [120, 190, 300, 250],
+  //               backgroundColor: "rgba(242, 246, 239, 0.7)",
+  //               borderColor: "rgba(100, 120, 50, 1)",
+  //               borderWidth: 0.5,
+  //             },
+  //           ],
+  //         },
+  //       });
+
+  //       chartRef.current = myChart;
+  //       revenueChartRef.current = revenueChart;
+  //     }
+  //   }
+  // }, [showGraph]);
+
   useEffect(() => {
-    // fetchNews();
-
-    if (showGraph) {
-      if (chartRefCanvas.current && revenueChartRefCanvas.current) {
-        if (chartRef.current) chartRef.current.destroy();
-        if (revenueChartRef.current) revenueChartRef.current.destroy();
-        // 자산 현황 그래프 나중에 수정
-        const ctx = chartRefCanvas.current.getContext("2d");
-        const myChart = new Chart(ctx, {
-          type: "line",
-          data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-            ],
-            datasets: [
-              {
-                label: "총 판매 주식",
-                data: [65, 59, 80, 81, 56, 55, 40],
-                fill: false,
-                borderColor: "rgba(100, 120, 50)",
-                tension: 0.1,
-              },
-            ],
-          },
-          options: {},
-        });
-
-        // 판매내역 비율 그래프 나중에 수정
-        const revenueCtx = revenueChartRefCanvas.current.getContext("2d");
-        const revenueChart = new Chart(revenueCtx, {
-          type: "doughnut",
-          data: {
-            labels: ["USD", "KRW", "APPLE", "TSLA"],
-            datasets: [
-              {
-                label: "판매내역 비율",
-                data: [120, 190, 300, 250],
-                backgroundColor: "rgba(242, 246, 239, 0.7)",
-                borderColor: "rgba(100, 120, 50, 1)",
-                borderWidth: 0.5,
-              },
-            ],
-          },
-        });
-
-        chartRef.current = myChart;
-        revenueChartRef.current = revenueChart;
+    const getBalanceRecord = async (id) => {
+      if (id === "o" || id === "-1") return;
+      async function getBalanceRecordReq(id) {
+        try {
+          return await axiosInstance.get(
+            "https://duckling-back.d-v.kro.kr/api/balanceRecord?accountId=" + id
+          );
+        } catch (error) {
+          console.error("Error:", error);
+          setTimeout(() => {
+            getBalanceRecord(id);
+          }, 500);
+          return null;
+        }
       }
-    }
-  }, [showGraph]);
 
-  useEffect(() => {
+      const response = await getBalanceRecordReq(id);
+      if (!response) return;
+
+      const data = response.data ?? [];
+
+      setBalanceRecord(data);
+      setShowGraph(true);
+    };
+
+    const getStocksEvaluationBalance = async (id) => {
+      if (id === "o" || id === "-1") return;
+      async function getStocksEvaluationBalanceReq(id) {
+        try {
+          return await axiosInstance.get(
+            "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" + id
+          );
+        } catch (error) {
+          console.error("Error:", error);
+          setTimeout(() => {
+            getStocksEvaluationBalance(id);
+          }, 500);
+          return null;
+        }
+      }
+
+      const response = await getStocksEvaluationBalanceReq(id);
+      if (!response) return;
+
+      const data = response.data ?? [];
+      setStockBalance(data);
+    };
+
     if (accountId !== "" && accountId !== "-1" && accountId !== "o") {
       getBalance(accountId);
       getBalanceRecord(accountId);
@@ -643,9 +641,6 @@ function Home({ accountId, setAccountId }) {
 
       revenueChartRef.current = revenueChart;
     }
-
-
-
   }, [stockBalance]);
 
   return (
@@ -733,15 +728,17 @@ function Home({ accountId, setAccountId }) {
             </div>
             <div style={styles.holdSection}>
               <h2 style={styles.sectionTitle}>보유 종목</h2>
-              {holdStocks.map((ticker, index) => {
-                const stock = StockData[ticker];
-                if (!stock) return null;
-                return (
-                  <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {holdStocks.map((stock, index) => (
+                <Link
+                  key={index}
+                  to={`/detail/${stock.ticker.toLowerCase()}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div style={styles.holdSectionItem}>
                     <SComponent2 stock={stock} />
-                  </Link>
-                );
-              })}
+                  </div>
+                </Link>
+              ))}
             </div>
             <div style={styles.portfolioSection}>
               <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>
@@ -769,31 +766,10 @@ function Home({ accountId, setAccountId }) {
               return (
                 <Link
                   key={index}
-                  to={`/detail/${formattedName}`} // 종목 상세 페이지로의 경로 설정
-                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  to={`/detail/${ticker.toLowerCase()}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <div style={styles.item}>
-                    <img
-                      src={imageUrl}
-                      style={{ marginRight: '100px', width: '50px', height: '50px' }} // 이미지 크기 조정
-                    />
-                    <span>{item.name}</span>
-                    <span style={{ marginRight: '100px'}}></span>
-                    <span
-                      style={
-                        item.percentage.startsWith("-")
-                          ? { color: "blue" }
-                          : { color: "red" }
-                      }
-                    >
-                      {item.percentage.startsWith("-") ? (
-                        <span style={styles.downArrow}>↓</span>
-                      ) : (
-                        <span style={styles.upArrow}>↑</span>
-                      )}
-                      {item.percentage}
-                    </span>
-                  </div>
+                  <SComponent ticker={ticker} accountId={accountId} />
                 </Link>
               );
             })}
@@ -807,22 +783,20 @@ function Home({ accountId, setAccountId }) {
               보유종목 뉴스
             </h2>
             {holdingNews.map((item) => (
-              <div
-                key={item.title}
-                style={styles.newsCard}
-                onClick={() => window.open(item.newsUrl, "_blank")}
-              >
-                <div style={styles.newsText}>
-                  <h3>{item.title}</h3>
-                  <p>{item.author}</p>
-                  <p>{item.date}</p>
+              <div key={item} style={styles.newsItem}>
+                {/* 수정 */}
+                <a href={item.newsUrl} target="_blank">
+                  <img
+                    src={item.imageUrl}
+                    alt="News"
+                    style={styles.newsItemImage}
+                  />
+                </a>
+                <div style={styles.newsItemContent}>
+                  <div style={styles.newsItemAuthor}>By {item.author}</div>
+                  <div style={styles.newsItemTitle}>{item.title}</div>
+                  <div style={styles.newsItemMeta}>{item.date}</div>
                 </div>
-                <div
-                  style={{
-                    ...styles.newsImage,
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                ></div>
               </div>
             ))}
           </div>
@@ -830,25 +804,25 @@ function Home({ accountId, setAccountId }) {
           <div style={styles.favoriteStocksNews}>
             <h2
               style={{ ...styles.sectionHeader, cursor: "pointer" }}
-              onClick={handleInterestNewsClick}>
+              onClick={handleInterestNewsClick}
+            >
               관심종목 뉴스
             </h2>
             {interestNews.map((item) => (
-              <div
-                key={item.title}
-                style={styles.newsCard}
-                onClick={() => window.open(item.newsUrl, "_blank")}
-              >
-                <div style={styles.newsText}>
-                  <h3>{item.title}</h3>
-                  <p>{item.date}</p>
+              <div key={item} style={styles.newsItem}>
+                {/* 수정 */}
+                <a href={item.newsUrl} target="_blank">
+                  <img
+                    src={item.imageUrl}
+                    alt="News"
+                    style={styles.newsItemImage}
+                  />
+                </a>
+                <div style={styles.newsItemContent}>
+                  <div style={styles.newsItemAuthor}>By {item.author}</div>
+                  <div style={styles.newsItemTitle}>{item.title}</div>
+                  <div style={styles.newsItemMeta}>{item.date}</div>
                 </div>
-                <div
-                  style={{
-                    ...styles.newsImage,
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                ></div>
               </div>
             ))}
           </div>

@@ -25,16 +25,23 @@ const SComponent = ({ ticker, accountId }) => {
     if (accountId === "-1") return;
     const getStockPrice = async () => {
       async function getStock() {
-        return await axiosInstance
-        .get(`/api/stock?accountId=${accountId}&stockCode=${ticker}`, {})
-        .catch(async (error) => {
-          // console.log("error: ", error);
-          setTimeout(() => getStock(), 3000);
-        });
+        try {
+          return await axiosInstance.get(`/api/stock?accountId=${accountId}&stockCode=${ticker}`);
+        } catch (error) {
+          console.error("Error fetching stock data:", error);
+          setTimeout(getStockPrice, 500);
+          return null;
+        }
       };
       const response = await getStock();
       if (!response) return;
-      const stockPrice = response.data??{'stockCode': 'AAPL', 'lastPrice': '100', 'sign': '1', 'diffrence': '1', 'diffrenceRate': '1%'}; // 임시로 데이터 넣어둠
+      const stockPrice = response.data ?? {
+        'stockCode': 'AAPL', 
+        'lastPrice': '100', 
+        'sign': '1', 
+        'diffrence': '1', 
+        'diffrenceRate': '1%'
+      };
       console.log("stockPrice", stockPrice);
       setStock(stockPrice);
     };

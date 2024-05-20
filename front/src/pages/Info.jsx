@@ -35,16 +35,15 @@ const styles = {
   },
   content: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',   // leftSecion과 rightSection 위치 수정
     justifyContent: 'space-between',
   },
 
   leftSection: {
     display: "flex",
     flexDirection: "row",
-    width: "64%",
+    width: "65%",
     alignItems: "center",
-    marginRight: "20px",
     padding: "10px",
     backgroundColor: "#F3F3F3",
     borderRadius: "8px",
