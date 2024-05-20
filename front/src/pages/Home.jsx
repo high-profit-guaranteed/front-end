@@ -324,38 +324,35 @@ function Home({ accountId, setAccountId }) {
     Sunday: { revenue: "90,000", change: -110 },
   };
 
-  // 보유 종목 ticker
+  // 수정 - 추가
+  // 보유 종목 API 호출하기
+  const getHoldStocks = async (id) => {
+    if (!id || id === "o") return;
+    try {
+      const response = await axiosInstance.get(
+        `https://duckling-back.d-v.kro.kr/api/holdStocks?accountId=${id}`
+      );
+      if (response.status === 200) {
+        setHoldStocks(response.data);
+      } else {
+        console.error("Error fetching hold stocks:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching hold stocks:", error);
+    }
+  };
+
+  // 보유 종목 상태 관리
   const [holdStocks, setHoldStocks] = useState([])
 
-//   // 백엔드에서 보유 종목 정보를 가져오는 함수
-//   const fetchHoldStocks = async () => {
-//     try {
-//       const response = await axios.get('https://duckling-back.d-v.kro.kr/api/user/holdstocks', {
-//         // 요청에 대한 구성 옵션을 설정하는 객체
-//         withCredentials: true,    // 쿠키와 같은 인증 관련 데이터를 포함할지 여부 지정
-//         headers: {                // 요청과 함께 보낼 HTTP 헤더를 설정
-//           'Content-Type': 'application/json',   // 요청 본문이 json 형식
-//           'Access-Control-Allow-Origin': '*',   // cors 정책에 따라 다른 도메인에서 실행되는 웹 페이지에서 api 엔드포인트를 사용할 수 있는지를 지정
-//         },                                      // * -> 모든 도메인에서의 요청을 허용
-//       });
-  
-//       if (response.status === 200) {
-//         console.log("보유 종목 데이터:", response.data);
-//         // 백엔드에서 받은 데이터를 상태에 저장
-//         setHoldStocks(response.data.holdStocks.map(stock => stock.ticker));
-//       } else {
-//         console.error();
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-  
-//   useEffect(() => {
-//     fetchHoldStocks();
-//   }, []);
-  
+  // 보유 종목 usdEffect로 데이터 불러오기
+  useEffect(() => {
+    if (accountId !== "" && accountId !== "-1" && accountId !== "o") {
+      getHoldStocks(accountId);
+    }
+  }, [accountId]);
 
+  
 
   // 관심 종목 ticker
   const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
@@ -692,15 +689,13 @@ function Home({ accountId, setAccountId }) {
             </div>
             <div style={styles.holdSection}>
               <h2 style={styles.sectionTitle}>보유 종목</h2>
-              {holdStocks.map((ticker, index) => {
-                const stock = StockData[ticker];
-                if (!stock) return null;
-                return (
-                  <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {holdStocks.map((stock, index) => (
+                <Link key={index} to={`/detail/${stock.ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div style={styles.holdSectionItem}>
                     <SComponent2 stock={stock} />
-                  </Link>
-                );
-              })}
+                  </div>
+                </Link>
+              ))}
             </div>
             <div style={styles.portfolioSection}>
               <h2 style={styles.sectionTitle}>보유 종목 포트폴리오</h2>

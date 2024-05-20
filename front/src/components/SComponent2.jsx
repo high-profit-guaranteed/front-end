@@ -3,7 +3,7 @@ import React from 'react';
 const SComponent2 = ({ stock }) => {
   if (!stock) return null;
 
-  const { name, logo, price, change, symbol } = stock;
+  const { name, logo, price, change } = stock;
 
   const containerStyle = {
     display: 'flex',                // 가로로 요소를 정렬하기 위해 flex 사용
