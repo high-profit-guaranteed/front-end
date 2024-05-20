@@ -83,7 +83,7 @@ const NewPost = ({ boards, setBoards }) => {
         <Topbar />
         <div style={styles.container}>
             <div>
-                <h2>{ticker} Board</h2>
+                <h2>{ticker} BOARD</h2>
                 <input style={styles.input}
                     type="text" 
                     placeholder="제목을 입력하세요" 

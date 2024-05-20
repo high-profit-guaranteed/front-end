@@ -158,7 +158,7 @@ const PostDetail = ({ boards, setBoards }) => {
       <Topbar />
       <div style={styles.container}>
         <div style={styles.title}>
-          <h2>{boardName} Board</h2>
+          <h2>{boardName} BOARD</h2>
         </div>
         <div style={styles.content}>
           <h2>{post.title}</h2>
@@ -195,7 +195,7 @@ const PostDetail = ({ boards, setBoards }) => {
           </form>
         </div>
         <div style={styles.buttonContainer}>
-            <button style={styles.button} onClick={handleBackToBoard}>OK</button>
+            <button style={styles.button} onClick={handleBackToBoard}>확인</button>
         </div>
       </div>
     </div>

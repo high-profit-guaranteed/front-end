@@ -68,6 +68,17 @@ const styles = {
     justifyContent: "space-around",
     width: "100%",
   },
+
+  // 버튼 수정
+  timeButton: {
+    margin: "0 5px",
+    padding: "5px 10px",
+    backgroundColor: "#EFEFEF",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
 };
 
 const companyInfo = {
@@ -175,33 +186,33 @@ const Chart = ({ ticker }) => {
       <div style={styles.lineContainer}>
         <LineChart ticker={ticker.toUpperCase()} term={term} />
         <div style={styles.period}>
-          <div onClick={handleDayClick}>
-            <small className="small">
+          <div onClick={handleDayClick} style={{cursor:'pointer'}}>
+            <small style={styles.timeButton}>
               1일
             </small>
           </div>
-          <div onClick={handleWeekClick}>
-            <small className="small">
+          <div onClick={handleWeekClick} style={{cursor:'pointer'}}>
+            <small style={styles.timeButton}>
               1주일
             </small>
           </div>
-          <div onClick={handleMonthClick}>
-            <small className="small">
+          <div onClick={handleMonthClick} style={{cursor:'pointer'}}>
+            <small style={styles.timeButton}>
               1개월
             </small>
           </div>
-          <div onClick={handle3MonthClick}>
-            <small className="small">
+          <div onClick={handle3MonthClick} style={{cursor:'pointer'}}>
+            <small style={styles.timeButton}>
               3개월
             </small>
           </div>
-          <div onClick={handleYearClick}>
-            <small className="small">
+          <div onClick={handleYearClick} style={{cursor:'pointer'}}>
+            <small style={styles.timeButton}>
               1년
             </small>
           </div>
-          <div onClick={handle3YearClick}>
-            <small className="small">
+          <div onClick={handle3YearClick} style={{cursor:'pointer'}}>
+            <small style={styles.timeButton}>
               3년
             </small>
           </div>
