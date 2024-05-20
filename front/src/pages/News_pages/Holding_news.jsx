@@ -17,6 +17,14 @@ import tesla5 from '../../images/news/tesla5.png';
 import tesla6 from '../../images/news/tesla6.png';
 import tesla7 from '../../images/news/tesla7.png';
 import tesla8 from '../../images/news/tesla8.png';
+import microsoft1 from '../../images/news/microsoft1.png';
+import microsoft2 from '../../images/news/microsoft2.png';
+import microsoft3 from '../../images/news/microsoft3.png';
+import microsoft4 from '../../images/news/microsoft4.png';
+import microsoft5 from '../../images/news/microsoft5.png';
+import microsoft6 from '../../images/news/microsoft6.png';
+import microsoft7 from '../../images/news/microsoft7.png';
+import microsoft8 from '../../images/news/microsoft8.png';
 // 수정 - 사진 추가
 
 
@@ -146,7 +154,7 @@ const styles = {
   },  
 };
 
-const tabs = ['Apple', 'Tesla'];
+const tabs = ['Apple', 'Tesla', 'Microsoft'];
 
 // newsData 수정 및 추가
 const newsData = {
@@ -176,6 +184,20 @@ const newsData = {
       { title: "Tesla Stock Shrugs Off Legal Problems. Why They Are No Surprise.", date: "May 17", readTime: "4 Mins read", imageUrl: tesla6, newsUrl: "https://www.barrons.com/articles/tesla-musk-stock-price-77cafc10"},
       { title: "This Lidar Stock Is Surging While Tesla Looks To Build Self-Driving Data Center In China", date: "May 17", readTime: "5 Mins read", imageUrl: tesla7, newsUrl: "https://www.investors.com/news/lidar-stock-tesla-autonomous-driving/"},
       { title: "Tesla's stock surges on optimism for Musk's affordable car line-up", date: "April 24", readTime: "4 Mins read", imageUrl: tesla8, newsUrl: "https://www.euronews.com/business/2024/04/24/teslas-stock-surges-on-optimism-for-musks-affordable-car-line-up"},
+    ]
+  },
+  'Microsoft': {
+    news: [
+      { title: "Microsoft Stock Outlook: Is MSFT a Millionaire-Maker AI Play to Make?", date: "May 17", readTime: "4 Mins read", imageUrl: microsoft1, newsUrl:"https://www.tradingview.com/news/investorplace:40d8cf50a094b:0-microsoft-stock-outlook-is-msft-a-millionaire-maker-ai-play-to-make/" },
+      { title: "Microsoft Stock: ‘Don't Overlook This Tailwind,’ Says Piper Sandler", date: "May 17", readTime: "3 Mins read", imageUrl: microsoft2, newsUrl:"https://www.tipranks.com/news/microsoft-stock-dont-overlook-this-tailwind-says-piper-sandler" },
+      { title: "Microsoft, Meta Platforms, Applied Materials, and Other Tech Stocks in Focus Today", date: "May 17", readTime: "8 Mins read", imageUrl: microsoft3, newsUrl:"https://www.barrons.com/articles/microsoft-meta-applied-materials-tech-stocks-today-1aad8957" },
+      { title: "Bill Gates Sells Microsoft, Berkshire Hathaway Shares In Q1: Are These Still Top Positions?", date: "May 17", readTime: "6 Mins read", imageUrl: microsoft4, newsUrl:"https://finance.yahoo.com/news/bill-gates-sells-microsoft-berkshire-192048032.html" }
+    ],
+    morenews: [
+      { title: "Microsoft Corp. stock underperforms Thursday when compared to competitors", date: "May 16", readTime: "4 Mins read", imageUrl: microsoft5, newsUrl: "https://www.marketwatch.com/data-news/microsoft-corp-stock-underperforms-thursday-when-compared-to-competitors-7ebf5d8e-e9c72a1f7f78"},
+      { title: "5 Things to Know Before the Stock Market Opens", date: "May 16", readTime: "4 Mins read", imageUrl: microsoft6, newsUrl: "https://www.investopedia.com/5-things-to-know-before-the-stock-market-opens-may-16-2024-8649372"},
+      { title: "Microsoft Unveils AMD-Powered AI Chips To Rival Nvidia: Report", date: "May 17", readTime: "5 Mins read", imageUrl: microsoft7, newsUrl: "https://finance.yahoo.com/news/microsoft-unveils-amd-powered-ai-120531968.html"},
+      { title: "Why Microsoft Stock Is the Pick of the Magnificent Seven Litter", date: "May 14", readTime: "4 Mins read", imageUrl: microsoft8, newsUrl: "https://investorplace.com/2024/05/why-microsoft-stock-is-the-pick-of-the-magnificent-seven-litter/"},
     ]
   }
 };
