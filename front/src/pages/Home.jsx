@@ -358,11 +358,11 @@ function Home({ accountId, setAccountId }) {
 
 
   // 관심 종목 ticker
-  const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MS', 'AMZN']);
+  const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
 
-  useEffect(() => {
-    setFavoriteStocks(favoriteStocks.filter(ticker => StockData[ticker]));
-  }, []);
+  // useEffect(() => {
+  //   setFavoriteStocks(favoriteStocks.filter(ticker => StockData[ticker]));
+  // }, [favoriteStocks]);
 
   
   // 판매 수익
@@ -727,7 +727,7 @@ function Home({ accountId, setAccountId }) {
               if (!stock) return null;
               return (
                 <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <SComponent stock={stock} />
+                  <SComponent ticker={ticker} accountId={accountId} />
                 </Link>
               );
             })}

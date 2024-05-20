@@ -300,22 +300,22 @@ function Info({ accountId, setAccountId }) {
 
   const menuItems = ["거래량", "인기", "급상승", "급하락", "관심"];
   
-  const aiOpinion = async (ticker) => {
-    try {
-      const response = await axiosInstance.get(
-        "https://duckling-back.d-v.kro.kr/api/balance?accountId=" // ai 서버에서 받기 엔드포인트 수정할 것
-      );
-      if (response.status === 200) {
-        console.log(response.data);
-        return response.data;
-      }else{
-        console.log('error');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    return null;
-  };
+  // const aiOpinion = async (ticker) => {
+  //   try {
+  //     const response = await axiosInstance.get(
+  //       "https://duckling-back.d-v.kro.kr/api/balance?accountId=" // ai 서버에서 받기 엔드포인트 수정할 것
+  //     );
+  //     if (response.status === 200) {
+  //       console.log(response.data);
+  //       return response.data;
+  //     }else{
+  //       console.log('error');
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   return null;
+  // };
 
   const myStock = async (id) => {
     if (id === "o") return;
@@ -334,11 +334,11 @@ function Info({ accountId, setAccountId }) {
   };
 
     // 매수 추천 주식 ticker
-  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MS', 'AMZN']);
+  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MS', 'AMZN'].filter(ticker => StockData[ticker]));
     
-  useEffect(() => {
-    setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
-  }, []);
+  // useEffect(() => {
+  //   setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
+  // }, [recommendStocks]);
 
 
   // 보유종목에 대한 의견 ai
@@ -355,7 +355,7 @@ function Info({ accountId, setAccountId }) {
       const stock = StockData[ticker];
       return (
         <div key={ticker} style={styles.stockItem} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
-          <SComponent stock={stock} />
+          <SComponent ticker={ticker} accountId={accountId} />
         </div>
       );
     });
@@ -382,7 +382,7 @@ function Info({ accountId, setAccountId }) {
                 ))}
               </div>
               <div style={styles.downSection}>
-                {selectedMenu ? renderStockList(selectedMenu) : "위에서 카테고리를 선택해주세요."}
+                {selectedMenu ? renderStockList(selectedMenu) : "카테고리를 선택해주세요."}
               </div>
             </div>
             <div style={styles.lrightSection}>
@@ -414,9 +414,9 @@ function Info({ accountId, setAccountId }) {
                     </div>
                     {/*백에서 ai 의사를 받아와 span 태그에 string으로 추가하는 코드*/}
                     <span>
-                      {async () => {
+                      {/* {async () => {
                         return await aiOpinion(stock.ticker);
-                      }}
+                      }} */}
                     </span>
                   </div>
                 ))}
