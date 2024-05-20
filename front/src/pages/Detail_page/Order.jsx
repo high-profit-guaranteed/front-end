@@ -122,6 +122,8 @@ const Order = ({ orderData, ticker, currentPrice, accountId }) => {
   return (
     <div style={styles.dummyContainer}>
       <div style={styles.orderContainer}>
+        <div style={{fontSize:'35px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          매수 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;매도</div>
         {orderData.map((order, index) => (
           <div
             key={index}
