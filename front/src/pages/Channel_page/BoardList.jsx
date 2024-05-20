@@ -1,8 +1,8 @@
 import React from 'react';
 
 const BoardList = () => {
-  const boards = ['Free', 'Apple', 'MS', 'Alphabet', 'Amazon', 'NVIDIA', 'Meta', 'TSLA', 
-                  'Broadcom', 'COST', 'ASML'];
+  const boards = ['FREE', 'APPLE', 'MS', 'ALPHABET', 'AMAZON', 'NVIDIA', 'META', 'LSTM', 
+                  'BROADCOM', 'COST', 'ASML'];
   
   return (
     <>

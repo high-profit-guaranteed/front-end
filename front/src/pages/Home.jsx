@@ -20,6 +20,18 @@ import SComponent2 from '../components/SComponent2';
 // 수정 - 관심종목 받아오기
 import { HeartContext } from './Detail_page/Heart.jsx';
 
+// 관심종목 사진 추가
+import Apple from "../images/ent/apple.png";
+import Microsoft from "../images/ent/microsoft.png";
+import Alphabet from "../images/ent/alphabet.png";
+import Amazon from "../images/ent/amazon.png";
+import Nvidia from "../images/ent/nvidia.png";
+import Meta from "../images/ent/meta.png";
+import Tesla from "../images/ent/tesla.png";
+import Broadcom from "../images/ent/broadcom.png";
+import Costco from "../images/ent/costco.png";
+import Asml from "../images/ent/asml.png";
+
 const styles = {
   container: {
     display: "flex",
@@ -355,10 +367,39 @@ function Home({ accountId, setAccountId }) {
 //     fetchHoldStocks();
 //   }, []);
   
+  // 관심 종목
+  const { likedItems, toggleHeart } = useContext(HeartContext);
+  const initialFavoriteOrders = likedItems.map((item, index) => ({ id: index + 1, name: item, percentage: "10%" }));
+  const [favoriteOrders, setFavoriteOrders] = useState(initialFavoriteOrders);
 
+  const searchKeywordMap = {
+    apple: "aapl",
+    microsoft: "msft",
+    google: "goog",
+    amazon: "amzn",
+    nvidia: "nvda",
+    meta: "meta",
+    tesla: "tsla",
+    broadcom: "avgo",
+    costco: "cost",
+    asml: "asml",
+  };
+
+  const imageMap = {
+    aapl: Apple,
+    msft: Microsoft,
+    goog: Alphabet,
+    amzn: Amazon,
+    nvda: Nvidia,
+    meta: Meta,
+    tsla: Tesla,
+    avgo: Broadcom,
+    cost: Costco,
+    asml: Asml,
+  };
 
   // 관심 종목 ticker
-  const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
+  //const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
 
   // useEffect(() => {
   //   setFavoriteStocks(favoriteStocks.filter(ticker => StockData[ticker]));
@@ -722,12 +763,37 @@ function Home({ accountId, setAccountId }) {
 
           <div style={styles.favoriteOrders}>
             <h2>관심 종목</h2>
-            {favoriteStocks.map((ticker, index) => {
-              const stock = StockData[ticker];
-              if (!stock) return null;
+            {favoriteOrders.map((item, index) => {
+              const formattedName = searchKeywordMap[item.name.toLowerCase()];
+              const imageUrl = imageMap[formattedName]; // 이미지 맵에서 이미지 가져오기
               return (
-                <Link key={index} to={`/detail/${ticker.toLowerCase()}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <SComponent ticker={ticker} accountId={accountId} />
+                <Link
+                  key={index}
+                  to={`/detail/${formattedName}`} // 종목 상세 페이지로의 경로 설정
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <div style={styles.item}>
+                    <img
+                      src={imageUrl}
+                      style={{ marginRight: '100px', width: '50px', height: '50px' }} // 이미지 크기 조정
+                    />
+                    <span>{item.name}</span>
+                    <span style={{ marginRight: '100px'}}></span>
+                    <span
+                      style={
+                        item.percentage.startsWith("-")
+                          ? { color: "blue" }
+                          : { color: "red" }
+                      }
+                    >
+                      {item.percentage.startsWith("-") ? (
+                        <span style={styles.downArrow}>↓</span>
+                      ) : (
+                        <span style={styles.upArrow}>↑</span>
+                      )}
+                      {item.percentage}
+                    </span>
+                  </div>
                 </Link>
               );
             })}
