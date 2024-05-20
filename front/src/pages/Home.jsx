@@ -20,6 +20,18 @@ import SComponent2 from "../components/SComponent2";
 // 수정 - 관심종목 받아오기
 import { HeartContext } from "./Detail_page/Heart.jsx";
 
+// 관심종목 사진 추가
+import Apple from "../images/ent/apple.png";
+import Microsoft from "../images/ent/microsoft.png";
+import Alphabet from "../images/ent/alphabet.png";
+import Amazon from "../images/ent/amazon.png";
+import Nvidia from "../images/ent/nvidia.png";
+import Meta from "../images/ent/meta.png";
+import Tesla from "../images/ent/tesla.png";
+import Broadcom from "../images/ent/broadcom.png";
+import Costco from "../images/ent/costco.png";
+import Asml from "../images/ent/asml.png";
+
 const styles = {
   container: {
     display: "flex",
@@ -339,7 +351,7 @@ function Home({ accountId, setAccountId }) {
 
   // 관심 종목 ticker
   const [favoriteStocks, setFavoriteStocks] = useState(
-    ["AAPL", "META", "AMZN", "TSLA"].filter((ticker) => StockData[ticker])
+    ["AAPL", "TSLA", "AMZN", "META"].filter((ticker) => StockData[ticker])
   );
 
   // 판매 수익
@@ -490,7 +502,8 @@ function Home({ accountId, setAccountId }) {
       async function getStocksEvaluationBalanceReq(id) {
         try {
           return await axiosInstance.get(
-            "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" + id
+            "https://duckling-back.d-v.kro.kr/api/stocksEvaluationBalance?accountId=" +
+              id
           );
         } catch (error) {
           console.error("Error:", error);
@@ -746,6 +759,19 @@ function Home({ accountId, setAccountId }) {
             <p style={styles.develop}>추후 업데이트 예정입니다</p>
           </div>
 
+          {/* <div style={styles.favoriteOrders}>
+            <h2>관심 종목</h2>
+            {favoriteOrders.map((item, index) => {
+              const formattedName = searchKeywordMap[item.name.toLowerCase()];
+              const imageUrl = imageMap[formattedName]; // 이미지 맵에서 이미지 가져오기
+              return (
+                <Link
+                  key={index}
+                  to={`/detail/${ticker.toLowerCase()}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <SComponent ticker={ticker} accountId={accountId} />
+                </Link> */}
           <div style={styles.favoriteOrders}>
             <h2>관심 종목</h2>
             {favoriteStocks.map((ticker, index) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from "../components/Navbar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import LineChart from "./Detail_page/components/linechart.jsx";
@@ -8,6 +8,10 @@ import SComponent2 from '../components/SComponent2';
 import StockData from '../components/StockData';
 import StockCategories from '../components/StockCateg';
 import axios from "axios";
+
+// 관심종목 좋아요 버튼
+import { HeartContext } from './Detail_page/Heart.jsx';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 const styles = {
   container: {
@@ -263,7 +267,11 @@ const styles = {
     fontWeight: 'bold',
     marginBottom: '15px',
     textAlign: 'center',
-    width: '100%',
+    width: '100%', // 부모 컨테이너의 너비에 맞추기 위해 추가
+  },
+  heartButton: {
+    fontSize: '25px',
+    cursor: 'pointer',
   }
 };
 
@@ -276,6 +284,22 @@ const axiosInstance = axios.create({
     "Access-Control-Allow-Credentials": "true",
   },
 });
+
+// 관심종목 좋아요 버튼
+const HeartButton = ({ style, item }) => {
+  const { likedItems, toggleLike } = useContext(HeartContext);
+  const liked = likedItems.includes(item);
+
+  const handleClick = () => {
+    toggleLike(item);
+  };
+
+  return (
+    <div onClick={handleClick} style={{ ...style, color: liked ? 'red' : 'black' }}>
+      {liked ? <AiFillHeart /> : <AiOutlineHeart />}
+    </div>
+  );
+};
 
 function Info({ accountId, setAccountId }) {
   const [selectedMenu, setSelectedMenu] = useState('거래량');
@@ -331,13 +355,21 @@ function Info({ accountId, setAccountId }) {
     const list = StockCategories[category]?.map(ticker => {
       const stock = StockData[ticker];
       return (
-        <div key={ticker} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
-          <SComponent
-            ticker={ticker}
-            accountId={accountId}
-            onPriceUpdate={handlePriceUpdate}
-          />
+//         <div key={ticker} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
+//           <SComponent
+//             ticker={ticker}
+//             accountId={accountId}
+//             onPriceUpdate={handlePriceUpdate}
+//           />
+        <div style={{ display: 'flex' }}>
+          <div key={ticker} style={{...styles.stockItem, width: '90%'}} onClick={() => { setSelectedTicker(ticker); setSelectedStock(stock); }}>
+            <SComponent ticker={ticker} accountId={accountId} />
+          </div>
+          <div style={{width: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <HeartButton style={{...styles.heartButton, }} item={ticker}/>
+          </div>
         </div>
+        
       );
     });
     return <div>{list}</div>;

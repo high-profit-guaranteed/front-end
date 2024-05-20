@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Topbar from '../components/Topbar';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -58,11 +58,15 @@ const Channel = ({ boards, setBoards, accountId, setAccountId }) => {
   const { ticker } = useParams();
   console.log("ticker", ticker);
 
-  // ticker가 boards.title에 없으면 /channel/free로 리다이렉트
+  // ticker가 boards.title에 없으면 기본값을 "FREE"로 설정
   const boardTitles = boards.map((board) => board.title);
-  if (!boardTitles.includes(ticker)) {
-    navigate('/channel/Free');
-  }
+  const validTicker = boardTitles.includes(ticker) ? ticker : 'FREE';
+
+  useEffect(() => {
+    if (!boardTitles.includes(ticker)) {
+      navigate(`/channel/FREE`);
+    }
+  }, [ticker, boardTitles, navigate]);
 
   const handleBoardChange = (e) => {
     // setSelectedBoard(e.target.value);
