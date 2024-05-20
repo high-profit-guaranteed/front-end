@@ -238,8 +238,7 @@ function Holding_news() {
                 <div
                   key={index}
                   style={activeTab === tab ? {...styles.tab, ...styles.activeTab} : styles.tab}
-                  onClick={() => handleClick(tab)}
-                >
+                  onClick={() => handleClick(tab)}>
                   {tab}
                 </div>
               ))}

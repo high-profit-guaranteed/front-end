@@ -7,8 +7,8 @@ const axiosInstance = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json;charset=utf-8",
-    // "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
-    // "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Origin": window.location.origin, // CORS 문제 해결
+    "Access-Control-Allow-Credentials": "true",
   },
 });
 
@@ -29,7 +29,7 @@ const SComponent = ({ ticker, accountId }) => {
           return await axiosInstance.get(`/api/stock?accountId=${accountId}&stockCode=${ticker}`);
         } catch (error) {
           console.error("Error fetching stock data:", error);
-          setTimeout(getStockPrice, 3000); // 재시도 로직을 getStockPrice로 변경
+          setTimeout(getStockPrice, 500);
           return null;
         }
       };

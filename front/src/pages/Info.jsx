@@ -333,7 +333,7 @@ function Info({ accountId, setAccountId }) {
   };
 
     // 매수 추천 주식 ticker
-  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
+  const [recommendStocks, setRecommendStocks] = useState(['AAPL', 'MS', 'AMZN'].filter(ticker => StockData[ticker]));
     
   // useEffect(() => {
   //   setRecommendStocks(recommendStocks.filter(ticker => StockData[ticker]));
@@ -386,7 +386,8 @@ function Info({ accountId, setAccountId }) {
             </div>
             <div style={styles.lrightSection}>
               <div style={styles.downSection2}>
-              <React.Fragment>
+                {selectedStock ? (
+                  <React.Fragment>
                     <div style={styles.stockDetail}><b>{selectedStock.name}</b></div>
                     <div style={styles.stockBox}>
                       <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
@@ -397,6 +398,7 @@ function Info({ accountId, setAccountId }) {
                     <div style={styles.stockDetail}><b>Change:</b> {selectedStock.change}</div>
                     <div style={styles.stockDetail}><b>Symbol:</b> {selectedStock.symbol === "up" ? "↑" : "↓"}</div>
                   </React.Fragment>
+                ) : "세부정보를 보려면 주식을 선택하세요."}
               </div>
             </div>
           </div>

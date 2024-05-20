@@ -6,7 +6,7 @@ import ScrollbarStyles from "../components/ScrollbarStyles.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-// 수정 - 사진 추가
+// 수정 - 사진 추가 (뉴스)
 import apple1 from "../images/news/apple1.png";
 import tesla1 from "../images/news/tesla1.png";
 import google1 from "../images/news/google1.png";
@@ -166,7 +166,7 @@ const styles = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     fontFamily: "Arial, sans-serif",
     textAlign: "center",
-    maxHeight: "200px",
+    maxHeight: "217px",
     overflowY: "auto",
   },
 
@@ -178,37 +178,48 @@ const styles = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     fontFamily: "Arial, sans-serif",
     textAlign: "center",
-    maxHeight: "200px",
+    maxHeight: "217px",
     overflowY: "auto",
   },
 
   // 뉴스 스타일
-  newsCard: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "15px",
-    backgroundColor: "rgba(242, 246, 239, 1)",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    borderRadius: "10px",
-    margin: "10px 0",
-    fontSize: "16px",
-    fontFamily: "Arial, sans-serif",
-    marginBottom: "20px",
-    cursor: "pointer", // 수정
+  newsItem: {
+    display: 'flex',
+    marginBottom: '40px',
+    width: '99%',
+    height: '70%',
+    border: '1px solid #DDD',
+    overflow: 'hidden',
+    cursor: 'pointer',
   },
-  newsImage: {
-    width: "80px",
-    height: "80px",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    borderRadius: "10px",
-    backgroundColor: "#f0f0f0",
+  newsItemImage: {
+    // width 수정
+    width: '100%',
+    height: '100%',
   },
-  newsText: {
-    flex: 1,
-    marginRight: "15px",
+  newsItemContent: {
+    padding: '20px',
+    width: '100%',
+    height: '70%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
+  newsItemTitle: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: '10px',
+  },
+  newsItemMeta: {
+    fontSize: '13px',
+    color: '#666',
+  },
+  newsItemAuthor: {
+    fontSize: '13px',
+    color: '#888',
+    marginBottom: '7px',
+  }, 
 
   //추후 업데이트 예정입니다
   develop: {
@@ -352,15 +363,12 @@ function Home({ accountId, setAccountId }) {
     }
   }, [accountId]);
 
-  
+  // const { likedItems, toggleHeart } = useContext(HeartContext);
+  // const initialFavoriteOrders = likedItems.map((item, index) => ({ id: index + 1, name: item, percentage: "10%" }));
+  // const [favoriteOrders, setFavoriteOrders] = useState(initialFavoriteOrders);
 
   // 관심 종목 ticker
-  const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'MSFT', 'AMZN'].filter(ticker => StockData[ticker]));
-
-  // useEffect(() => {
-  //   setFavoriteStocks(favoriteStocks.filter(ticker => StockData[ticker]));
-  // }, [favoriteStocks]);
-
+  const [favoriteStocks, setFavoriteStocks] = useState(['AAPL', 'META', 'AMZN', 'TSLA'].filter(ticker => StockData[ticker]));
   
   // 판매 수익
   const handleDayChange = (event) => {
@@ -731,28 +739,21 @@ function Home({ accountId, setAccountId }) {
           <div style={styles.ownedStocksNews}>
             <h2
               style={{ ...styles.sectionHeader, cursor: "pointer" }}
-              onClick={handleHoldingNewsClick}
-            >
+              onClick={handleHoldingNewsClick}>
               보유종목 뉴스
             </h2>
             {holdingNews.map((item) => (
-              <div
-                key={item.title}
-                style={styles.newsCard}
-                onClick={() => window.open(item.newsUrl, "_blank")}
-              >
-                <div style={styles.newsText}>
-                  <h3>{item.title}</h3>
-                  <p>{item.author}</p>
-                  <p>{item.date}</p>
-                </div>
-                <div
-                  style={{
-                    ...styles.newsImage,
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                ></div>
+              <div key={item} style={styles.newsItem}>
+              {/* 수정 */}
+              <a href={item.newsUrl} target="_blank">
+                <img src={item.imageUrl} alt="News" style={styles.newsItemImage} />
+              </a>
+              <div style={styles.newsItemContent}>
+                <div style={styles.newsItemAuthor}>By {item.author}</div>
+                <div style={styles.newsItemTitle}>{item.title}</div>
+                <div style={styles.newsItemMeta}>{item.date}</div>
               </div>
+            </div>
             ))}
           </div>
 
@@ -763,22 +764,17 @@ function Home({ accountId, setAccountId }) {
               관심종목 뉴스
             </h2>
             {interestNews.map((item) => (
-              <div
-                key={item.title}
-                style={styles.newsCard}
-                onClick={() => window.open(item.newsUrl, "_blank")}
-              >
-                <div style={styles.newsText}>
-                  <h3>{item.title}</h3>
-                  <p>{item.date}</p>
-                </div>
-                <div
-                  style={{
-                    ...styles.newsImage,
-                    backgroundImage: `url(${item.imageUrl})`,
-                  }}
-                ></div>
+              <div key={item} style={styles.newsItem}>
+              {/* 수정 */}
+              <a href={item.newsUrl} target="_blank">
+                <img src={item.imageUrl} alt="News" style={styles.newsItemImage} />
+              </a>
+              <div style={styles.newsItemContent}>
+                <div style={styles.newsItemAuthor}>By {item.author}</div>
+                <div style={styles.newsItemTitle}>{item.title}</div>
+                <div style={styles.newsItemMeta}>{item.date}</div>
               </div>
+            </div>
             ))}
           </div>
         </div>
