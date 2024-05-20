@@ -208,7 +208,7 @@ const Order = ({ orderData, ticker, currentPrice, accountId }) => {
     console.log("3. reqMsg: ", reqMsg);
 
     webSocket.current = new WebSocket(
-      "/wsApi/tryitout/HDFSASP0"
+      "ws://ops.koreainvestment.com:21000/tryitout/HDFSASP0"
     );
     webSocket.current.onopen = () => {
       console.log("WebSocket 연결!");
